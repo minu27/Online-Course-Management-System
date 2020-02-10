@@ -6,7 +6,6 @@
 package edu.iit.sat.itmd4515.mvaity.domain;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -75,7 +74,7 @@ public class Guest implements Serializable {
      *
      * @return the value of id
      */
-    public Long getguestId() {
+    public Long getGuestId() {
         return guestId;
     }
 
@@ -118,8 +117,8 @@ public class Guest implements Serializable {
         return authuser;
     }
 
-    public void setAusthuser(Authuser austhuser) {
-        this.authuser = austhuser;
+    public void setAuthuser(Authuser authuser) {
+        this.authuser = authuser;
     }
 
     
