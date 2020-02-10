@@ -5,6 +5,7 @@
  */
 package edu.iit.sat.itmd4515.mvaity.domain;
 
+import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -23,8 +24,11 @@ public class GuestTest {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         
-        Guest gu;
-        gu = new Guest("Demo Guest", "DEMO");
+        Guest gu = new Guest("Minal",
+                "Vaity", 
+                "mvaity", 
+                new Date(), 
+                Authuser.ST );
         
         em.persist(gu);
         tx.begin();

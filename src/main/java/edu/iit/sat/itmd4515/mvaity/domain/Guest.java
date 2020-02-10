@@ -6,9 +6,13 @@
 package edu.iit.sat.itmd4515.mvaity.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,8 +50,8 @@ public class Guest implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date createdOn;
 
-    
-    private Authuser userId;
+    @Enumerated(EnumType.STRING)
+    private Authuser authuser;
 
     public Guest() {
     }
@@ -57,21 +61,15 @@ public class Guest implements Serializable {
         this.lastName = lastName;
     }
 
-    public Guest(Long guestId, String firstName, String lastName, String createdBy, Date createdOn) {
-        this.guestId = guestId;
+    public Guest(String firstName, String lastName, String createdBy, Date createdOn, Authuser authuser) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.createdBy = createdBy;
         this.createdOn = createdOn;
+        this.authuser = authuser;
     }
 
-    
-    
-
-    
-
-
-
+  
     /**
      * Get the value of id
      *
@@ -116,17 +114,45 @@ public class Guest implements Serializable {
         this.createdOn = createdOn;
     }
 
-    public Authuser getUserId() {
-        return userId;
+    public Authuser getAuthuser() {
+        return authuser;
     }
 
-    public void setUserId(Authuser userId) {
-        this.userId = userId;
+    public void setAusthuser(Authuser austhuser) {
+        this.authuser = austhuser;
+    }
+
+    
+    
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.guestId);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null) {
+            return false;
+        }
+        if (getClass() != object.getClass()) {
+            return false;
+        }
+        final Guest other = (Guest) object;
+        if (!Objects.equals(this.guestId, other.guestId)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "Guest{" + "guestId=" + guestId + ", firstName=" + firstName + ", lastName=" + lastName + ", createdBy=" + createdBy + ", createdOn=" + createdOn + ", userId=" + userId + '}';
+        return "Guest{" + "guestId=" + guestId + ", firstName=" + firstName + ", lastName=" + lastName + ", createdBy=" + createdBy + ", createdOn=" + createdOn + ", authuser=" + authuser + '}';
     }
     
     
