@@ -7,7 +7,6 @@ package edu.iit.sat.itmd4515.mvaity.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,12 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Minal
+ * @author hkr2711
  */
-@WebServlet(name = "/WelcomeServlet", urlPatterns = {"/welcome"})
+@WebServlet(name = "/WelcomeServlet", urlPatterns = {"/st"})
 public class WelcomeServlet extends HttpServlet {
 
-    private static final Logger LOG = Logger.getLogger(WelcomeServlet.class.getName());
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,7 +34,8 @@ public class WelcomeServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String fname = (String) request.getSession().getAttribute("firstName");
         String lname = (String) request.getSession().getAttribute("lastName");
-        String email = (String) request.getSession().getAttribute("email");
+        //String dob = (String) request.getSession().getAttribute("dob");
+        String email = (String) request.getSession().getAttribute("emailId");
         String gender = (String) request.getSession().getAttribute("gender");
 
         try ( PrintWriter out = response.getWriter()) {
@@ -49,7 +48,7 @@ public class WelcomeServlet extends HttpServlet {
             out.println("<body>");
             out.println("<div align='center'><h1>Student Creation Confirmation</h1></div>");
             out.println("</br></br> ");
-            out.println("<h3>The following information was submitted</h3>");
+            out.println("<h2>The following information was submitted</h2>");
             out.println("</br> ");
             out.println(". First Name-" + fname);
             out.println("</br>");
@@ -57,13 +56,14 @@ public class WelcomeServlet extends HttpServlet {
             out.println("</br>");
             out.println(". Email Id-" + email);
             out.println("</br>");
-            out.println(". Gender-" + gender);
+             out.println(". Gender-" + gender);
             out.println("</br>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -75,8 +75,7 @@ public class WelcomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       LOG.info("WelcomeServlet inside doGet");
-       
+        processRequest(request, response);
     }
 
     /**
@@ -90,13 +89,8 @@ public class WelcomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        LOG.info("WelcomeServlet inside doPost");
-        LOG.info("Caught parameter nonexistant which is null - remember empty user input is not null, it's blank!" + request.getParameter("nonexistant") );
-    
-      
-    
-    }   
-    
+        processRequest(request, response);
+    }
 
     /**
      * Returns a short description of the servlet.
@@ -106,6 +100,6 @@ public class WelcomeServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
+    }// </editor-fold>
 
 }

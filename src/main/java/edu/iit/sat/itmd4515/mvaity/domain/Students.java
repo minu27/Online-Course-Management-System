@@ -79,6 +79,14 @@ public class Students {
         this.studentId = studentId;
     }
 
+    public Students(String firstName, String lastName, String emailId, String gender) {
+        this.emailId = emailId;
+        this.firstName = firstName;
+        this.gender = gender;
+        this.lastName = lastName;
+    }
+
+    
     public Integer getStudentId() {
         return studentId;
     }
@@ -197,10 +205,10 @@ public class Students {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "edu.iit.sat.itmd4515.mvaity.domain.Students[ studentId=" + studentId + " ]";
-    }
+    
+    
+    
+    
 
     public List<String> getListOfcourses() {
         return listOfcourses;
@@ -210,4 +218,11 @@ public class Students {
         this.listOfcourses = listOfcourses;
     }
 
+    @Override
+    public String toString() {
+        return "Students{" + "emailId=" + emailId + ", firstName=" + firstName + ", gender=" + gender + ", lastName=" + lastName + '}';
+    }
+
+    
+    
 }
