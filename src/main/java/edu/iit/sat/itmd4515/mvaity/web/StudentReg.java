@@ -83,12 +83,12 @@ public class StudentReg extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
 
-            if (firstName != null && lastName != null && email != null) {
+            if (firstName.isEmpty() != true || lastName.isEmpty() != true || email.isEmpty() != true) {
 
                 request.getSession().setAttribute("firstName", firstName);
                 request.getSession().setAttribute("lastName", lastName);
                 // request.getSession().setAttribute("dob", dob);
-                request.getSession().setAttribute("email", email);
+                request.getSession().setAttribute("emailId", email);
                 request.getSession().setAttribute("gender", gender);
 
                 Students st = new Students();
@@ -97,7 +97,7 @@ public class StudentReg extends HttpServlet {
                 dispatcher.forward(request, response);
             } else {
                 out.print("Please enter valid input!");
-                RequestDispatcher rd = request.getRequestDispatcher("/welcome.html");
+                RequestDispatcher rd = request.getRequestDispatcher("/Welcome.jsp");
                 rd.include(request, response);
             }
 

@@ -15,10 +15,10 @@
         <h1>Your User Input Passed Validation!  Good job.</h1>
         
         <ul>
-            <li>${requestScope.st.firstName}</li>
-            <li>${requestScope.st.lastName}</li>
-            <li>${requestScope.st.emailId}</li>
-            <li>${requestScope.st.gender}</li>
+            <li>First Name : ${requestScope.st.firstName}</li>
+            <li>Last Name : ${requestScope.st.lastName}</li>
+            <li>Email : ${requestScope.st.emailId}</li>
+            <li>Gender : ${requestScope.st.gender}</li>
             
         </ul>
     </body>

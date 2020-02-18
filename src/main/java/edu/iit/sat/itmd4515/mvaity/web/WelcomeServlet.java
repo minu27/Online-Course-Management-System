@@ -5,21 +5,33 @@
  */
 package edu.iit.sat.itmd4515.mvaity.web;
 
+import edu.iit.sat.itmd4515.mvaity.domain.Students;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Set;
+import java.util.logging.Logger;
+import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+
 
 /**
  *
- * @author hkr2711
+ * @author Minal
  */
 @WebServlet(name = "/WelcomeServlet", urlPatterns = {"/st"})
 public class WelcomeServlet extends HttpServlet {
 
+    private static final Logger LOG = Logger.getLogger(WelcomeServlet.class.getName());
+    
+    @Resource
+    Validator validator;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,29 +50,10 @@ public class WelcomeServlet extends HttpServlet {
         String email = (String) request.getSession().getAttribute("emailId");
         String gender = (String) request.getSession().getAttribute("gender");
 
-        try ( PrintWriter out = response.getWriter()) {
-
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet WelcomeServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<div align='center'><h1>Student Creation Confirmation</h1></div>");
-            out.println("</br></br> ");
-            out.println("<h2>The following information was submitted</h2>");
-            out.println("</br> ");
-            out.println(". First Name-" + fname);
-            out.println("</br>");
-            out.println(". Last Name-" + lname);
-            out.println("</br>");
-            out.println(". Email Id-" + email);
-            out.println("</br>");
-             out.println(". Gender-" + gender);
-            out.println("</br>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        Students st = new Students(fname, lname, email, gender);
+        LOG.info("Constructed instance:" + st.toString());
+       
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -76,6 +69,7 @@ public class WelcomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
     }
 
     /**
@@ -89,7 +83,48 @@ public class WelcomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        LOG.info("WelcomeServlet inside doPost");
+        LOG.info("Caught parameter nonexistant which is null - remember empty user input is not null, it's blank!" + request.getParameter("nonexistant") );
+        
+        String stfirstName = request.getParameter("firstName");
+        String stlastName = request.getParameter("lastName");
+        String stemailId = request.getParameter("emailId");
+        String stgender = request.getParameter("gender");
+       
+
+        LOG.info("Caught parameter first name:" + stfirstName );
+        LOG.info("Caught parameter last name:" + stlastName );
+        LOG.info("Caught parameter email:" + stemailId );
+        LOG.info("Caught parameter gender:" + stgender );
+       
+        
+        Students st = new Students(stfirstName, stlastName, stemailId, stgender);
+        LOG.info("Constructed instance:" + st.toString());
+        
+        Set<ConstraintViolation<Students>> violations = validator.validate(st);
+       
+        if( violations.size() > 0 ){
+            LOG.info("Houston - we have a problem with validation.  Halt the launch!");
+            for (ConstraintViolation<Students> violation : violations) {
+                LOG.info(violation.getPropertyPath() + " " + violation.getMessage());
+            }
+            
+            request.setAttribute("StudentId", st.getStudentId().toString());
+            request.setAttribute("createdBy", st.getCreatedBy().toString());
+            request.setAttribute("createdOn", st.getCreatedOn().toString());
+            request.setAttribute("st", st);
+            request.setAttribute("mistakes", violations);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Welcome.jsp");
+            dispatcher.forward(request, response);
+           
+            
+        } else {
+            LOG.info("Houston - we have passed validation.  All systems are good!");
+
+            request.setAttribute("st", st);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/confirmation.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     /**

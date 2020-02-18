@@ -1,4 +1,11 @@
+<%-- 
+    Document   : welcome
+    Created on : Feb 17, 2020, 11:43:09 AM
+    Author     : Minal
+--%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -126,18 +133,27 @@
 
         <div class="imgcontainer"> <h2>Student Entry Form</h2>  </div>
 
+        <c:if test="${not empty requestScope.mistakes}">
+            <p>There are one or more validation issues with your submission. Please correct them.</p>
+            
+            <c:forEach var="mistake" items="${requestScope.mistakes}" >
+               There is an issue with ${mistake.propertyPath}.  The message is ${mistake.message}
+            </c:forEach>
+           
+        </c:if>
+    
         <form action="./StudentReg" method="post" class="modal-content animate">  
 
             <div class="container"> 
                 <label><b>First Name</b></label> 
-                <input type="text" placeholder="Enter First Name" name="firstName" required> 
+                <input value="${requestScope.st.fname}" type="text" placeholder="Enter First Name" name="firstName" > 
 
                 <label><b>Last Name</b></label> 
-                <input type="text" placeholder="Enter Last Name" name="lastName" required> 
+                <input value="${requestScope.st.lname}" type="text" placeholder="Enter Last Name" name="lastName" > 
 
                
                 <label><b>Email</b></label> 
-                <input type="text" placeholder="Enter Email" name="emailId" required> 
+                <input value="${requestScope.st.email}" type="text" placeholder="Enter Email" name="emailId" > 
 
                 <label><b>Gender</b></label> <br/>
                 <select name="gender">
@@ -161,3 +177,4 @@
         </form>  
     </body>
 </html>
+
