@@ -27,8 +27,10 @@ import javax.validation.Validator;
 @WebServlet(name = "/WelcomeServlet", urlPatterns = {"/st"})
 public class WelcomeServlet extends HttpServlet {
 
+    //Initialization of Logger
     private static final Logger LOG = Logger.getLogger(WelcomeServlet.class.getName());
     
+    //Initialization of validator
     @Resource
     Validator validator;
     
@@ -46,7 +48,6 @@ public class WelcomeServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String fname = (String) request.getSession().getAttribute("firstName");
         String lname = (String) request.getSession().getAttribute("lastName");
-        //String dob = (String) request.getSession().getAttribute("dob");
         String email = (String) request.getSession().getAttribute("emailId");
         String gender = (String) request.getSession().getAttribute("gender");
 
@@ -56,7 +57,7 @@ public class WelcomeServlet extends HttpServlet {
        
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -83,6 +84,8 @@ public class WelcomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        //Log Statements
         LOG.info("WelcomeServlet inside doPost");
         LOG.info("Caught parameter nonexistant which is null - remember empty user input is not null, it's blank!" + request.getParameter("nonexistant") );
         
@@ -97,13 +100,15 @@ public class WelcomeServlet extends HttpServlet {
         LOG.info("Caught parameter email:" + stemailId );
         LOG.info("Caught parameter gender:" + stgender );
        
-        
+        //Object creation
         Students st = new Students(stfirstName, stlastName, stemailId, stgender);
         LOG.info("Constructed instance:" + st.toString());
         
+        //Validation of inputs
         Set<ConstraintViolation<Students>> violations = validator.validate(st);
        
         if( violations.size() > 0 ){
+            //Invoked when validation is failed
             LOG.info("Houston - we have a problem with validation.  Halt the launch!");
             for (ConstraintViolation<Students> violation : violations) {
                 LOG.info(violation.getPropertyPath() + " " + violation.getMessage());
@@ -118,9 +123,10 @@ public class WelcomeServlet extends HttpServlet {
             dispatcher.forward(request, response);
            
             
-        } else {
+        } else 
+        {
+            //Invoked when validation is passed
             LOG.info("Houston - we have passed validation.  All systems are good!");
-
             request.setAttribute("st", st);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/confirmation.jsp");
             dispatcher.forward(request, response);

@@ -68,13 +68,14 @@ public class StudentReg extends HttpServlet {
         LOG.info("StudentRegServlet inside doPost");
         response.setContentType("text/html;charset=UTF-8");
 
-        //response.setContentType("text/html;charset=UTF-8");
+        
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         //String dob=request.getParameter("dob"); 
         String email = request.getParameter("emailId");
         String gender = request.getParameter("gender");
 
+        //LOG statements
         LOG.info("Caught parameter first name:" + firstName);
         LOG.info("Caught parameter last name:" + lastName);
         LOG.info("Caught parameter email:" + email);
@@ -82,7 +83,7 @@ public class StudentReg extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         try {
-
+            //inputs are tested and proceeded with error messages if any
             if (firstName.isEmpty() != true || lastName.isEmpty() != true || email.isEmpty() != true) {
 
                 request.getSession().setAttribute("firstName", firstName);
@@ -93,11 +94,12 @@ public class StudentReg extends HttpServlet {
 
                 Students st = new Students();
                 request.setAttribute("st", st);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WelcomeServlet");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WelcomeServlet");//RequestDispatcher logic
                 dispatcher.forward(request, response);
             } else {
-                out.print("Please enter valid input!");
-                RequestDispatcher rd = request.getRequestDispatcher("/Welcome.jsp");
+                
+                out.print("Please enter valid input!");//Error message on the JSP page
+                RequestDispatcher rd = request.getRequestDispatcher("/Welcome.jsp"); //RequestDispatcher logic
                 rd.include(request, response);
             }
 
