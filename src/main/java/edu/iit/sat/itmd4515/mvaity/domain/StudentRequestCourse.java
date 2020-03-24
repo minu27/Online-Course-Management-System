@@ -43,8 +43,9 @@ class StudentRequestCourse {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
     @JoinColumn(name = "courseId", referencedColumnName = "courseId")
-    @ManyToOne
-    private Course courseId;
+    // unidirectional ManyToOne
+   // @ManyToOne
+    //private Course courseId;
     @JoinColumn(name = "studentId", referencedColumnName = "studentId")
     @ManyToOne
     private Students studentId;
@@ -103,7 +104,7 @@ class StudentRequestCourse {
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
     }
-
+/*
     public Course getCourseId() {
         return courseId;
     }
@@ -111,7 +112,7 @@ class StudentRequestCourse {
     public void setCourseId(Course courseId) {
         this.courseId = courseId;
     }
-
+*/
     public Students getStudentId() {
         return studentId;
     }

@@ -123,7 +123,7 @@ public class GuestTest {
                         .getSingleResult();
 
         tx.begin();
-        gu.setAuthuser(Authuser.ST);
+        gu.setUserId(Authuser.ST);
         gu.setFirstName("Omkar");
         tx.commit();
         
@@ -132,7 +132,7 @@ public class GuestTest {
         System.out.println("Original Entity updated with set methods in a transaction:" + gu.toString());
         System.out.println("Entity re-found fom the database to compare:" + reFindTheEntity.toString());
         
-        assertEquals(gu.getAuthuser(), reFindTheEntity.getAuthuser());
+        assertEquals(gu.getUserId(), reFindTheEntity.getUserId());
         assertEquals(gu.getFirstName(), reFindTheEntity.getFirstName());
     }
 

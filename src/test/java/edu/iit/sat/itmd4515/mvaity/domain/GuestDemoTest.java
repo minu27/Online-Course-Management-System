@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -30,9 +31,12 @@ public class GuestDemoTest {
                 new Date(), 
                 Authuser.ST);
         
-        em.persist(gu);
         tx.begin();
+        em.persist(gu);
+        
         tx.commit();
+        
+        assertTrue(gu.getGuestId() > 0);
         em.close();
         emf.close();
     }

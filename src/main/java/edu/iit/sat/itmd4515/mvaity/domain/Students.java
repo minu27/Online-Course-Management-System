@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -26,9 +27,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 13129
+ * @author Minal
  */
-public class Students {
+public class Students extends Users{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -68,6 +69,14 @@ public class Students {
     @Transient
     private List<String> listOfcourses = new ArrayList<String>();
     
+    // inverse side of bi-directional ManyToOne/OneToMany
+    @OneToMany(mappedBy = "Students")
+    private List<Instructor> instructors = new ArrayList<>();
+
+    // inverse side of bi-directional ManyToMany
+    @ManyToMany(mappedBy = "Students")
+    private List<Course> courses = new ArrayList<>();
+    
     public Students() {
     }
 
@@ -86,6 +95,21 @@ public class Students {
         this.lastName = lastName;
     }
 
+    public List<Instructor> getInstructors() {
+        return instructors;
+    }
+
+    public void setInstructors(List<Instructor> instructors) {
+        this.instructors = instructors;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
     
     public Integer getStudentId() {
         return studentId;
@@ -119,29 +143,7 @@ public class Students {
         this.emailId = emailId;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    
 
     public String getStatus() {
         return status;
@@ -204,11 +206,6 @@ public class Students {
         }
         return true;
     }
-
-    
-    
-    
-    
 
     public List<String> getListOfcourses() {
         return listOfcourses;

@@ -5,10 +5,206 @@
  */
 package edu.iit.sat.itmd4515.mvaity.domain;
 
+import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
+
 /**
  *
  * @author Minal
  */
-class TeachingAssistant {
+public class TeachingAssistant implements Serializable {
+
+    @Lob
+    @Column(name = "facialTokanImage")
+    private byte[] facialTokanImage;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "teachingAssistantId")
+    private Integer teachingAssistantId;
+    @Size(max = 255)
+    @Column(name = "createdBy")
+    private String createdBy;
+    @Column(name = "createdOn")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdOn;
+    @Size(max = 255)
+    @Column(name = "emailId")
+    private String emailId;
+    @Size(max = 255)
+    @Column(name = "firstName")
+    private String firstName;
+    @Size(max = 255)
+    @Column(name = "gender")
+    private String gender;
+    @Size(max = 255)
+    @Column(name = "lastName")
+    private String lastName;
+    @Size(max = 255)
+    @Column(name = "status")
+    private String status;
+    @Size(max = 255)
+    @Column(name = "updatedBy")
+    private String updatedBy;
+    @Column(name = "updatedOn")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedOn;
+    @JoinColumn(name = "courseId", referencedColumnName = "courseId")
+    // unidirectional ManyToOne
+   // @ManyToOne
+    //private Course courseId;
+    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    @ManyToOne
+    private Authuser userId;
+
+    public TeachingAssistant() {
+    }
+
+    public TeachingAssistant(Integer teachingAssistantId) {
+        this.teachingAssistantId = teachingAssistantId;
+    }
+
+    public Integer getTeachingAssistantId() {
+        return teachingAssistantId;
+    }
+
+    public void setTeachingAssistantId(Integer teachingAssistantId) {
+        this.teachingAssistantId = teachingAssistantId;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public Date getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(Date updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+/*
+    public Course getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Course courseId) {
+        this.courseId = courseId;
+    }*/
+
+    public Authuser getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Authuser userId) {
+        this.userId = userId;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (teachingAssistantId != null ? teachingAssistantId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof TeachingAssistant)) {
+            return false;
+        }
+        TeachingAssistant other = (TeachingAssistant) object;
+        if ((this.teachingAssistantId == null && other.teachingAssistantId != null) || (this.teachingAssistantId != null && !this.teachingAssistantId.equals(other.teachingAssistantId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "edu.iit.sat.itmd4515.mvaity.domain.TeachingAssistant[ teachingAssistantId=" + teachingAssistantId + " ]";
+    }
+
+    public byte[] getFacialTokanImage() {
+        return facialTokanImage;
+    }
+
+    public void setFacialTokanImage(byte[] facialTokanImage) {
+        this.facialTokanImage = facialTokanImage;
+    }
     
 }

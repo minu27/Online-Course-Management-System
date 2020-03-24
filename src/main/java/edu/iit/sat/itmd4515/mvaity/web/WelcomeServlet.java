@@ -5,17 +5,22 @@
  */
 package edu.iit.sat.itmd4515.mvaity.web;
 
+import edu.iit.sat.itmd4515.mvaity.domain.Guest;
 import edu.iit.sat.itmd4515.mvaity.domain.Students;
 import java.io.IOException;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.UserTransaction;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
@@ -30,6 +35,11 @@ public class WelcomeServlet extends HttpServlet {
     //Initialization of Logger
     private static final Logger LOG = Logger.getLogger(WelcomeServlet.class.getName());
     
+    @PersistenceContext(name = "itmd4515PU")
+    EntityManager em;
+
+    @Resource
+    UserTransaction tx;
     //Initialization of validator
     @Resource
     Validator validator;
@@ -69,7 +79,12 @@ public class WelcomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        LOG.info("ExerciseServlet inside doGet");
+
+        Guest gu = new Guest();
+        request.setAttribute("gu", gu);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Welcome.jsp");
+        dispatcher.forward(request, response);
         
     }
 
@@ -104,6 +119,8 @@ public class WelcomeServlet extends HttpServlet {
         Students st = new Students(stfirstName, stlastName, stemailId, stgender);
         LOG.info("Constructed instance:" + st.toString());
         
+        
+        try{
         //Validation of inputs
         Set<ConstraintViolation<Students>> violations = validator.validate(st);
        
@@ -130,6 +147,10 @@ public class WelcomeServlet extends HttpServlet {
             request.setAttribute("st", st);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/confirmation.jsp");
             dispatcher.forward(request, response);
+        }
+        }catch (Exception e) {
+            Logger.getLogger(WelcomeServlet.class.getName()).log(Level.SEVERE, null, e);
+            // this would be a nice place to send the user webapp flow back to an error page, or potentially the form to correct errors, or with a global error banner
         }
     }
 

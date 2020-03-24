@@ -7,13 +7,16 @@ package edu.iit.sat.itmd4515.mvaity.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+//import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,6 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Minal
  */
+@Entity
 public class Assignment implements Serializable {
 
     @Lob
@@ -65,7 +69,7 @@ public class Assignment implements Serializable {
     private Course courseId;
     @JoinColumn(name = "courseWiseMaterialId", referencedColumnName = "courseWiseMaterialId")
     @ManyToOne
-    private Coursewisematerial courseWiseMaterialId;
+    private CourseWiseMaterial courseWiseMaterialId;
     @JoinColumn(name = "studentId", referencedColumnName = "studentId")
     @ManyToOne
     private Students studentId;
@@ -157,7 +161,6 @@ public class Assignment implements Serializable {
         this.updatedOn = updatedOn;
     }
 
-
     public Course getCourseId() {
         return courseId;
     }
@@ -166,11 +169,11 @@ public class Assignment implements Serializable {
         this.courseId = courseId;
     }
 
-    public Coursewisematerial getCourseWiseMaterialId() {
+    public CourseWiseMaterial getCourseWiseMaterialId() {
         return courseWiseMaterialId;
     }
 
-    public void setCourseWiseMaterialId(Coursewisematerial courseWiseMaterialId) {
+    public void setCourseWiseMaterialId(CourseWiseMaterial courseWiseMaterialId) {
         this.courseWiseMaterialId = courseWiseMaterialId;
     }
 

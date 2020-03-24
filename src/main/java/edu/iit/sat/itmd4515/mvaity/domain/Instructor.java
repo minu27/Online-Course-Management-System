@@ -5,6 +5,7 @@
  */
 package edu.iit.sat.itmd4515.mvaity.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -12,6 +13,8 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
@@ -21,7 +24,18 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Minal
  */
-public class Instructor {
+public class Instructor extends Users {
+    
+    // bi-directional ManyToOne/OneToMany
+    // default is this is FK.  we can change with JoinTable
+    @ManyToOne
+    //@JoinTable
+    private Students students;
+
+    // inverse side of bi-directional ManyToOne/OneToMany
+    @OneToMany(mappedBy = "Instructor")
+    private List<LearningSystem> LearningSystems = new ArrayList<>();
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -49,7 +63,7 @@ public class Instructor {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
     private List<CourseInstructorMapping> courseInstructorMappingList;
-   
+    
     
 
     public Instructor() {
@@ -145,7 +159,7 @@ public class Instructor {
 
     @Override
     public String toString() {
-        return "edu.iit.sat.itmd4515.uid.lsystem.model.Instructor[ instructorId=" + instructorId + " ]";
+        return "edu.iit.sat.itmd4515.mvaity.domain.Instructor[ instructorId=" + instructorId + " ]";
     }
 
     @XmlTransient
