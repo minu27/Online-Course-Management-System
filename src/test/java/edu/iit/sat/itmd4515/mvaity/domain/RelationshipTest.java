@@ -21,9 +21,9 @@ public class RelationshipTest extends AbstractJPATest{
     
     @Test
     public void LearningSystem_Guest_ManyToOne_UnidirectionalTest(){
-        Guest gu1 = new Guest("Test Minal",
-                "Test Vaity",
-                "Test mvaity", 
+        Guest gu1 = new Guest("Minal",
+                "Vaity",
+                "mvaity", 
                 new Date(), 
                 Authuser.ST);
         
@@ -43,11 +43,11 @@ public class RelationshipTest extends AbstractJPATest{
     }
     
     @Test
-    public void instructor_LearningSystem_ManyToMany_BiDirectionalTest(){
-        Students s1 = new Students(5);
-        Students s2 = new Students(6);
-        Course c1 = new Course(4,"Android");
-        Course c2 = new Course(6,"Python");
+    public void students_course_ManyToMany_BiDirectionalTest(){
+        Students s1 = new Students("Minal", "Vaity", "mvaity@hawk.iit.edu", "female");
+        Students s2 = new Students("Scott", "Spyrison", "sspyrison@hawk.iit.edu", "male");
+        Course c1 = new Course("Android");
+        Course c2 = new Course("Python");
 
         
         c1.addStudents(s1);

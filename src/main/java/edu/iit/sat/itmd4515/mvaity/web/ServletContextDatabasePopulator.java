@@ -15,12 +15,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 import javax.transaction.UserTransaction;
 
 /**
  *
  * @author Minal
  */
+@WebListener
 public class ServletContextDatabasePopulator implements ServletContextListener{
     private static final Logger LOG = Logger.getLogger(ServletContextDatabasePopulator.class.getName());
 

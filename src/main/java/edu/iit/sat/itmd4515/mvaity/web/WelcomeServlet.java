@@ -144,6 +144,10 @@ public class WelcomeServlet extends HttpServlet {
         {
             //Invoked when validation is passed
             LOG.info("Houston - we have passed validation.  All systems are good!");
+            tx.begin();
+            em.persist(st);
+            tx.commit();
+            
             request.setAttribute("st", st);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/confirmation.jsp");
             dispatcher.forward(request, response);

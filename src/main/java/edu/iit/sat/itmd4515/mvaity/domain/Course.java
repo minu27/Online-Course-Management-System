@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 public class Course extends AbstractEntity {
 
-    private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -77,8 +77,7 @@ public class Course extends AbstractEntity {
     public Course() {
     }
     
-    public Course(Integer courseId, String name) {
-        this.courseId = courseId;
+    public Course( String name) {
         this.name = name;
     }
 
