@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.2" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
   <persistence-unit name="itmd4515testPU" transaction-type="RESOURCE_LOCAL">
-    <class>edu.iit.sat.itmd4515.mvaity.domain.Guest</class>
+    <class>edu.iit.sat.itmd4515.mvaity.domain.TeachingAssistant</class>
     <class>edu.iit.sat.itmd4515.mvaity.domain.Students</class>
-    <class>edu.iit.sat.itmd4515.mvaity.domain.Instructor</class>
+    <class>edu.iit.sat.itmd4515.mvaity.domain.CourseWiseMaterial</class>
     <class>edu.iit.sat.itmd4515.mvaity.domain.LearningSystem</class>
-    <class>edu.iit.sat.itmd4515.mvaity.domain.CourseInstructorMapping</class>
+    <class>edu.iit.sat.itmd4515.mvaity.domain.StudentRequestCourse</class>
     <class>edu.iit.sat.itmd4515.mvaity.domain.Course</class>
+    <class>edu.iit.sat.itmd4515.mvaity.domain.Assignment</class>
+    <class>edu.iit.sat.itmd4515.mvaity.domain.Authuser</class>
+    <class>edu.iit.sat.itmd4515.mvaity.domain.Guest</class>
+    <class>edu.iit.sat.itmd4515.mvaity.domain.Instructor</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/itmd4515?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="itmd4515"/>

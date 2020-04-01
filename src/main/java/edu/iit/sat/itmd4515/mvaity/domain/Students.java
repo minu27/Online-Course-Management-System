@@ -5,33 +5,45 @@
  */
 package edu.iit.sat.itmd4515.mvaity.domain;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.validation.constraints.Size;
-import jdk.nashorn.internal.ir.Assignment;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Minal
  */
-public class Students extends Users{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Entity
+@Table(name = "students")
+@NamedQueries({
+    @NamedQuery(name = "Students.findAll", query = "SELECT s FROM Students s")
+    , @NamedQuery(name = "Students.findByStudentId", query = "SELECT s FROM Students s WHERE s.studentId = :studentId")
+    , @NamedQuery(name = "Students.findByCreatedBy", query = "SELECT s FROM Students s WHERE s.createdBy = :createdBy")
+    , @NamedQuery(name = "Students.findByCreatedOn", query = "SELECT s FROM Students s WHERE s.createdOn = :createdOn")
+    , @NamedQuery(name = "Students.findByEmailId", query = "SELECT s FROM Students s WHERE s.emailId = :emailId")
+    , @NamedQuery(name = "Students.findByFirstName", query = "SELECT s FROM Students s WHERE s.firstName = :firstName")
+    , @NamedQuery(name = "Students.findByGender", query = "SELECT s FROM Students s WHERE s.gender = :gender")
+    , @NamedQuery(name = "Students.findByLastName", query = "SELECT s FROM Students s WHERE s.lastName = :lastName")
+    , @NamedQuery(name = "Students.findByStatus", query = "SELECT s FROM Students s WHERE s.status = :status")
+    , @NamedQuery(name = "Students.findByUpdatedBy", query = "SELECT s FROM Students s WHERE s.updatedBy = :updatedBy")
+    , @NamedQuery(name = "Students.findByUpdatedOn", query = "SELECT s FROM Students s WHERE s.updatedOn = :updatedOn")})
+public class Students extends AbstractEntity implements Serializable {
+
+    
+    @Column(name = "facialTokanImage")
+    private byte[] facialTokanImage;
+
+    private static final long serialVersionUID = 1L;
+    
+    
     @Basic(optional = false)
     @Column(name = "studentId")
     private Integer studentId;
@@ -62,62 +74,27 @@ public class Students extends Users{
     @Column(name = "updatedOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-    @OneToMany(mappedBy = "studentId")
+  /*  @OneToMany(mappedBy = "studentId")
     private List<Assignment> assignmentList;
+    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    @ManyToOne
+    private Authuser userId;
     @OneToMany(mappedBy = "studentId")
-    private List<StudentRequestCourse> studentRequestCourseList;
-    @Transient
-    private List<String> listOfcourses = new ArrayList<String>();
-    
-    // inverse side of bi-directional ManyToOne/OneToMany
-    @OneToMany(mappedBy = "Students")
-    private List<Instructor> instructors = new ArrayList<>();
+    private List<StudentRequestCourse> studentrequestcourseList; */
 
-    // inverse side of bi-directional ManyToMany
-    @ManyToMany(mappedBy = "Students")
-    private List<Course> courses = new ArrayList<>();
-    
     public Students() {
     }
 
-    /**
-     *
-     * @param studentId
-     */
-    public Students(Integer studentId) {
-        this.studentId = studentId;
-    }
-
+   
     public Students(String firstName, String lastName, String emailId, String gender) {
-        this.emailId = emailId;
         this.firstName = firstName;
-        this.gender = gender;
         this.lastName = lastName;
-    }
-
-    public List<Instructor> getInstructors() {
-        return instructors;
-    }
-
-    public void setInstructors(List<Instructor> instructors) {
-        this.instructors = instructors;
-    }
-
-    public List<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
+        this.emailId = emailId;
+        this.gender = gender;
     }
     
-    public Integer getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Integer studentId) {
-        this.studentId = studentId;
-    }
+ 
+    
 
     public String getCreatedBy() {
         return createdBy;
@@ -143,7 +120,30 @@ public class Students extends Users{
         this.emailId = emailId;
     }
 
-    
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     public String getStatus() {
         return status;
@@ -168,7 +168,7 @@ public class Students extends Users{
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
     }
-
+/*
     @XmlTransient
     public List<Assignment> getAssignmentList() {
         return assignmentList;
@@ -178,15 +178,23 @@ public class Students extends Users{
         this.assignmentList = assignmentList;
     }
 
+    public Authuser getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Authuser userId) {
+        this.userId = userId;
+    }
+
     @XmlTransient
-    public List<StudentRequestCourse> getStudentRequestCourseList() {
-        return studentRequestCourseList;
+    public List<StudentRequestCourse> getStudentrequestcourseList() {
+        return studentrequestcourseList;
     }
 
-    public void setStudentRequestCourseList(List<StudentRequestCourse> studentRequestCourseList) {
-        this.studentRequestCourseList = studentRequestCourseList;
+    public void setStudentrequestcourseList(List<StudentRequestCourse> studentrequestcourseList) {
+        this.studentrequestcourseList = studentrequestcourseList;
     }
-
+*/
     @Override
     public int hashCode() {
         int hash = 0;
@@ -207,19 +215,17 @@ public class Students extends Users{
         return true;
     }
 
-    public List<String> getListOfcourses() {
-        return listOfcourses;
-    }
-
-    public void setListOfcourses(List<String> listOfcourses) {
-        this.listOfcourses = listOfcourses;
-    }
-
     @Override
     public String toString() {
-        return "Students{" + "emailId=" + emailId + ", firstName=" + firstName + ", gender=" + gender + ", lastName=" + lastName + '}';
+        return "edu.iit.sat.itmd4515.mvaity.domain.Students[ studentId=" + studentId + " ]";
     }
 
-    
+    public byte[] getFacialTokanImage() {
+        return facialTokanImage;
+    }
+
+    public void setFacialTokanImage(byte[] facialTokanImage) {
+        this.facialTokanImage = facialTokanImage;
+    }
     
 }

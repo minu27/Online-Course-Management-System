@@ -5,7 +5,7 @@
  */
 package edu.iit.sat.itmd4515.mvaity.web;
 
-import edu.iit.sat.itmd4515.mvaity.domain.Guest;
+
 import edu.iit.sat.itmd4515.mvaity.domain.Students;
 import java.io.IOException;
 import java.util.Set;
@@ -40,6 +40,9 @@ public class WelcomeServlet extends HttpServlet {
 
     @Resource
     UserTransaction tx;
+    
+    
+    
     //Initialization of validator
     @Resource
     Validator validator;
@@ -81,8 +84,8 @@ public class WelcomeServlet extends HttpServlet {
             throws ServletException, IOException {
         LOG.info("ExerciseServlet inside doGet");
 
-        Guest gu = new Guest();
-        request.setAttribute("gu", gu);
+        Students st = new Students();
+        request.setAttribute("st", st);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Welcome.jsp");
         dispatcher.forward(request, response);
         
@@ -131,7 +134,7 @@ public class WelcomeServlet extends HttpServlet {
                 LOG.info(violation.getPropertyPath() + " " + violation.getMessage());
             }
             
-            request.setAttribute("StudentId", st.getStudentId().toString());
+            request.setAttribute("StudentId", st.getId().toString());
             request.setAttribute("createdBy", st.getCreatedBy().toString());
             request.setAttribute("createdOn", st.getCreatedOn().toString());
             request.setAttribute("st", st);

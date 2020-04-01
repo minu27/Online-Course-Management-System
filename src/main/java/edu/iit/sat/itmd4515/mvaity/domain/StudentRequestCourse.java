@@ -5,14 +5,16 @@
  */
 package edu.iit.sat.itmd4515.mvaity.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
@@ -21,12 +23,22 @@ import javax.validation.constraints.Size;
  *
  * @author Minal
  */
-class StudentRequestCourse {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "studentReqCourseId")
-    private Integer studentReqCourseId;
+@Entity
+@Table(name = "studentrequestcourse")
+@NamedQueries({
+    @NamedQuery(name = "Studentrequestcourse.findAll", query = "SELECT s FROM Studentrequestcourse s")
+    , @NamedQuery(name = "Studentrequestcourse.findByStudentReqCourseId", query = "SELECT s FROM studentrequestcourse s WHERE s.studentReqCourseId = :studentReqCourseId")
+    , @NamedQuery(name = "Studentrequestcourse.findByCreatedBy", query = "SELECT s FROM Studentrequestcourse s WHERE s.createdBy = :createdBy")
+    , @NamedQuery(name = "Studentrequestcourse.findByCreatedOn", query = "SELECT s FROM Studentrequestcourse s WHERE s.createdOn = :createdOn")
+    , @NamedQuery(name = "Studentrequestcourse.findByStatus", query = "SELECT s FROM Studentrequestcourse s WHERE s.status = :status")
+    , @NamedQuery(name = "Studentrequestcourse.findByUpdatedBy", query = "SELECT s FROM Studentrequestcourse s WHERE s.updatedBy = :updatedBy")
+    , @NamedQuery(name = "Studentrequestcourse.findByUpdatedOn", query = "SELECT s FROM Studentrequestcourse s WHERE s.updatedOn = :updatedOn")})
+public class StudentRequestCourse extends AbstractEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    
+    
+    
     @Size(max = 255)
     @Column(name = "createdBy")
     private String createdBy;
@@ -42,27 +54,33 @@ class StudentRequestCourse {
     @Column(name = "updatedOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-    @JoinColumn(name = "courseId", referencedColumnName = "courseId")
-    // unidirectional ManyToOne
-   // @ManyToOne
-    //private Course courseId;
-    @JoinColumn(name = "studentId", referencedColumnName = "studentId")
+    @JoinColumn(name = "studentReqCourse")
     @ManyToOne
-    private Students studentId;
+    private Course course;
+    @JoinColumn(name = "studentReqCourse")
+    @ManyToOne
+    private Students students;
 
     public StudentRequestCourse() {
     }
 
-    public StudentRequestCourse(Integer studentReqCourseId) {
-        this.studentReqCourseId = studentReqCourseId;
+
+     /**
+     * Get the value of Students
+     *
+     * @return the value of Students
+     */
+    public Students getStudents() {
+        return students;
     }
 
-    public Integer getStudentReqCourseId() {
-        return studentReqCourseId;
-    }
-
-    public void setStudentReqCourseId(Integer studentReqCourseId) {
-        this.studentReqCourseId = studentReqCourseId;
+    /**
+     * Set the value of Students
+     *
+     * @param students new value of Students
+     */
+    public void setStudents(Students students) {
+        this.students = students;
     }
 
     public String getCreatedBy() {
@@ -104,23 +122,17 @@ class StudentRequestCourse {
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
     }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    
 /*
-    public Course getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(Course courseId) {
-        this.courseId = courseId;
-    }
-*/
-    public Students getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Students studentId) {
-        this.studentId = studentId;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -144,6 +156,6 @@ class StudentRequestCourse {
     @Override
     public String toString() {
         return "edu.iit.sat.itmd4515.mvaity.domain.StudentRequestCourse[ studentReqCourseId=" + studentReqCourseId + " ]";
-    }
-
+    }*/
+    
 }

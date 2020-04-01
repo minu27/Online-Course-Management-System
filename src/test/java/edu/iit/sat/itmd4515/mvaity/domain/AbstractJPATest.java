@@ -5,7 +5,7 @@
  */
 package edu.iit.sat.itmd4515.mvaity.domain;
 
-import java.util.Date;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -39,27 +39,26 @@ abstract class AbstractJPATest {
         em = emf.createEntityManager();
         tx = em.getTransaction();
 
-        Guest gu = new Guest("Test Minal",
-                "Test Vaity",
-                "Test mvaity", 
-                new Date(), 
-                Authuser.ST);
+        Students st = new Students("Minal",
+                "Vaity",
+                "mvaity@hawk.iit.edu",
+                "female");
 
         tx.begin();
-        em.persist(gu);
+        em.persist(st);
         tx.commit();
     }
 
     @AfterEach
     public void tearDown() {
-        Guest gu 
+        Students st 
                 // = em.createQuery("select e from Exercise e where e.code = :code", Exercise.class)
-                = em.createNamedQuery("Guest.findByCode", Guest.class)
+                = em.createNamedQuery("Students.findByCode", Students.class)
                         .setParameter("code", "TEST")
                         .getSingleResult();
 
         tx.begin();
-        em.remove(gu);
+        em.remove(st);
         tx.commit();
         em.close();
     }

@@ -5,9 +5,8 @@
  */
 package edu.iit.sat.itmd4515.mvaity.web;
 
-import edu.iit.sat.itmd4515.mvaity.domain.Authuser;
-import edu.iit.sat.itmd4515.mvaity.domain.Guest;
-import java.util.Date;
+
+import edu.iit.sat.itmd4515.mvaity.domain.Students;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -41,19 +40,9 @@ public class ServletContextDatabasePopulator implements ServletContextListener{
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         try {
-        LOG.info("Servlet Context Initialized");
-        
-        Guest gu = new Guest("Test Minal",
-                "Test Vaity",
-                "Test mvaity", 
-                new Date(), 
-                Authuser.ST);
-        
-        tx.begin();
-        em.persist(gu);
-        tx.commit();
-            
+        LOG.info("Servlet Context Initialized");           
         ServletContextListener.super.contextInitialized(sce);
+        
     }catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
         }

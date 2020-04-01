@@ -6,35 +6,47 @@
 package edu.iit.sat.itmd4515.mvaity.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 /**
- *
+ * 
  * @author Minal
  */
-public class TeachingAssistant implements Serializable {
+@Entity
+@Table(name = "teachingassistant")
+@NamedQueries({
+    @NamedQuery(name = "Teachingassistant.findAll", query = "SELECT t FROM Teachingassistant t")
+    , @NamedQuery(name = "Teachingassistant.findByTeachingAssistantId", query = "SELECT t FROM Teachingassistant t WHERE t.teachingAssistantId = :teachingAssistantId")
+    , @NamedQuery(name = "Teachingassistant.findByCreatedBy", query = "SELECT t FROM Teachingassistant t WHERE t.createdBy = :createdBy")
+    , @NamedQuery(name = "Teachingassistant.findByCreatedOn", query = "SELECT t FROM Teachingassistant t WHERE t.createdOn = :createdOn")
+    , @NamedQuery(name = "Teachingassistant.findByEmailId", query = "SELECT t FROM Teachingassistant t WHERE t.emailId = :emailId")
+    , @NamedQuery(name = "Teachingassistant.findByFirstName", query = "SELECT t FROM Teachingassistant t WHERE t.firstName = :firstName")
+    , @NamedQuery(name = "Teachingassistant.findByGender", query = "SELECT t FROM Teachingassistant t WHERE t.gender = :gender")
+    , @NamedQuery(name = "Teachingassistant.findByLastName", query = "SELECT t FROM Teachingassistant t WHERE t.lastName = :lastName")
+    , @NamedQuery(name = "Teachingassistant.findByStatus", query = "SELECT t FROM Teachingassistant t WHERE t.status = :status")
+    , @NamedQuery(name = "Teachingassistant.findByUpdatedBy", query = "SELECT t FROM Teachingassistant t WHERE t.updatedBy = :updatedBy")
+    , @NamedQuery(name = "Teachingassistant.findByUpdatedOn", query = "SELECT t FROM Teachingassistant t WHERE t.updatedOn = :updatedOn")})
+public class TeachingAssistant extends LearningSystem implements Serializable {
 
-    @Lob
+    
     @Column(name = "facialTokanImage")
     private byte[] facialTokanImage;
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "teachingAssistantId")
-    private Integer teachingAssistantId;
+   
+   
     @Size(max = 255)
     @Column(name = "createdBy")
     private String createdBy;
@@ -44,15 +56,11 @@ public class TeachingAssistant implements Serializable {
     @Size(max = 255)
     @Column(name = "emailId")
     private String emailId;
-    @Size(max = 255)
-    @Column(name = "firstName")
-    private String firstName;
+    
     @Size(max = 255)
     @Column(name = "gender")
     private String gender;
-    @Size(max = 255)
-    @Column(name = "lastName")
-    private String lastName;
+    
     @Size(max = 255)
     @Column(name = "status")
     private String status;
@@ -62,27 +70,27 @@ public class TeachingAssistant implements Serializable {
     @Column(name = "updatedOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-    @JoinColumn(name = "courseId", referencedColumnName = "courseId")
-    // unidirectional ManyToOne
-   // @ManyToOne
-    //private Course courseId;
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
-    @ManyToOne
-    private Authuser userId;
+    
+    @OneToMany(mappedBy = "teachingAssistantId" )
+    private List<Instructor> instructorList = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "teachingAssistantId" )
+    private List<CourseWiseMaterial> coursewisematerialList = new ArrayList<>();
 
     public TeachingAssistant() {
     }
 
-    public TeachingAssistant(Integer teachingAssistantId) {
-        this.teachingAssistantId = teachingAssistantId;
+    
+    public TeachingAssistant(String firstName, String lastName) {
+        super(firstName, lastName);
+    }
+    
+    public List<Instructor> getInstructor() {
+        return instructorList;
     }
 
-    public Integer getTeachingAssistantId() {
-        return teachingAssistantId;
-    }
-
-    public void setTeachingAssistantId(Integer teachingAssistantId) {
-        this.teachingAssistantId = teachingAssistantId;
+    public void setInstructor(List<Instructor> instructorList) {
+        this.instructorList = instructorList;
     }
 
     public String getCreatedBy() {
@@ -110,13 +118,7 @@ public class TeachingAssistant implements Serializable {
     }
 
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+    
 
     public String getGender() {
         return gender;
@@ -126,13 +128,7 @@ public class TeachingAssistant implements Serializable {
         this.gender = gender;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    
 
     public String getStatus() {
         return status;
@@ -157,14 +153,14 @@ public class TeachingAssistant implements Serializable {
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
     }
-/*
-    public Course getCourseId() {
+
+    /*public Course getCourseId() {
         return courseId;
     }
 
     public void setCourseId(Course courseId) {
         this.courseId = courseId;
-    }*/
+    }
 
     public Authuser getUserId() {
         return userId;
@@ -172,8 +168,16 @@ public class TeachingAssistant implements Serializable {
 
     public void setUserId(Authuser userId) {
         this.userId = userId;
+    }*/
+
+    public List<CourseWiseMaterial> getCourseWiseMaterial() {
+        return coursewisematerialList;
     }
 
+    public void setCourseWiseMaterial(List<CourseWiseMaterial> coursewisematerialList) {
+        this.coursewisematerialList = coursewisematerialList;
+    }
+    /*
     @Override
     public int hashCode() {
         int hash = 0;
@@ -193,10 +197,10 @@ public class TeachingAssistant implements Serializable {
         }
         return true;
     }
-
+*/
     @Override
     public String toString() {
-        return "edu.iit.sat.itmd4515.mvaity.domain.TeachingAssistant[ teachingAssistantId=" + teachingAssistantId + " ]";
+        return "edu.iit.sat.itmd4515.mvaity.domain.TeachingAssistant[Id=" + id +  "firstName=" + firstName + ", lastName=" + lastName + " ]";
     }
 
     public byte[] getFacialTokanImage() {

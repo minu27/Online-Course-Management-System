@@ -6,41 +6,48 @@
 package edu.iit.sat.itmd4515.mvaity.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlTransient;
-import jdk.nashorn.internal.ir.Assignment;
 
 /**
  *
  * @author Minal
  */
 @Entity
-public class CourseWiseMaterial implements Serializable {
+@Table(name = "coursewisematerial")
+@NamedQueries({
+    @NamedQuery(name = "Coursewisematerial.findAll", query = "SELECT c FROM Coursewisematerial c")
+    , @NamedQuery(name = "Coursewisematerial.findByCourseWiseMaterialId", query = "SELECT c FROM Coursewisematerial c WHERE c.courseWiseMaterialId = :courseWiseMaterialId")
+    , @NamedQuery(name = "Coursewisematerial.findByCreatedBy", query = "SELECT c FROM Coursewisematerial c WHERE c.createdBy = :createdBy")
+    , @NamedQuery(name = "Coursewisematerial.findByCreatedOn", query = "SELECT c FROM Coursewisematerial c WHERE c.createdOn = :createdOn")
+    , @NamedQuery(name = "Coursewisematerial.findByDeadLine", query = "SELECT c FROM Coursewisematerial c WHERE c.deadLine = :deadLine")
+    , @NamedQuery(name = "Coursewisematerial.findByStatus", query = "SELECT c FROM Coursewisematerial c WHERE c.status = :status")
+    , @NamedQuery(name = "Coursewisematerial.findByUpdatedBy", query = "SELECT c FROM Coursewisematerial c WHERE c.updatedBy = :updatedBy")
+    , @NamedQuery(name = "Coursewisematerial.findByUpdatedOn", query = "SELECT c FROM Coursewisematerial c WHERE c.updatedOn = :updatedOn")})
+public class CourseWiseMaterial extends AbstractEntity implements Serializable {
 
-    @Lob
+    
     @Column(name = "materialFile")
     private byte[] materialFile;
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
+    
+    /*@Basic(optional = false)
     @Column(name = "courseWiseMaterialId")
-    private Integer courseWiseMaterialId;
+    private Integer courseWiseMaterialId;*/
+   
     @Size(max = 255)
     @Column(name = "createdBy")
     private String createdBy;
@@ -58,27 +65,44 @@ public class CourseWiseMaterial implements Serializable {
     @Column(name = "updatedOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-    @JoinColumn(name = "courseId", referencedColumnName = "courseId")
-    @ManyToOne
+    //@JoinColumn(name = "courseId", referencedColumnName = "courseId")
+    //@ManyToOne
     //private Course courseId;
-    @OneToMany(mappedBy = "courseWiseMaterialId")
-    private List<Assignment> assignmentList;
+    @ManyToMany
+    @JoinTable(name = "teachingassistant_courseWiseMaterial",
+            joinColumns = @JoinColumn(name = "courseWiseMaterial_id"),
+            inverseJoinColumns = @JoinColumn(name = "teachingassistant_id"))
+    private List<TeachingAssistant> teachingassistantList = new ArrayList<>();
 
     public CourseWiseMaterial() {
     }
 
-    public CourseWiseMaterial(Integer courseWiseMaterialId) {
-        this.courseWiseMaterialId = courseWiseMaterialId;
+    
+    public void addTeachingAssistant(TeachingAssistant a) {
+        if (!this.teachingassistantList.contains(a)) {
+            this.teachingassistantList.add(a);
+        }
+        if (!a.getCourseWiseMaterial().contains(this)) {
+            a.getCourseWiseMaterial().add(this);
+        }
     }
 
-    public Integer getCourseWiseMaterialId() {
-        return courseWiseMaterialId;
+    public void removeTeachingAssistant(TeachingAssistant a) {
+        if (this.teachingassistantList.contains(a)) {
+            this.teachingassistantList.remove(a);
+        }
+        if (a.getCourseWiseMaterial().contains(this)) {
+            a.getCourseWiseMaterial().remove(this);
+        }
     }
 
-    public void setCourseWiseMaterialId(Integer courseWiseMaterialId) {
-        this.courseWiseMaterialId = courseWiseMaterialId;
+    
+    
+    public CourseWiseMaterial(String createdBy) {
+        this.createdBy = createdBy;
     }
 
+ 
     public String getCreatedBy() {
         return createdBy;
     }
@@ -128,7 +152,8 @@ public class CourseWiseMaterial implements Serializable {
         this.updatedOn = updatedOn;
     }
 
-   /* public Course getCourseId() {
+    /*
+    public Course getCourseId() {
         return courseId;
     }
 
@@ -136,15 +161,15 @@ public class CourseWiseMaterial implements Serializable {
         this.courseId = courseId;
     }*/
 
-    @XmlTransient
-    public List<Assignment> getAssignmentList() {
-        return assignmentList;
+   
+    public List<TeachingAssistant> getTeachingAssistant() {
+        return teachingassistantList;
     }
 
-    public void setAssignmentList(List<Assignment> assignmentList) {
-        this.assignmentList = assignmentList;
+    public void setTeachingAssistant(List<TeachingAssistant> teachingassistantList) {
+        this.teachingassistantList = teachingassistantList;
     }
-
+/*
     @Override
     public int hashCode() {
         int hash = 0;
@@ -164,10 +189,10 @@ public class CourseWiseMaterial implements Serializable {
         }
         return true;
     }
-
+*/
     @Override
     public String toString() {
-        return "edu.iit.sat.itmd4515.mvaity.domain.CourseWiseMaterial[ courseWiseMaterialId=" + courseWiseMaterialId + " ]";
+        return "edu.iit.sat.itmd4515.mvaity.domain.Coursewisematerial[ id=" + id + "createdBy=" + createdBy + " ]";
     }
 
     public byte[] getMaterialFile() {

@@ -26,20 +26,30 @@ abstract class AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
-
+    protected Long id;
+   
+    
     @Version
     private int version;
-    
+
     private LocalDateTime createdTimestamp;
     private LocalDateTime updatedTimestamp;
 
+    @PrePersist
+    private void prePersist() {
+        createdTimestamp = LocalDateTime.now();
+    }
 
-    public Integer getId() {
+    @PreUpdate
+    private void preUpdate() {
+        updatedTimestamp = LocalDateTime.now();
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -86,11 +96,11 @@ abstract class AbstractEntity {
         }
         return true;
     }
+
     public int getVersion() {
         return version;
     }
     public void setVersion(int version) {
         this.version = version;
     }
-
 }

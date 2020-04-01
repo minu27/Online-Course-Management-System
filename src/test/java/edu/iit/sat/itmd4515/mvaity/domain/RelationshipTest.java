@@ -5,8 +5,6 @@
  */
 package edu.iit.sat.itmd4515.mvaity.domain;
 
-
-import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
@@ -20,78 +18,77 @@ public class RelationshipTest extends AbstractJPATest{
     }
     
     @Test
-    public void LearningSystem_Guest_ManyToOne_UnidirectionalTest(){
-        Guest gu1 = new Guest("Minal",
+    public void StudentRequestCourse_Students_ManyToOne_UnidirectionalTest(){
+        Students st1 = new Students("Minal",
                 "Vaity",
-                "mvaity", 
-                new Date(), 
-                Authuser.ST);
+                "mvaity@hawk.iit.edu",
+                "female");
         
-        LearningSystem ls = new LearningSystem();
+        StudentRequestCourse src = new StudentRequestCourse();
         
        
-        ls.setGuest(gu1);
+        src.setStudents(st1);
         
         tx.begin();
-        em.persist(gu1);
-        em.persist(ls);
+        em.persist(st1);
+        em.persist(src);
         tx.commit();
         
-        assertEquals(gu1, ls.getGuest());
-        assertTrue(gu1.getGuestId() > 0);
-        assertTrue(ls.getId() > 0);
+        assertEquals(st1, src.getStudents());
+        assertTrue(st1.getId() > 0);
+        assertTrue(src.getId() > 0);
     }
     
     @Test
-    public void students_course_ManyToMany_BiDirectionalTest(){
-        Students s1 = new Students("Minal", "Vaity", "mvaity@hawk.iit.edu", "female");
-        Students s2 = new Students("Scott", "Spyrison", "sspyrison@hawk.iit.edu", "male");
-        Course c1 = new Course("Android");
-        Course c2 = new Course("Python");
+    public void TeachingAssistant_CourseWiseMaterial_ManyToMany_BiDirectionalTest(){
+        TeachingAssistant ta1 = new TeachingAssistant("Minal", "Vaity");
+        TeachingAssistant ta2 = new TeachingAssistant("Scott", "Spyrison");
+        CourseWiseMaterial c1 = new CourseWiseMaterial("Minal Vaity");
+        CourseWiseMaterial c2 = new CourseWiseMaterial("Scott Spyrison");
 
         
-        c1.addStudents(s1);
-        c2.addStudents(s1);
+        c1.addTeachingAssistant(ta1);
+        c2.addTeachingAssistant(ta1);
         
       
         tx.begin();
-        em.persist(s1);
-        em.persist(s2);
+        em.persist(ta1);
+        em.persist(ta2);
         em.persist(c1);
         em.persist(c2);
         tx.commit();
         
         // output section
-        Course foundCourse = em.find(Course.class, c1.getCourseId());
+        CourseWiseMaterial foundCourseWiseMaterial = em.find(CourseWiseMaterial.class, c1.getId());
         System.out.println("Navigating from the OWNING side of M:M Bidirectional:\t\t");
         System.out.println(c1.toString());
-        for (Students students : c1.getStudents()) {
-            System.out.println("\t" + students.toString());
+        for (TeachingAssistant teachingAssistant : c1.getTeachingAssistant()) {
+            System.out.println("\t" + teachingAssistant.toString());
         }
         
-        Students foundStudent = em.find(Students.class, s1.getStudentId());
+        TeachingAssistant foundTeachingAssistant = em.find(TeachingAssistant.class, ta1.getId());
         System.out.println("Navigating from the INVERSE side of M:M Bidirectional:\t\t");
-        System.out.println(s1.toString());
-        for (Course courses : s1.getCourses()) {
-            System.out.println("\t" + courses.toString());
+        System.out.println(ta1.toString());
+        for (CourseWiseMaterial courseWiseMaterial : ta1.getCourseWiseMaterial()) {
+            System.out.println("\t" + courseWiseMaterial.toString());
         }
         
-        assertTrue(foundCourse.getStudents().size() == 1);
-        assertTrue(foundStudent.getCourses().size() == 2);
+        assertTrue(foundCourseWiseMaterial.getTeachingAssistant().size() == 1);
+        assertTrue(foundTeachingAssistant.getCourseWiseMaterial().size() == 2);
         
         // this would be cleanup code to remove the associations of s1 to c1 and c2
         tx.begin();
-        c1.removeStudents(s1);
-        c2.removeStudents(s1);
+        c1.removeTeachingAssistant(ta1);
+        c2.removeTeachingAssistant(ta1);
         tx.commit();
         
-        assertTrue(s1.getCourses().isEmpty());
-        assertTrue(c1.getStudents().isEmpty());
-        assertTrue(c2.getStudents().isEmpty());
+        assertTrue(ta1.getCourseWiseMaterial().isEmpty());
+        assertTrue(c1.getTeachingAssistant().isEmpty());
+        assertTrue(c2.getTeachingAssistant().isEmpty());
         
         tx.begin();
-        em.remove(s1);
-        em.remove(s2);
+        em.remove(ta1);
+        em.remove(ta2);
         em.remove(c1);
         em.remove(c2);
         tx.commit();

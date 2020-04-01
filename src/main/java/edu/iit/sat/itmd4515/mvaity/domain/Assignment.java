@@ -7,35 +7,45 @@ package edu.iit.sat.itmd4515.mvaity.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-//import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlTransient;
+
+
 /**
  *
  * @author Minal
  */
 @Entity
-public class Assignment implements Serializable {
+@Table(name = "assignment")
+@NamedQueries({
+    @NamedQuery(name = "Assignment.findAll", query = "SELECT a FROM Assignment a")
+    , @NamedQuery(name = "Assignment.findByAssignmentId", query = "SELECT a FROM Assignment a WHERE a.assignmentId = :assignmentId")
+    , @NamedQuery(name = "Assignment.findByComment", query = "SELECT a FROM Assignment a WHERE a.comment = :comment")
+    , @NamedQuery(name = "Assignment.findByCreatedBy", query = "SELECT a FROM Assignment a WHERE a.createdBy = :createdBy")
+    , @NamedQuery(name = "Assignment.findByCreatedOn", query = "SELECT a FROM Assignment a WHERE a.createdOn = :createdOn")
+    , @NamedQuery(name = "Assignment.findByGrading", query = "SELECT a FROM Assignment a WHERE a.grading = :grading")
+    , @NamedQuery(name = "Assignment.findByInstructorId", query = "SELECT a FROM Assignment a WHERE a.instructorId = :instructorId")
+    , @NamedQuery(name = "Assignment.findByMarks", query = "SELECT a FROM Assignment a WHERE a.marks = :marks")
+    , @NamedQuery(name = "Assignment.findByStatus", query = "SELECT a FROM Assignment a WHERE a.status = :status")
+    , @NamedQuery(name = "Assignment.findByUpdatedBy", query = "SELECT a FROM Assignment a WHERE a.updatedBy = :updatedBy")
+    , @NamedQuery(name = "Assignment.findByUpdatedOn", query = "SELECT a FROM Assignment a WHERE a.updatedOn = :updatedOn")})
+public class Assignment extends LearningSystem implements Serializable {
 
-    @Lob
+ 
     @Column(name = "uploadedDoc")
     private byte[] uploadedDoc;
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     @Basic(optional = false)
     @Column(name = "assignmentId")
     private Integer assignmentId;
@@ -64,20 +74,20 @@ public class Assignment implements Serializable {
     @Column(name = "updatedOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-    @JoinColumn(name = "courseId", referencedColumnName = "courseId")
+    @JoinColumn(name = "assignment", referencedColumnName = "courseId")
     @ManyToOne
     private Course courseId;
-    @JoinColumn(name = "courseWiseMaterialId", referencedColumnName = "courseWiseMaterialId")
+    @JoinColumn(name = "assignment", referencedColumnName = "courseWiseMaterialId")
     @ManyToOne
     private CourseWiseMaterial courseWiseMaterialId;
-    @JoinColumn(name = "studentId", referencedColumnName = "studentId")
+    @JoinColumn(name = "assignment", referencedColumnName = "studentId")
     @ManyToOne
     private Students studentId;
 
     public Assignment() {
     }
 
-    public Assignment(Integer assignmentId) {
+    /*public Assignment(Integer assignmentId) {
         this.assignmentId = assignmentId;
     }
 
@@ -87,7 +97,7 @@ public class Assignment implements Serializable {
 
     public void setAssignmentId(Integer assignmentId) {
         this.assignmentId = assignmentId;
-    }
+    }*/
 
     public String getComment() {
         return comment;
@@ -160,6 +170,7 @@ public class Assignment implements Serializable {
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
     }
+
 
     public Course getCourseId() {
         return courseId;

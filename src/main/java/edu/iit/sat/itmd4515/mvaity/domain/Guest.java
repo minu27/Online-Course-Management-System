@@ -7,14 +7,9 @@ package edu.iit.sat.itmd4515.mvaity.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -22,17 +17,15 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+
 
 /**
  *
- * @author minal
+ * @author Minal
  */
 @Entity
 @Table(name = "guest")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Guest.findAll", query = "SELECT g FROM Guest g")
     , @NamedQuery(name = "Guest.findByGuestId", query = "SELECT g FROM Guest g WHERE g.guestId = :guestId")
@@ -43,31 +36,20 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Guest.findByStatus", query = "SELECT g FROM Guest g WHERE g.status = :status")
     , @NamedQuery(name = "Guest.findByUpdatedBy", query = "SELECT g FROM Guest g WHERE g.updatedBy = :updatedBy")
     , @NamedQuery(name = "Guest.findByUpdatedOn", query = "SELECT g FROM Guest g WHERE g.updatedOn = :updatedOn")})
-public class Guest implements Serializable {
+public class Guest extends LearningSystem implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
+    @Basic(optional = false)
     @Column(name = "guestId")
     private Integer guestId;
-    
-    @NotBlank
-    @Size(max = 50)
-    @Column(name = "firstName", nullable = false)
-    private String firstName;
-    
-    @NotBlank
-    @Size(max = 50)
-    @Column(name = "lastName", nullable = false)
-    private String lastName;
-
-    @Size(max = 20)
+    @Size(max = 255)
     @Column(name = "createdBy")
     private String createdBy;
-
     @Column(name = "createdOn")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
-
+ 
     @Size(max = 255)
     @Column(name = "status")
     private String status;
@@ -77,28 +59,18 @@ public class Guest implements Serializable {
     @Column(name = "updatedOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
+   /* @JoinColumn(name = "userId", referencedColumnName = "userId")
     @ManyToOne
-    private Authuser userId;
+    private Authuser userId;*/
 
     public Guest() {
     }
 
     public Guest(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        super(firstName, lastName);
     }
-
-    public Guest(String firstName, String lastName, String createdBy, Date createdOn, Authuser userId) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.createdBy = createdBy;
-        this.createdOn = createdOn;
-        this.userId = userId;
-    }
-
-  
-    public Guest(Integer guestId) {
+    
+    /*public Guest(Integer guestId) {
         this.guestId = guestId;
     }
 
@@ -108,7 +80,7 @@ public class Guest implements Serializable {
 
     public void setGuestId(Integer guestId) {
         this.guestId = guestId;
-    }
+    }*/
 
     public String getCreatedBy() {
         return createdBy;
@@ -126,21 +98,6 @@ public class Guest implements Serializable {
         this.createdOn = createdOn;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public String getStatus() {
         return status;
@@ -166,16 +123,13 @@ public class Guest implements Serializable {
         this.updatedOn = updatedOn;
     }
 
-    public Authuser getUserId() {
+    /*public Authuser getUserId() {
         return userId;
     }
 
     public void setUserId(Authuser userId) {
         this.userId = userId;
     }
-
-    
-    
 
     @Override
     public int hashCode() {
@@ -196,12 +150,10 @@ public class Guest implements Serializable {
         }
         return true;
     }
-
-
+*/
     @Override
     public String toString() {
-        return "edu.iit.sat.itmd4515.mvaity.domain.Guest[ guestId=" + guestId + " ]";
+        return "edu.iit.sat.itmd4515.mvaity.domain.Guest[ guestId=" + guestId + "firstName=" + firstName + ", lastName=" + lastName + " ]";
     }
-    
     
 }

@@ -5,39 +5,39 @@
  */
 package edu.iit.sat.itmd4515.mvaity.domain;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Minal
  */
-public class Instructor extends Users {
+@Entity
+@Table(name = "instructor")
+@NamedQueries({
+    @NamedQuery(name = "Instructor.findAll", query = "SELECT i FROM Instructor i")
+    , @NamedQuery(name = "Instructor.findByInstructorId", query = "SELECT i FROM Instructor i WHERE i.instructorId = :instructorId")
+    , @NamedQuery(name = "Instructor.findByCreatedBy", query = "SELECT i FROM Instructor i WHERE i.createdBy = :createdBy")
+    , @NamedQuery(name = "Instructor.findByCreatedOn", query = "SELECT i FROM Instructor i WHERE i.createdOn = :createdOn")
+    , @NamedQuery(name = "Instructor.findByFirstName", query = "SELECT i FROM Instructor i WHERE i.firstName = :firstName")
+    , @NamedQuery(name = "Instructor.findByLastName", query = "SELECT i FROM Instructor i WHERE i.lastName = :lastName")
+    , @NamedQuery(name = "Instructor.findByStatus", query = "SELECT i FROM Instructor i WHERE i.status = :status")
+    , @NamedQuery(name = "Instructor.findByUpdatedBy", query = "SELECT i FROM Instructor i WHERE i.updatedBy = :updatedBy")
+    , @NamedQuery(name = "Instructor.findByUpdatedOn", query = "SELECT i FROM Instructor i WHERE i.updatedOn = :updatedOn")})
+public class Instructor extends LearningSystem implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     
-    // bi-directional ManyToOne/OneToMany
-    // default is this is FK.  we can change with JoinTable
-    @ManyToOne
-    //@JoinTable
-    private Students students;
-
-    // inverse side of bi-directional ManyToOne/OneToMany
-    @OneToMany(mappedBy = "Instructor")
-    private List<LearningSystem> LearningSystems = new ArrayList<>();
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     @Basic(optional = false)
     @Column(name = "instructorId")
     private Integer instructorId;
@@ -47,12 +47,7 @@ public class Instructor extends Users {
     @Column(name = "createdOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
-    @Size(max = 255)
-    @Column(name = "firstName")
-    private String firstName;
-    @Size(max = 255)
-    @Column(name = "lastName")
-    private String lastName;
+   
     @Size(max = 255)
     @Column(name = "status")
     private String status;
@@ -62,14 +57,16 @@ public class Instructor extends Users {
     @Column(name = "updatedOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-    private List<CourseInstructorMapping> courseInstructorMappingList;
-    
     
 
     public Instructor() {
     }
 
-    public Instructor(Integer instructorId) {
+    
+    public Instructor(String firstName, String lastName) {
+        super(firstName, lastName);
+    }
+    /*public Instructor(Integer instructorId) {
         this.instructorId = instructorId;
     }
 
@@ -79,7 +76,7 @@ public class Instructor extends Users {
 
     public void setInstructorId(Integer instructorId) {
         this.instructorId = instructorId;
-    }
+    }*/
 
     public String getCreatedBy() {
         return createdBy;
@@ -97,21 +94,7 @@ public class Instructor extends Users {
         this.createdOn = createdOn;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+  
 
     public String getStatus() {
         return status;
@@ -137,6 +120,8 @@ public class Instructor extends Users {
         this.updatedOn = updatedOn;
     }
 
+    
+/*
     @Override
     public int hashCode() {
         int hash = 0;
@@ -156,19 +141,10 @@ public class Instructor extends Users {
         }
         return true;
     }
-
+*/
     @Override
     public String toString() {
-        return "edu.iit.sat.itmd4515.mvaity.domain.Instructor[ instructorId=" + instructorId + " ]";
+        return "edu.iit.sat.itmd4515.mvaity.domain.Instructor[ instructorId=" + instructorId + "firstName=" + firstName + ", lastName=" + lastName + " ]";
     }
-
-    @XmlTransient
-    public List<CourseInstructorMapping> getCourseInstructorMappingList() {
-        List<CourseInstructorMapping> courseInstructorMappingList = null;
-        return courseInstructorMappingList;
-    }
-
-    public void setCourseInstructorMappingList(List<CourseInstructorMapping> courseInstructorMappingList) {
-        this.courseInstructorMappingList = courseInstructorMappingList;
-    }
+    
 }

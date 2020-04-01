@@ -5,38 +5,43 @@
  */
 package edu.iit.sat.itmd4515.mvaity.domain;
 
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlTransient;
+
 
 /**
  *
  * @author Minal
  */
 @Entity
-public class Course extends AbstractEntity {
+@Table(name = "course")
+@NamedQueries({
+    @NamedQuery(name = "Course.findAll", query = "SELECT c FROM Course c")
+    , @NamedQuery(name = "Course.findByCourseId", query = "SELECT c FROM Course c WHERE c.courseId = :courseId")
+    , @NamedQuery(name = "Course.findByCourseDuration", query = "SELECT c FROM Course c WHERE c.courseDuration = :courseDuration")
+    , @NamedQuery(name = "Course.findByCourseName", query = "SELECT c FROM Course c WHERE c.courseName = :courseName")
+    , @NamedQuery(name = "Course.findByCreatedBy", query = "SELECT c FROM Course c WHERE c.createdBy = :createdBy")
+    , @NamedQuery(name = "Course.findByCreatedOn", query = "SELECT c FROM Course c WHERE c.createdOn = :createdOn")
+    , @NamedQuery(name = "Course.findByStatus", query = "SELECT c FROM Course c WHERE c.status = :status")
+    , @NamedQuery(name = "Course.findByUpdatedBy", query = "SELECT c FROM Course c WHERE c.updatedBy = :updatedBy")
+    , @NamedQuery(name = "Course.findByUpdatedOn", query = "SELECT c FROM Course c WHERE c.updatedOn = :updatedOn")})
+public class Course extends AbstractEntity implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "courseId")
-    private Integer courseId;
+   
     @Size(max = 255)
     @Column(name = "courseDuration")
     private String courseDuration;
@@ -58,78 +63,21 @@ public class Course extends AbstractEntity {
     @Column(name = "updatedOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-    @OneToMany(mappedBy = "courseId")
-    private List<CourseWiseMaterial> coursewisematerialList;
-    @OneToMany(mappedBy = "courseId")
-    private List<Assignment> assignmentList;
-    @OneToMany(mappedBy = "courseId")
-    private List<StudentRequestCourse> studentrequestcourseList;
-    @OneToMany(mappedBy = "courseId")
-    private List<TeachingAssistant> teachingassistantList;
+    //@OneToMany(mappedBy = "courseId")
+    //private List<CourseWiseMaterial> coursewisematerialList;
+    //@OneToMany(mappedBy = "courseId")
+    //private List<Assignment> assignmentList;
+    @OneToMany(mappedBy = "course")
+    private List<StudentRequestCourse> studentrequestcourseList = new ArrayList<>();
+    // bi-directional ManyToOne/OneToMany
+    @ManyToOne
+    private TeachingAssistant teachingassistantList;
 
-    private String name;
-    @ManyToMany
-    @JoinTable(name = "course_students",
-            joinColumns = @JoinColumn(name = "courseId"),
-            inverseJoinColumns = @JoinColumn(name = "studentId"))
-    private List<Students> students = new ArrayList<>();
-    
     public Course() {
     }
-    
-    public Course( String name) {
-        this.name = name;
-    }
 
-    public void addStudents(Students t) {
-        if (!this.students.contains(t)) {
-            this.students.add(t);
-        }
-        if (!t.getCourses().contains(this)) {
-            t.getCourses().add(this);
-        }
-    }
-
-    public void removeStudents(Students t) {
-        if (this.students.contains(t)) {
-            this.students.remove(t);
-        }
-        if (t.getCourses().contains(this)) {
-            t.getCourses().remove(this);
-        }
-    }
-
-    
-
-    /**
-     * Get the value of name
-     *
-     * @return the value of name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Set the value of name
-     *
-     * @param name new value of name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Course{" + "Course id=" + courseId + "name=" + name + '}';
-    }
-
-    public List<Students> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Students> students) {
-        this.students = students;
+    /*public Course(Integer courseId) {
+        this.courseId = courseId;
     }
 
     public Integer getCourseId() {
@@ -138,7 +86,7 @@ public class Course extends AbstractEntity {
 
     public void setCourseId(Integer courseId) {
         this.courseId = courseId;
-    }
+    }*/
 
     public String getCourseDuration() {
         return courseDuration;
@@ -195,7 +143,7 @@ public class Course extends AbstractEntity {
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
     }
-
+/*
     @XmlTransient
     public List<CourseWiseMaterial> getCoursewisematerialList() {
         return coursewisematerialList;
@@ -213,8 +161,8 @@ public class Course extends AbstractEntity {
     public void setAssignmentList(List<Assignment> assignmentList) {
         this.assignmentList = assignmentList;
     }
-
-    @XmlTransient
+*/
+   
     public List<StudentRequestCourse> getStudentrequestcourseList() {
         return studentrequestcourseList;
     }
@@ -223,15 +171,15 @@ public class Course extends AbstractEntity {
         this.studentrequestcourseList = studentrequestcourseList;
     }
 
-    @XmlTransient
-    public List<TeachingAssistant> getTeachingassistantList() {
+   
+    public TeachingAssistant getTeachingAssistant() {
         return teachingassistantList;
     }
 
-    public void setTeachingassistantList(List<TeachingAssistant> teachingassistantList) {
+    public void setTeachingAssistant(TeachingAssistant teachingassistantList) {
         this.teachingassistantList = teachingassistantList;
     }
-
+/*
     @Override
     public int hashCode() {
         int hash = 0;
@@ -251,6 +199,10 @@ public class Course extends AbstractEntity {
         }
         return true;
     }
-
+*/
+    @Override
+    public String toString() {
+        return "edu.iit.sat.itmd4515.mvaity.domain.Course[ Id=" + id + " ]";
+    }
     
 }
