@@ -11,11 +11,9 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -65,38 +63,36 @@ public class CourseWiseMaterial extends AbstractEntity implements Serializable {
     @Column(name = "updatedOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-    //@JoinColumn(name = "courseId", referencedColumnName = "courseId")
-    //@ManyToOne
-    //private Course courseId;
-    @ManyToMany
-    @JoinTable(name = "teachingassistant_courseWiseMaterial",
-            joinColumns = @JoinColumn(name = "courseWiseMaterial_id"),
-            inverseJoinColumns = @JoinColumn(name = "teachingassistant_id"))
+    
+    // inverse side of bi-directional ManyToOne/OneToMany
+    @OneToMany(mappedBy = "courseWiseMaterial" )
+    private List<Instructor> instructorList = new ArrayList<>();
+    
+    // inverse side of bi-directional ManyToMany
+    @OneToMany(mappedBy = "courseWiseMaterialList" )
     private List<TeachingAssistant> teachingassistantList = new ArrayList<>();
+   
 
     public CourseWiseMaterial() {
     }
-
-    
-    public void addTeachingAssistant(TeachingAssistant a) {
-        if (!this.teachingassistantList.contains(a)) {
-            this.teachingassistantList.add(a);
-        }
-        if (!a.getCourseWiseMaterial().contains(this)) {
-            a.getCourseWiseMaterial().add(this);
-        }
+   
+    public List<Instructor> getInstructor() {
+        return instructorList;
     }
 
-    public void removeTeachingAssistant(TeachingAssistant a) {
-        if (this.teachingassistantList.contains(a)) {
-            this.teachingassistantList.remove(a);
-        }
-        if (a.getCourseWiseMaterial().contains(this)) {
-            a.getCourseWiseMaterial().remove(this);
-        }
+    public void setInstructor(List<Instructor> instructorList) {
+        this.instructorList = instructorList;
+    }
+    
+    
+
+    public List<TeachingAssistant> getTeachingAssistant() {
+        return teachingassistantList;
     }
 
-    
+    public void setTeachingAssistant(List<TeachingAssistant> teachingassistantList) {
+        this.teachingassistantList = teachingassistantList;
+    }
     
     public CourseWiseMaterial(String createdBy) {
         this.createdBy = createdBy;
@@ -152,44 +148,7 @@ public class CourseWiseMaterial extends AbstractEntity implements Serializable {
         this.updatedOn = updatedOn;
     }
 
-    /*
-    public Course getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(Course courseId) {
-        this.courseId = courseId;
-    }*/
-
    
-    public List<TeachingAssistant> getTeachingAssistant() {
-        return teachingassistantList;
-    }
-
-    public void setTeachingAssistant(List<TeachingAssistant> teachingassistantList) {
-        this.teachingassistantList = teachingassistantList;
-    }
-/*
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (courseWiseMaterialId != null ? courseWiseMaterialId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CourseWiseMaterial)) {
-            return false;
-        }
-        CourseWiseMaterial other = (CourseWiseMaterial) object;
-        if ((this.courseWiseMaterialId == null && other.courseWiseMaterialId != null) || (this.courseWiseMaterialId != null && !this.courseWiseMaterialId.equals(other.courseWiseMaterialId))) {
-            return false;
-        }
-        return true;
-    }
-*/
     @Override
     public String toString() {
         return "edu.iit.sat.itmd4515.mvaity.domain.Coursewisematerial[ id=" + id + "createdBy=" + createdBy + " ]";
