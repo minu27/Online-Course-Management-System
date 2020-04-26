@@ -62,9 +62,9 @@ public class WelcomeServlet extends HttpServlet {
         String fname = (String) request.getSession().getAttribute("firstName");
         String lname = (String) request.getSession().getAttribute("lastName");
         String email = (String) request.getSession().getAttribute("emailId");
-        String gender = (String) request.getSession().getAttribute("gender");
+        String studentId = (String) request.getSession().getAttribute("studentId");
 
-        Students st = new Students(fname, lname, email, gender);
+        Students st = new Students(fname, lname, email, studentId);
         LOG.info("Constructed instance:" + st.toString());
        
        
@@ -110,16 +110,25 @@ public class WelcomeServlet extends HttpServlet {
         String stfirstName = request.getParameter("firstName");
         String stlastName = request.getParameter("lastName");
         String stemailId = request.getParameter("emailId");
-        String stgender = request.getParameter("gender");
+        String ststudentId = request.getParameter("studentId");
        
 
         LOG.info("Caught parameter first name:" + stfirstName );
         LOG.info("Caught parameter last name:" + stlastName );
         LOG.info("Caught parameter email:" + stemailId );
-        LOG.info("Caught parameter gender:" + stgender );
+        LOG.info("Caught parameter studentId:" + ststudentId );
        
+        /*Integer ststudentId = null;
+
+        if (studentId != null && !(studentId.isEmpty())) {
+            // this is just as a date example for you - not a recommendation!
+            // it has the date from the user input, and hard-wired to current time
+            ststudentId = Integer.parseInt(studentId);
+        }
+        */
+        
         //Object creation
-        Students st = new Students(stfirstName, stlastName, stemailId, stgender);
+        Students st = new Students(stfirstName, stlastName, stemailId, ststudentId);
         LOG.info("Constructed instance:" + st.toString());
         
         

@@ -19,10 +19,10 @@ public class RelationshipTest extends AbstractJPATest{
     
     @Test
     public void StudentRequestCourse_Students_ManyToOne_UnidirectionalTest(){
-        Students st1 = new Students("Minal",
-                "Vaity",
-                "mvaity@hawk.iit.edu",
-                "female");
+        Students st1 = new Students("TEST Minal",
+                "TEST Vaity",
+                "TEST mvaity@hawk.iit.edu",
+                "TEST A01");
         
         StudentRequestCourse src = new StudentRequestCourse();
         

@@ -64,17 +64,17 @@ public class StartupDatabaseLoaderService {
         Students st1 = new Students("Minal",
                 "Vaity",
                 "mvaity@hawk.iit.edu",
-                "female");
+                "A01");
        
-        Students st2 = new Students("Minal",
-                "Vaity",
-                "mvaity@hawk.iit.edu",
-                "female");
+        Students st2 = new Students("Shubham",
+                "Madke",
+                "smadke@hawk.iit.edu",
+                "A02");
         
-        Students st3 = new Students("Minal",
-                "Vaity",
-                "mvaity@hawk.iit.edu",
-                "female");
+        Students st3 = new Students("Yash",
+                "Agrawal",
+                "yagrawal@hawk.iit.edu",
+                "A03");
         
         stSvc.create(st1);
         stSvc.create(st2);

@@ -6,6 +6,7 @@
 package edu.iit.sat.itmd4515.mvaity.domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
@@ -45,9 +47,9 @@ public class Students extends AbstractEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     
     
-    @Basic(optional = false)
-    @Column(name = "studentId")
-    private Integer studentId;
+    @NotBlank
+    @Column(unique = true, nullable = false)
+    private String studentId;
     @Size(max = 255)
     @Column(name = "createdBy")
     private String createdBy;
@@ -90,14 +92,20 @@ public class Students extends AbstractEntity implements Serializable {
     }
 
    
-    public Students(String firstName, String lastName, String emailId, String gender) {
+    public Students(String firstName, String lastName, String emailId, String studentId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailId = emailId;
-        this.gender = gender;
+        this.studentId = studentId;
     }
     
- 
+    public Students(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
     
 
     public String getCreatedBy() {
@@ -207,13 +215,18 @@ public class Students extends AbstractEntity implements Serializable {
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Students)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Students other = (Students) object;
-        if ((this.studentId == null && other.studentId != null) || (this.studentId != null && !this.studentId.equals(other.studentId))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Students other = (Students) obj;
+        if (!Objects.equals(this.studentId, other.studentId)) {
             return false;
         }
         return true;
@@ -221,7 +234,7 @@ public class Students extends AbstractEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.iit.sat.itmd4515.mvaity.domain.Students[ studentId=" + studentId + " ]";
+        return "edu.iit.sat.itmd4515.mvaity.domain.Students[ studentId = " + studentId + " ]";
     }
 
     public byte[] getFacialTokanImage() {

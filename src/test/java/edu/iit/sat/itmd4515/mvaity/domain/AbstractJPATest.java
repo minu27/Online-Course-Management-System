@@ -39,10 +39,10 @@ abstract class AbstractJPATest {
         em = emf.createEntityManager();
         tx = em.getTransaction();
 
-        Students st = new Students("Minal",
-                "Vaity",
-                "mvaity@hawk.iit.edu",
-                "female");
+        Students st = new Students("TEST Minal",
+                "TEST Vaity",
+                "TEST mvaity@hawk.iit.edu",
+                "TEST");
 
         tx.begin();
         em.persist(st);
@@ -53,8 +53,8 @@ abstract class AbstractJPATest {
     public void tearDown() {
         Students st 
                 // = em.createQuery("select e from Exercise e where e.code = :code", Exercise.class)
-                = em.createNamedQuery("Students.findByCode", Students.class)
-                        .setParameter("code", "TEST")
+                = em.createNamedQuery("Students.findByStudentId", Students.class)
+                        .setParameter("studentId", "TEST")
                         .getSingleResult();
 
         tx.begin();

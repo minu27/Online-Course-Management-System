@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -27,14 +28,14 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "coursewisematerial")
 @NamedQueries({
-    @NamedQuery(name = "Coursewisematerial.findAll", query = "SELECT c FROM Coursewisematerial c")
-    , @NamedQuery(name = "Coursewisematerial.findByCourseWiseMaterialId", query = "SELECT c FROM Coursewisematerial c WHERE c.courseWiseMaterialId = :courseWiseMaterialId")
-    , @NamedQuery(name = "Coursewisematerial.findByCreatedBy", query = "SELECT c FROM Coursewisematerial c WHERE c.createdBy = :createdBy")
-    , @NamedQuery(name = "Coursewisematerial.findByCreatedOn", query = "SELECT c FROM Coursewisematerial c WHERE c.createdOn = :createdOn")
-    , @NamedQuery(name = "Coursewisematerial.findByDeadLine", query = "SELECT c FROM Coursewisematerial c WHERE c.deadLine = :deadLine")
-    , @NamedQuery(name = "Coursewisematerial.findByStatus", query = "SELECT c FROM Coursewisematerial c WHERE c.status = :status")
-    , @NamedQuery(name = "Coursewisematerial.findByUpdatedBy", query = "SELECT c FROM Coursewisematerial c WHERE c.updatedBy = :updatedBy")
-    , @NamedQuery(name = "Coursewisematerial.findByUpdatedOn", query = "SELECT c FROM Coursewisematerial c WHERE c.updatedOn = :updatedOn")})
+    @NamedQuery(name = "CourseWiseMaterial.findAll", query = "SELECT c FROM CourseWiseMaterial c")
+    , @NamedQuery(name = "CourseWiseMaterial.findByCourseWiseMaterialId", query = "SELECT c FROM CourseWiseMaterial c WHERE c.courseWiseMaterialId = :courseWiseMaterialId")
+    , @NamedQuery(name = "CourseWiseMaterial.findByCreatedBy", query = "SELECT c FROM CourseWiseMaterial c WHERE c.createdBy = :createdBy")
+    , @NamedQuery(name = "CourseWiseMaterial.findByCreatedOn", query = "SELECT c FROM CourseWiseMaterial c WHERE c.createdOn = :createdOn")
+    , @NamedQuery(name = "CourseWiseMaterial.findByDeadLine", query = "SELECT c FROM CourseWiseMaterial c WHERE c.deadLine = :deadLine")
+    , @NamedQuery(name = "CourseWiseMaterial.findByStatus", query = "SELECT c FROM CourseWiseMaterial c WHERE c.status = :status")
+    , @NamedQuery(name = "CourseWiseMaterial.findByUpdatedBy", query = "SELECT c FROM CourseWiseMaterial c WHERE c.updatedBy = :updatedBy")
+    , @NamedQuery(name = "CourseWiseMaterial.findByUpdatedOn", query = "SELECT c FROM CourseWiseMaterial c WHERE c.updatedOn = :updatedOn")})
 public class CourseWiseMaterial extends LearningSystem implements Serializable {
 
     
@@ -43,9 +44,9 @@ public class CourseWiseMaterial extends LearningSystem implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    /*@Basic(optional = false)
+    @Basic(optional = false)
     @Column(name = "courseWiseMaterialId")
-    private Integer courseWiseMaterialId;*/
+    private Integer courseWiseMaterialId;
    
     @Size(max = 255)
     @Column(name = "createdBy")

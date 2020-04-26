@@ -34,7 +34,7 @@ public class StudentTest extends AbstractJPATest{
         Students st = new Students("Minal",
                 "Vaity",
                 "mvaity@hawk.iit.edu",
-                "female");
+                "A01");
 
         tx.begin();
 
@@ -61,10 +61,10 @@ public class StudentTest extends AbstractJPATest{
     
     @Test
     public void createTestShouldFailWithExpectedException() {
-        Students st = new Students("Minal",
-                "Vaity",
-                "mvaity@hawk.iit.edu",
-                "female");
+        Students st = new Students("TEST Minal",
+                "TEST Vaity",
+                "TEST mvaity@hawk.iit.edu",
+                "TEST");
 
         assertThrows(RollbackException.class, () -> {
             tx.begin();
@@ -75,24 +75,26 @@ public class StudentTest extends AbstractJPATest{
     
     @Test
     public void readTest() {
-        Students st = em.createQuery("select s from Students s where s.emailId = :emailId", Students.class)
-                        .setParameter("createdBy", "mvaity@hawk.iit.edu")
+        Students st = em.createQuery("select s from Students s where s.studentId = :studentId", Students.class)
+                        .setParameter("studentId", "TEST")
                         .getSingleResult();
         
         assertNotNull(st);
         assertTrue(st.getId() >= 1l);
-        assertEquals("TEST", st.getId());
+        assertEquals("TEST", st.getStudentId());
     }
 
     @Test
     public void updateTest() {
-        Students st = em.createQuery("select s from Students s where s.emailId = :emailId", Students.class)
-                        .setParameter("createdBy", "mvaity@hawk.iit.edu")
+        
+        Students st = em.createQuery("select s from Students s where s.studentId = :studentId", Students.class)
+                        .setParameter("studentId", "TEST")
                         .getSingleResult();
-
+       
         tx.begin();
     
         st.setFirstName("Test Omkar");
+        st.setLastName("Test Vaity");
         tx.commit();
         
         Students reFindTheEntity = em.find(Students.class, st.getId());
@@ -102,6 +104,7 @@ public class StudentTest extends AbstractJPATest{
         
         
         assertEquals(st.getFirstName(), reFindTheEntity.getFirstName());
+        assertEquals(st.getLastName(), reFindTheEntity.getLastName());
     }
 
     @Test
@@ -109,7 +112,7 @@ public class StudentTest extends AbstractJPATest{
         Students st = new Students("Minal",
                 "Vaity",
                 "mvaity@hawk.iit.edu",
-                "female");
+                "A01");
 
         tx.begin();
         em.persist(st);

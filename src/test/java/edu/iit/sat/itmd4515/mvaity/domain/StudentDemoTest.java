@@ -28,7 +28,7 @@ public class StudentDemoTest {
         Students st = new Students("Demo Minal",
                 "Demo Vaity",
                 "Demo mvaity@hawk.iit.edu",
-                "Demo female");
+                "DEMO");
         
         
         tx.begin();

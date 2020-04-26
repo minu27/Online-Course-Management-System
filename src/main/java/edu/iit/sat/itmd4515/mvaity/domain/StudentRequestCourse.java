@@ -26,19 +26,19 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "studentrequestcourse")
 @NamedQueries({
-    @NamedQuery(name = "Studentrequestcourse.findAll", query = "SELECT s FROM Studentrequestcourse s")
-    , @NamedQuery(name = "Studentrequestcourse.findByStudentReqCourseId", query = "SELECT s FROM studentrequestcourse s WHERE s.studentReqCourseId = :studentReqCourseId")
-    , @NamedQuery(name = "Studentrequestcourse.findByCreatedBy", query = "SELECT s FROM Studentrequestcourse s WHERE s.createdBy = :createdBy")
-    , @NamedQuery(name = "Studentrequestcourse.findByCreatedOn", query = "SELECT s FROM Studentrequestcourse s WHERE s.createdOn = :createdOn")
-    , @NamedQuery(name = "Studentrequestcourse.findByStatus", query = "SELECT s FROM Studentrequestcourse s WHERE s.status = :status")
-    , @NamedQuery(name = "Studentrequestcourse.findByUpdatedBy", query = "SELECT s FROM Studentrequestcourse s WHERE s.updatedBy = :updatedBy")
-    , @NamedQuery(name = "Studentrequestcourse.findByUpdatedOn", query = "SELECT s FROM Studentrequestcourse s WHERE s.updatedOn = :updatedOn")})
+    @NamedQuery(name = "StudentRequestCourse.findAll", query = "SELECT s FROM StudentRequestCourse s")
+    , @NamedQuery(name = "StudentRequestCourse.findByStudentReqCourseId", query = "SELECT s FROM StudentRequestCourse s WHERE s.studentReqCourseId = :studentReqCourseId")
+    , @NamedQuery(name = "StudentRequestCourse.findByCreatedBy", query = "SELECT s FROM StudentRequestCourse s WHERE s.createdBy = :createdBy")
+    , @NamedQuery(name = "StudentRequestCourse.findByCreatedOn", query = "SELECT s FROM StudentRequestCourse s WHERE s.createdOn = :createdOn")
+    , @NamedQuery(name = "StudentRequestCourse.findByStatus", query = "SELECT s FROM StudentRequestCourse s WHERE s.status = :status")
+    , @NamedQuery(name = "StudentRequestCourse.findByUpdatedBy", query = "SELECT s FROM StudentRequestCourse s WHERE s.updatedBy = :updatedBy")
+    , @NamedQuery(name = "StudentRequestCourse.findByUpdatedOn", query = "SELECT s FROM StudentRequestCourse s WHERE s.updatedOn = :updatedOn")})
 public class StudentRequestCourse extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
-    
-    
+    @Basic(optional = false)
+    @Column(name = "studentReqCourseId")
+    private Integer studentReqCourseId;
     @Size(max = 255)
     @Column(name = "createdBy")
     private String createdBy;
@@ -154,10 +154,10 @@ public class StudentRequestCourse extends AbstractEntity implements Serializable
         }
         return true;
     }
-
+*/
     @Override
     public String toString() {
         return "edu.iit.sat.itmd4515.mvaity.domain.StudentRequestCourse[ studentReqCourseId=" + studentReqCourseId + " ]";
-    }*/
+    }
     
 }
