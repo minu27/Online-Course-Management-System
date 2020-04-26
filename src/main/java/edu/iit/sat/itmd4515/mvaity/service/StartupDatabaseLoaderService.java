@@ -46,8 +46,8 @@ public class StartupDatabaseLoaderService {
         iSvc.create(i3);
         
         //TeachingAssistant
-        TeachingAssistant ta1 = new TeachingAssistant("Minal", "Vaity");
-        TeachingAssistant ta2 = new TeachingAssistant("Scott", "Spyrison");
+        TeachingAssistant ta1 = new TeachingAssistant("Minal Vaity");
+        TeachingAssistant ta2 = new TeachingAssistant("Scott Spyrison");
         
         taSvc.create(ta1);
         taSvc.create(ta2);
@@ -55,8 +55,8 @@ public class StartupDatabaseLoaderService {
         CourseWiseMaterial cw1 = new CourseWiseMaterial("Minal Vaity");
         CourseWiseMaterial cw2 = new CourseWiseMaterial("Scott Spyrison");
         
-        cw1.addTeachingAssistant(ta1);
-        cw2.addTeachingAssistant(ta1);
+        ta1.addCourseWiseMaterial(cw1);
+        ta2.addCourseWiseMaterial(cw2);
         
         cwSvc.create(cw1);
         cwSvc.create(cw2);

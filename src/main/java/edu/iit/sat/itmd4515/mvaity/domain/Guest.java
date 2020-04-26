@@ -59,9 +59,9 @@ public class Guest extends LearningSystem implements Serializable {
     @Column(name = "updatedOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-   /* @JoinColumn(name = "userId", referencedColumnName = "userId")
+   /* @JoinColumn(name = "userId", referencedColumnName = "userId")*/
     @ManyToOne
-    private Authuser userId;*/
+    private Authuser userId;
 
     public Guest() {
     }

@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -34,7 +35,7 @@ import javax.validation.constraints.Size;
     , @NamedQuery(name = "Coursewisematerial.findByStatus", query = "SELECT c FROM Coursewisematerial c WHERE c.status = :status")
     , @NamedQuery(name = "Coursewisematerial.findByUpdatedBy", query = "SELECT c FROM Coursewisematerial c WHERE c.updatedBy = :updatedBy")
     , @NamedQuery(name = "Coursewisematerial.findByUpdatedOn", query = "SELECT c FROM Coursewisematerial c WHERE c.updatedOn = :updatedOn")})
-public class CourseWiseMaterial extends AbstractEntity implements Serializable {
+public class CourseWiseMaterial extends LearningSystem implements Serializable {
 
     
     @Column(name = "materialFile")
@@ -69,7 +70,7 @@ public class CourseWiseMaterial extends AbstractEntity implements Serializable {
     private List<Instructor> instructorList = new ArrayList<>();
     
     // inverse side of bi-directional ManyToMany
-    @OneToMany(mappedBy = "courseWiseMaterialList" )
+    @ManyToMany(mappedBy = "coursewisematerialList" )
     private List<TeachingAssistant> teachingassistantList = new ArrayList<>();
    
 
@@ -151,7 +152,7 @@ public class CourseWiseMaterial extends AbstractEntity implements Serializable {
    
     @Override
     public String toString() {
-        return "edu.iit.sat.itmd4515.mvaity.domain.Coursewisematerial[ id=" + id + "createdBy=" + createdBy + " ]";
+        return "edu.iit.sat.itmd4515.mvaity.domain.CourseWiseMaterial[ id=" + id + "createdBy=" + createdBy + " ]";
     }
 
     public byte[] getMaterialFile() {

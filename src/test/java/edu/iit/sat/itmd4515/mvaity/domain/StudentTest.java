@@ -100,7 +100,7 @@ public class StudentTest extends AbstractJPATest{
         System.out.println("Original Entity updated with set methods in a transaction:" + st.toString());
         System.out.println("Entity re-found fom the database to compare:" + reFindTheEntity.toString());
         
-        //assertEquals(gu.getAuth(), reFindTheEntity.getAuth());
+        
         assertEquals(st.getFirstName(), reFindTheEntity.getFirstName());
     }
 

@@ -89,8 +89,8 @@ public class Authuser extends AbstractEntity implements Serializable {
     private String userType;
     @OneToMany(mappedBy = "userId")
     private List<Instructor> instructorList;
-    @OneToMany(mappedBy = "userId")
-    private List<Students> studentsList;
+    //@OneToMany(mappedBy = "userId")
+    //private List<Students> studentsList;
     @OneToMany(mappedBy = "userId")
     private List<Guest> guestList;
     @OneToMany(mappedBy = "userId")
@@ -216,7 +216,7 @@ public class Authuser extends AbstractEntity implements Serializable {
         this.instructorList = instructorList;
     }
 
-  
+  /*
     public List<Students> getStudentsList() {
         return studentsList;
     }
@@ -224,7 +224,7 @@ public class Authuser extends AbstractEntity implements Serializable {
     public void setStudentsList(List<Students> studentsList) {
         this.studentsList = studentsList;
     }
-
+*/
    
     public List<Guest> getGuestList() {
         return guestList;

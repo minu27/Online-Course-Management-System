@@ -10,6 +10,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -57,7 +58,11 @@ public class Instructor extends LearningSystem implements Serializable {
     @Column(name = "updatedOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-    
+    @ManyToOne
+    private Authuser userId;
+    @ManyToOne
+    private CourseWiseMaterial courseWiseMaterial;
+
 
     public Instructor() {
     }
@@ -66,17 +71,7 @@ public class Instructor extends LearningSystem implements Serializable {
     public Instructor(String firstName, String lastName) {
         super(firstName, lastName);
     }
-    /*public Instructor(Integer instructorId) {
-        this.instructorId = instructorId;
-    }
-
-    public Integer getInstructorId() {
-        return instructorId;
-    }
-
-    public void setInstructorId(Integer instructorId) {
-        this.instructorId = instructorId;
-    }*/
+  
 
     public String getCreatedBy() {
         return createdBy;
@@ -120,28 +115,7 @@ public class Instructor extends LearningSystem implements Serializable {
         this.updatedOn = updatedOn;
     }
 
-    
-/*
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (instructorId != null ? instructorId.hashCode() : 0);
-        return hash;
-    }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Instructor)) {
-            return false;
-        }
-        Instructor other = (Instructor) object;
-        if ((this.instructorId == null && other.instructorId != null) || (this.instructorId != null && !this.instructorId.equals(other.instructorId))) {
-            return false;
-        }
-        return true;
-    }
-*/
     @Override
     public String toString() {
         return "edu.iit.sat.itmd4515.mvaity.domain.Instructor[ instructorId=" + instructorId + "firstName=" + firstName + ", lastName=" + lastName + " ]";

@@ -54,10 +54,12 @@ public class StudentRequestCourse extends AbstractEntity implements Serializable
     @Column(name = "updatedOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-    @JoinColumn(name = "studentReqCourse")
+    //@JoinColumn(name = "studentReqCourse")
+     // unidirectional ManyToOne
     @ManyToOne
     private Course course;
-    @JoinColumn(name = "studentReqCourse")
+    //@JoinColumn(name = "studentReqCourse")
+    // bi-directional ManyToOne/OneToMany
     @ManyToOne
     private Students students;
 

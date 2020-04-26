@@ -25,4 +25,5 @@ public class StudentsService extends AbstractService<Students>{
         return em.createNamedQuery("Students.findAll", entityClass).getResultList();
     }
     
+    
 }

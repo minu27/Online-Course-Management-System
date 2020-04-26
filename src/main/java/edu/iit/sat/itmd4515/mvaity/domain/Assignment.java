@@ -74,7 +74,7 @@ public class Assignment extends LearningSystem implements Serializable {
     @Column(name = "updatedOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-    @JoinColumn(name = "assignment", referencedColumnName = "courseId")
+    /*@JoinColumn(name = "assignment", referencedColumnName = "courseId")
     @ManyToOne
     private Course courseId;
     @JoinColumn(name = "assignment", referencedColumnName = "courseWiseMaterialId")
@@ -82,7 +82,7 @@ public class Assignment extends LearningSystem implements Serializable {
     private CourseWiseMaterial courseWiseMaterialId;
     @JoinColumn(name = "assignment", referencedColumnName = "studentId")
     @ManyToOne
-    private Students studentId;
+    private Students studentId; */
 
     public Assignment() {
     }
@@ -171,7 +171,7 @@ public class Assignment extends LearningSystem implements Serializable {
         this.updatedOn = updatedOn;
     }
 
-
+/*
     public Course getCourseId() {
         return courseId;
     }
@@ -195,7 +195,7 @@ public class Assignment extends LearningSystem implements Serializable {
     public void setStudentId(Students studentId) {
         this.studentId = studentId;
     }
-
+*/
     @Override
     public int hashCode() {
         int hash = 0;
