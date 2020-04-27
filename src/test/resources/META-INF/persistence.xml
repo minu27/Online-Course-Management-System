@@ -11,6 +11,8 @@
     <class>edu.iit.sat.itmd4515.mvaity.domain.Authuser</class>
     <class>edu.iit.sat.itmd4515.mvaity.domain.Guest</class>
     <class>edu.iit.sat.itmd4515.mvaity.domain.Instructor</class>
+    <class>edu.iit.sat.itmd4515.mvaity.domain.security.Group</class>
+    <class>edu.iit.sat.itmd4515.mvaity.domain.security.User</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/itmd4515?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="itmd4515"/>

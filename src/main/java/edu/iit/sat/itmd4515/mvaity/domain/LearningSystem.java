@@ -5,7 +5,10 @@
  */
 package edu.iit.sat.itmd4515.mvaity.domain;
 
+import edu.iit.sat.itmd4515.mvaity.domain.security.User;
+import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -18,6 +21,10 @@ public class LearningSystem extends AbstractEntity {
     protected String firstName;
     protected String lastName;
 
+    @OneToOne
+    @JoinColumn(name = "USERNAME")
+    private User user;
+    
     public LearningSystem() {
     }
 
@@ -41,6 +48,14 @@ public class LearningSystem extends AbstractEntity {
         this.lastName = lastName;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
     @Override
     public String toString() {
         return "LearningSystem{" + "firstName=" + firstName + ", lastName=" + lastName + '}';
