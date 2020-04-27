@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>User Page</title>
+        <title>User Signup</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     
@@ -124,12 +124,23 @@ span.psw {
 } 
 </style>
 
-       <form action="./index.html" method="post" class="modal-content animate">  
+        <div class="imgcontainer"> <h2>Login</h2>  </div>
+       
+       <form action="./LoginServlet" method="post">  
            <div class="imgcontainer"> 
-              welcome to Learning System
+               <img src="img_avatar2.png" alt="Avatar" class="avatar"> 
           </div>
-           <div class="container">              
+           <div class="container"> 
+            <label><b>Username</b></label> 
+            <input type="text" placeholder="Enter Username" name="email" required> 
+
+            <label><b>Password</b></label> 
+            <input type="password" placeholder="Enter Password" name="password" required> 
+
             <button type="submit">Login</button>  
+            
+             <a href="register.html">Create new account</a> 
+            
           </div> 
           
 
