@@ -73,13 +73,13 @@ public class StudentReg extends HttpServlet {
         String lastName = request.getParameter("lastName");
         //String dob=request.getParameter("dob"); 
         String email = request.getParameter("emailId");
-        String gender = request.getParameter("gender");
+        String studentId = request.getParameter("studentId");
 
         //LOG statements
         LOG.info("Caught parameter first name:" + firstName);
         LOG.info("Caught parameter last name:" + lastName);
         LOG.info("Caught parameter email:" + email);
-        LOG.info("Caught parameter gender:" + gender);
+        LOG.info("Caught parameter studentId:" + studentId);
 
         PrintWriter out = response.getWriter();
         try {
@@ -88,9 +88,8 @@ public class StudentReg extends HttpServlet {
 
                 request.getSession().setAttribute("firstName", firstName);
                 request.getSession().setAttribute("lastName", lastName);
-                // request.getSession().setAttribute("dob", dob);
                 request.getSession().setAttribute("emailId", email);
-                request.getSession().setAttribute("gender", gender);
+                request.getSession().setAttribute("studentId", studentId);
 
                 Students st = new Students();
                 request.setAttribute("st", st);

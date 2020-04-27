@@ -66,30 +66,17 @@ public class Course extends AbstractEntity implements Serializable {
     @Column(name = "updatedOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-    //@OneToMany(mappedBy = "courseId")
-    //private List<CourseWiseMaterial> coursewisematerialList;
-    //@OneToMany(mappedBy = "courseId")
-    //private List<Assignment> assignmentList;
+    
     @OneToMany(mappedBy = "course")
     private List<StudentRequestCourse> studentrequestcourseList = new ArrayList<>();
     // bi-directional ManyToOne/OneToMany
     @ManyToOne
-    private TeachingAssistant teachingassistantList;
+    private Instructor instructor;
 
     public Course() {
     }
 
-    /*public Course(Integer courseId) {
-        this.courseId = courseId;
-    }
-
-    public Integer getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
-    }*/
+    
 
     public String getCourseDuration() {
         return courseDuration;
@@ -146,25 +133,7 @@ public class Course extends AbstractEntity implements Serializable {
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
     }
-/*
-    @XmlTransient
-    public List<CourseWiseMaterial> getCoursewisematerialList() {
-        return coursewisematerialList;
-    }
 
-    public void setCoursewisematerialList(List<CourseWiseMaterial> coursewisematerialList) {
-        this.coursewisematerialList = coursewisematerialList;
-    }
-
-    @XmlTransient
-    public List<Assignment> getAssignmentList() {
-        return assignmentList;
-    }
-
-    public void setAssignmentList(List<Assignment> assignmentList) {
-        this.assignmentList = assignmentList;
-    }
-*/
    
     public List<StudentRequestCourse> getStudentrequestcourseList() {
         return studentrequestcourseList;
@@ -175,34 +144,14 @@ public class Course extends AbstractEntity implements Serializable {
     }
 
    
-    public TeachingAssistant getTeachingAssistant() {
-        return teachingassistantList;
+    public Instructor getInstructor() {
+        return instructor;
     }
 
-    public void setTeachingAssistant(TeachingAssistant teachingassistantList) {
-        this.teachingassistantList = teachingassistantList;
-    }
-/*
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (courseId != null ? courseId.hashCode() : 0);
-        return hash;
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Course)) {
-            return false;
-        }
-        Course other = (Course) object;
-        if ((this.courseId == null && other.courseId != null) || (this.courseId != null && !this.courseId.equals(other.courseId))) {
-            return false;
-        }
-        return true;
-    }
-*/
     @Override
     public String toString() {
         return "edu.iit.sat.itmd4515.mvaity.domain.Course[ Id=" + id + " ]";

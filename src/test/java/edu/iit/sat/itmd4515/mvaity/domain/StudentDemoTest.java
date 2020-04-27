@@ -25,10 +25,10 @@ public class StudentDemoTest {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         
-        Students st = new Students("Demo Minal",
-                "Demo Vaity",
-                "Demo mvaity@hawk.iit.edu",
-                "DEMO");
+        Students st = new Students("Phoebe",
+                "Buffay",
+                "pbuffay@hawk.iit.edu",
+                "A04");
         
         
         tx.begin();

@@ -77,16 +77,7 @@ public class Students extends AbstractEntity implements Serializable {
     @Column(name = "updatedOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-  /*  @OneToMany(mappedBy = "studentId")
-    private List<Assignment> assignmentList;
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
-    @ManyToOne
-    private Authuser userId;
-    @OneToMany(mappedBy = "studentId")
-    private List<StudentRequestCourse> studentrequestcourseList; */
-
-    //@ManyToOne
-    //private Authuser userId;
+  
     
     public Students() {
     }
@@ -180,33 +171,7 @@ public class Students extends AbstractEntity implements Serializable {
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
     }
-/*
-    @XmlTransient
-    public List<Assignment> getAssignmentList() {
-        return assignmentList;
-    }
 
-    public void setAssignmentList(List<Assignment> assignmentList) {
-        this.assignmentList = assignmentList;
-    }
-
-    public Authuser getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Authuser userId) {
-        this.userId = userId;
-    }
-
-    @XmlTransient
-    public List<StudentRequestCourse> getStudentrequestcourseList() {
-        return studentrequestcourseList;
-    }
-
-    public void setStudentrequestcourseList(List<StudentRequestCourse> studentrequestcourseList) {
-        this.studentrequestcourseList = studentrequestcourseList;
-    }
-*/
     @Override
     public int hashCode() {
         int hash = 0;

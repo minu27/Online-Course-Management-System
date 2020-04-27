@@ -99,17 +99,6 @@ public class Authuser extends AbstractEntity implements Serializable {
     public Authuser() {
     }
 
-   /* public Authuser(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }*/
 
     public String getCreatedBy() {
         return createdBy;
@@ -215,16 +204,6 @@ public class Authuser extends AbstractEntity implements Serializable {
     public void setInstructorList(List<Instructor> instructorList) {
         this.instructorList = instructorList;
     }
-
-  /*
-    public List<Students> getStudentsList() {
-        return studentsList;
-    }
-
-    public void setStudentsList(List<Students> studentsList) {
-        this.studentsList = studentsList;
-    }
-*/
    
     public List<Guest> getGuestList() {
         return guestList;

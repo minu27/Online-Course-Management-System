@@ -38,19 +38,14 @@
                 <input value="${requestScope.st.email}" type="text" placeholder="Enter Email" name="emailId" required> 
 
                 <br>
-                <div>
-                <label for="gender">Gender:</label>
-                <select name="gender">
-                    <c:forEach var="gender" items="${requestScope.st.gender}">
-                        <option ${requestScope.st.gender eq gender ? 'selected=selected' : ''} value="${gender}">${gender.label}</option>
-                    </c:forEach>
-                </select>
-                </div>
+                <label><b>Student ID</b></label> 
+                <input value="${requestScope.st.studentId}" type="text" placeholder="Enter Student ID" name="studentId" required> 
+                
                  
-
+                <br>
                 <button type="submit">Create</button>  
                 <button type="reset">Reset</button>
-
+            </div>
 
     </body>
 </html>

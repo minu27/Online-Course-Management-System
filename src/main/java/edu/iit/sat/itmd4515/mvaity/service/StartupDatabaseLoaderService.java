@@ -11,6 +11,7 @@ import edu.iit.sat.itmd4515.mvaity.domain.Instructor;
 import edu.iit.sat.itmd4515.mvaity.domain.StudentRequestCourse;
 import edu.iit.sat.itmd4515.mvaity.domain.Students;
 import edu.iit.sat.itmd4515.mvaity.domain.TeachingAssistant;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -24,6 +25,8 @@ import javax.ejb.Startup;
 @Singleton
 public class StartupDatabaseLoaderService {
     
+    private static final Logger LOG = Logger.getLogger(StartupDatabaseLoaderService.class.getName());
+    
     @EJB InstructorService iSvc;
     @EJB TeachingAssistantService taSvc;
     @EJB CourseWiseMaterialService cwSvc;
@@ -36,30 +39,43 @@ public class StartupDatabaseLoaderService {
     
     @PostConstruct
     private void postConstruct() {  
-        //Instructor
-        Instructor i1 = new Instructor ("Minal", "Vaity");
-        Instructor i2 = new Instructor ("Scott", "Spyrison");
-        Instructor i3 = new Instructor ("Nilet", "Dmello");
         
-        iSvc.create(i1);
-        iSvc.create(i2);
-        iSvc.create(i3);
-        
-        //TeachingAssistant
-        TeachingAssistant ta1 = new TeachingAssistant("Minal Vaity");
-        TeachingAssistant ta2 = new TeachingAssistant("Scott Spyrison");
-        
-        taSvc.create(ta1);
-        taSvc.create(ta2);
         //CourseWiseMaterial
-        CourseWiseMaterial cw1 = new CourseWiseMaterial("Minal Vaity");
+        CourseWiseMaterial cw1 = new CourseWiseMaterial("James Papademas");
         CourseWiseMaterial cw2 = new CourseWiseMaterial("Scott Spyrison");
-        
-        ta1.addCourseWiseMaterial(cw1);
-        ta2.addCourseWiseMaterial(cw2);
         
         cwSvc.create(cw1);
         cwSvc.create(cw2);
+        LOG.info("After Student cw1 data is persisted \t"+ cw1);
+        LOG.info("After Student cw2 data is persisted \t"+ cw2);
+        
+        
+        //TeachingAssistant
+        TeachingAssistant ta1 = new TeachingAssistant("Rachel Green");
+        TeachingAssistant ta2 = new TeachingAssistant("Ross Geller");
+        TeachingAssistant ta3 = new TeachingAssistant("Chandler Bing");
+    
+        ta1.addCourseWiseMaterial(cw1);
+        ta2.addCourseWiseMaterial(cw2);
+        ta3.addCourseWiseMaterial(cw2);
+        
+        taSvc.create(ta1);
+        taSvc.create(ta2);
+        taSvc.create(ta3);
+        LOG.info("After TeachingAssistant ta1 data is persisted \t"+ ta1);
+        LOG.info("After TeachingAssistant ta2 data is persisted \t"+ ta2);
+        LOG.info("After TeachingAssistant ta3 data is persisted \t"+ ta3);
+        
+        //Instructor
+        Instructor i1 = new Instructor ("Scott", "Spyrison");
+        Instructor i2 = new Instructor ("Nilet", "Dmello");
+        i1.setCourseWiseMaterial(cw1);
+        i2.setCourseWiseMaterial(cw2);
+        
+        iSvc.create(i1);
+        iSvc.create(i2);
+        LOG.info("After Instructor i1 data is persisted \t"+ i1);
+        LOG.info("After Instructor i2 data is persisted \t"+ i2);
         
         Students st1 = new Students("Minal",
                 "Vaity",
@@ -79,16 +95,20 @@ public class StartupDatabaseLoaderService {
         stSvc.create(st1);
         stSvc.create(st2);
         stSvc.create(st3);
-        
+        LOG.info("After Students st1 data is persisted \t"+ st1);
+        LOG.info("After Students st2 data is persisted \t"+ st2);
+        LOG.info("After Students st3 data is persisted \t"+ st3);
         
         //Course
         Course c1 = new Course();
-        c1.setTeachingAssistant(ta1);
         Course c2 = new Course();
-        c2.setTeachingAssistant(ta2);
+        c1.setInstructor(i1);
+        c2.setInstructor(i2);
         
         cSvc.create(c1);
         cSvc.create(c2);
+        LOG.info("After Course c1 data is persisted \t"+ c1);
+        LOG.info("After Course c2 data is persisted \t"+ c2);
         
         //StudentRequestCourse
         StudentRequestCourse src1 = new StudentRequestCourse();
@@ -106,6 +126,10 @@ public class StartupDatabaseLoaderService {
         srcSvc.create(src1);
         srcSvc.create(src2);
         srcSvc.create(src3);
+        LOG.info("After StudentRequestCourse src1 data is persisted \t"+ src1);
+        LOG.info("After StudentRequestCourse src2 data is persisted \t"+ src2);
+        LOG.info("After StudentRequestCourse src3 data is persisted \t"+ src3);
+        
         
     }
     

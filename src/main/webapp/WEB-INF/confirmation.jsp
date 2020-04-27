@@ -18,7 +18,7 @@
             <li>First Name : ${requestScope.st.firstName}</li>
             <li>Last Name : ${requestScope.st.lastName}</li>
             <li>Email : ${requestScope.st.emailId}</li>
-            <li>Gender : ${requestScope.st.gender}</li>
+            <li>Student ID : ${requestScope.st.studentId}</li>
             
         </ul>
     </body>

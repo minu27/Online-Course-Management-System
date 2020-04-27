@@ -134,27 +134,7 @@ public class StudentRequestCourse extends AbstractEntity implements Serializable
     }
 
     
-/*
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (studentReqCourseId != null ? studentReqCourseId.hashCode() : 0);
-        return hash;
-    }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof StudentRequestCourse)) {
-            return false;
-        }
-        StudentRequestCourse other = (StudentRequestCourse) object;
-        if ((this.studentReqCourseId == null && other.studentReqCourseId != null) || (this.studentReqCourseId != null && !this.studentReqCourseId.equals(other.studentReqCourseId))) {
-            return false;
-        }
-        return true;
-    }
-*/
     @Override
     public String toString() {
         return "edu.iit.sat.itmd4515.mvaity.domain.StudentRequestCourse[ studentReqCourseId=" + studentReqCourseId + " ]";

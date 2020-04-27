@@ -155,11 +155,8 @@
                 <label><b>Email</b></label> 
                 <input value="${requestScope.st.email}" type="text" placeholder="Enter Email" name="emailId" > 
 
-                <label><b>Gender</b></label> <br/>
-                <select name="gender">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>   
+                <label><b>Student ID</b></label> 
+                <input value="${requestScope.st.studentId}" type="text" placeholder="Enter Student ID" name="studentId" > 
 
                 <button type="submit">Create</button>  
                 <button type="reset">Reset</button>

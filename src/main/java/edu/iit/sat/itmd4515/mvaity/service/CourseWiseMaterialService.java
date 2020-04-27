@@ -8,21 +8,44 @@ package edu.iit.sat.itmd4515.mvaity.service;
 import edu.iit.sat.itmd4515.mvaity.domain.CourseWiseMaterial;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
  * @author Minal
  */
+
+
 @Stateless
-public class CourseWiseMaterialService extends AbstractService<CourseWiseMaterial>{
+public class CourseWiseMaterialService {
 
+    @PersistenceContext(name = "itmd4515PU")
+    private EntityManager em;
+    
     public CourseWiseMaterialService() {
-        super(CourseWiseMaterial.class);
-    }
-
-    @Override
-    public List<CourseWiseMaterial> findAll() {
-        return em.createNamedQuery("CourseWiseMaterial.findAll", entityClass).getResultList();
     }
     
+    // CRUD service operations
+    public void create(CourseWiseMaterial c){
+        em.persist(c);
+    }
+    
+    public void update(CourseWiseMaterial c){
+        em.merge(c);
+    }
+    
+    public void remove(CourseWiseMaterial c){
+        em.remove(em.merge(c));
+    }
+    
+    public CourseWiseMaterial find(Long id){
+        return em.find(CourseWiseMaterial.class, id);
+    }
+    
+    public List<CourseWiseMaterial> findAll(){
+//        TypedQuery tq = em.createNamedQuery("Trainer.findAll", Trainer.class);
+//        return tq.getResultList();
+        return em.createNamedQuery("CourseWiseMaterial.findAll", CourseWiseMaterial.class).getResultList();
+    }
 }

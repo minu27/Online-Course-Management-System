@@ -59,7 +59,7 @@ public class Guest extends LearningSystem implements Serializable {
     @Column(name = "updatedOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-   /* @JoinColumn(name = "userId", referencedColumnName = "userId")*/
+   
     @ManyToOne
     private Authuser userId;
 
@@ -70,17 +70,7 @@ public class Guest extends LearningSystem implements Serializable {
         super(firstName, lastName);
     }
     
-    /*public Guest(Integer guestId) {
-        this.guestId = guestId;
-    }
-
-    public Integer getGuestId() {
-        return guestId;
-    }
-
-    public void setGuestId(Integer guestId) {
-        this.guestId = guestId;
-    }*/
+    
 
     public String getCreatedBy() {
         return createdBy;
@@ -123,34 +113,7 @@ public class Guest extends LearningSystem implements Serializable {
         this.updatedOn = updatedOn;
     }
 
-    /*public Authuser getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Authuser userId) {
-        this.userId = userId;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (guestId != null ? guestId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Guest)) {
-            return false;
-        }
-        Guest other = (Guest) object;
-        if ((this.guestId == null && other.guestId != null) || (this.guestId != null && !this.guestId.equals(other.guestId))) {
-            return false;
-        }
-        return true;
-    }
-*/
+    
     @Override
     public String toString() {
         return "edu.iit.sat.itmd4515.mvaity.domain.Guest[ guestId=" + guestId + "firstName=" + firstName + ", lastName=" + lastName + " ]";

@@ -74,30 +74,10 @@ public class Assignment extends LearningSystem implements Serializable {
     @Column(name = "updatedOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-    /*@JoinColumn(name = "assignment", referencedColumnName = "courseId")
-    @ManyToOne
-    private Course courseId;
-    @JoinColumn(name = "assignment", referencedColumnName = "courseWiseMaterialId")
-    @ManyToOne
-    private CourseWiseMaterial courseWiseMaterialId;
-    @JoinColumn(name = "assignment", referencedColumnName = "studentId")
-    @ManyToOne
-    private Students studentId; */
-
+    
     public Assignment() {
     }
 
-    /*public Assignment(Integer assignmentId) {
-        this.assignmentId = assignmentId;
-    }
-
-    public Integer getAssignmentId() {
-        return assignmentId;
-    }
-
-    public void setAssignmentId(Integer assignmentId) {
-        this.assignmentId = assignmentId;
-    }*/
 
     public String getComment() {
         return comment;
@@ -171,31 +151,7 @@ public class Assignment extends LearningSystem implements Serializable {
         this.updatedOn = updatedOn;
     }
 
-/*
-    public Course getCourseId() {
-        return courseId;
-    }
 
-    public void setCourseId(Course courseId) {
-        this.courseId = courseId;
-    }
-
-    public CourseWiseMaterial getCourseWiseMaterialId() {
-        return courseWiseMaterialId;
-    }
-
-    public void setCourseWiseMaterialId(CourseWiseMaterial courseWiseMaterialId) {
-        this.courseWiseMaterialId = courseWiseMaterialId;
-    }
-
-    public Students getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Students studentId) {
-        this.studentId = studentId;
-    }
-*/
     @Override
     public int hashCode() {
         int hash = 0;

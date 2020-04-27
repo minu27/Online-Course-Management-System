@@ -7,11 +7,13 @@ package edu.iit.sat.itmd4515.mvaity.web;
 
 
 import edu.iit.sat.itmd4515.mvaity.domain.Students;
+import edu.iit.sat.itmd4515.mvaity.service.StudentsService;
 import java.io.IOException;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.RequestDispatcher;
@@ -35,13 +37,13 @@ public class WelcomeServlet extends HttpServlet {
     //Initialization of Logger
     private static final Logger LOG = Logger.getLogger(WelcomeServlet.class.getName());
     
-    @PersistenceContext(name = "itmd4515PU")
-    EntityManager em;
+    //@PersistenceContext(name = "itmd4515PU")
+    //EntityManager em;
 
-    @Resource
-    UserTransaction tx;
+    //@Resource
+    //UserTransaction tx;
     
-    
+    @EJB StudentsService stSvc;
     
     //Initialization of validator
     @Resource
@@ -118,14 +120,7 @@ public class WelcomeServlet extends HttpServlet {
         LOG.info("Caught parameter email:" + stemailId );
         LOG.info("Caught parameter studentId:" + ststudentId );
        
-        /*Integer ststudentId = null;
-
-        if (studentId != null && !(studentId.isEmpty())) {
-            // this is just as a date example for you - not a recommendation!
-            // it has the date from the user input, and hard-wired to current time
-            ststudentId = Integer.parseInt(studentId);
-        }
-        */
+        
         
         //Object creation
         Students st = new Students(stfirstName, stlastName, stemailId, ststudentId);
@@ -156,10 +151,10 @@ public class WelcomeServlet extends HttpServlet {
         {
             //Invoked when validation is passed
             LOG.info("Houston - we have passed validation.  All systems are good!");
-            tx.begin();
-            em.persist(st);
-            tx.commit();
-            
+            //tx.begin();
+            //em.persist(st);
+            //tx.commit();
+            stSvc.create(st);
             request.setAttribute("st", st);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/confirmation.jsp");
             dispatcher.forward(request, response);

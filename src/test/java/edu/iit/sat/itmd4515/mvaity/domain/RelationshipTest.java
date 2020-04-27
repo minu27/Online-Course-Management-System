@@ -37,19 +37,22 @@ public class RelationshipTest extends AbstractJPATest{
         assertEquals(st1, src.getStudents());
         assertTrue(st1.getId() > 0);
         assertTrue(src.getId() > 0);
+        
+        
     }
     
     @Test
     public void TeachingAssistant_CourseWiseMaterial_ManyToMany_BiDirectionalTest(){
-        TeachingAssistant ta1 = new TeachingAssistant("Minal Vaity");
-        TeachingAssistant ta2 = new TeachingAssistant("Scott Spyrison");
+        
         CourseWiseMaterial c1 = new CourseWiseMaterial("Minal Vaity");
         CourseWiseMaterial c2 = new CourseWiseMaterial("Scott Spyrison");
-
+        TeachingAssistant ta1 = new TeachingAssistant("Rachel Green");
+        TeachingAssistant ta2 = new TeachingAssistant("Ross Geller");
         
         ta1.addCourseWiseMaterial(c1);
         ta2.addCourseWiseMaterial(c1);
-        
+        System.out.println("TeachingAssistant: " + ta1);
+        System.out.println("CourseWiseMaterial: " + c1);
       
         tx.begin();
         em.persist(ta1);

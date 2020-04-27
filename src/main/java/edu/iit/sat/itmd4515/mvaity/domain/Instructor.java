@@ -6,13 +6,16 @@
 package edu.iit.sat.itmd4515.mvaity.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -62,7 +65,9 @@ public class Instructor extends LearningSystem implements Serializable {
     private Authuser userId;
     @ManyToOne
     private CourseWiseMaterial courseWiseMaterial;
-
+    // inverse side of bi-directional ManyToOne/OneToMany
+    @OneToMany(mappedBy = "instructor")
+    private List<Course> CourseList = new ArrayList<>();
 
     public Instructor() {
     }
@@ -115,10 +120,25 @@ public class Instructor extends LearningSystem implements Serializable {
         this.updatedOn = updatedOn;
     }
 
+    public CourseWiseMaterial getCourseWiseMaterial() {
+        return courseWiseMaterial;
+    }
+
+    public void setCourseWiseMaterial(CourseWiseMaterial courseWiseMaterial) {
+        this.courseWiseMaterial = courseWiseMaterial;
+    }
+
+    public List<Course> getCourses() {
+        return CourseList;
+    }
+
+    public void setCourses(List<Course> CourseList) {
+        this.CourseList = CourseList;
+    }
 
     @Override
     public String toString() {
-        return "edu.iit.sat.itmd4515.mvaity.domain.Instructor[ instructorId=" + instructorId + "firstName=" + firstName + ", lastName=" + lastName + " ]";
+        return "edu.iit.sat.itmd4515.mvaity.domain.Instructor[ Id=" + id + "firstName=" + firstName + ", lastName=" + lastName + " ]";
     }
     
 }
