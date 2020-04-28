@@ -5,6 +5,7 @@
  */
 package edu.iit.sat.itmd4515.mvaity.domain.security;
 
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,14 +28,14 @@ import javax.validation.constraints.Size;
  * @author Minal
  */
 @Entity
-@Table(name = "users")
-@EntityListeners(UserListener.class)
+@Table(name = "sec_user")
+//@EntityListeners(UserListener.class)
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
     , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
     , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
     , @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name")})
-public class User implements Serializable {
+public class User implements Serializable{
 
     @Size(max = 255)
     @Column(name = "firstName")
@@ -49,7 +50,7 @@ public class User implements Serializable {
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    private static final long serialVersionUID = 1L;
+    //private static final long serialVersionUID = 1L;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Id
     @Basic(optional = false)
@@ -96,10 +97,21 @@ public class User implements Serializable {
         this.name = name;
     }
 
+    
+    /**
+     * Get the value of email
+     *
+     * @return the value of email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Set the value of email
+     *
+     * @param email new value of email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
@@ -118,26 +130,6 @@ public class User implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (email != null ? email.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
-            return false;
-        }
-        User other = (User) object;
-        if ((this.email == null && other.email != null) || (this.email != null && !this.email.equals(other.email))) {
-            return false;
-        }
-        return true;
     }
 
     public List<Group> getGroups() {

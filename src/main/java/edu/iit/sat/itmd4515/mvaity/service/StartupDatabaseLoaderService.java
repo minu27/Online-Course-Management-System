@@ -11,6 +11,8 @@ import edu.iit.sat.itmd4515.mvaity.domain.Instructor;
 import edu.iit.sat.itmd4515.mvaity.domain.StudentRequestCourse;
 import edu.iit.sat.itmd4515.mvaity.domain.Students;
 import edu.iit.sat.itmd4515.mvaity.domain.TeachingAssistant;
+import edu.iit.sat.itmd4515.mvaity.domain.security.Group;
+import edu.iit.sat.itmd4515.mvaity.domain.security.User;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -34,12 +36,43 @@ public class StartupDatabaseLoaderService {
     @EJB CourseService cSvc;
     @EJB StudentRequestCourseService srcSvc;
     
+    // security services
+    @EJB UserService userSvc;
+    @EJB GroupService groupSvc;
+    
     public StartupDatabaseLoaderService() {
     }
     
     @PostConstruct
     private void postConstruct() {  
         
+        // seed the security domain first
+        User student1 = new User("mvaity@hawk.iit.edu", "Minal123", "Minal Vaity");
+        Group studentGroup = new Group("STUDENT_GROUP", "This is the group of administrators");
+        student1.addGroup(studentGroup);
+
+        groupSvc.create(studentGroup);
+        userSvc.create(student1);
+        
+        Group teachingassistantGroup = new Group("TEACHINGASSISTANT_GROUP", "This group represents teaching assistants");
+        Group instructorGroup = new Group("INSTRUCTOR_GROUP", "This group represents instructors");
+        groupSvc.create(teachingassistantGroup);
+        groupSvc.create(instructorGroup);
+        
+        User teachingassistant1 = new User("rgreen@hawk.iit.edu", "Rachel123", "Rachel Green");
+        teachingassistant1.addGroup(teachingassistantGroup);
+        User teachingassistant2 = new User("rgeller@hawk.iit.edu", "Ross123", "Ross Geller");
+        teachingassistant2.addGroup(teachingassistantGroup);
+        userSvc.create(teachingassistant1);
+        userSvc.create(teachingassistant2);
+        
+        User instructor1 = new User("sspyrison@hawk.iit.edu", "Spyrison123", "Scott Spyrison");
+        instructor1.addGroup(instructorGroup);
+        User instructor2 = new User("jpapademas@hawk.iit.edu", "Papademas123", "James Papademas");
+        instructor2.addGroup(instructorGroup);
+        userSvc.create(instructor1);
+        userSvc.create(instructor2);
+     
         //CourseWiseMaterial
         CourseWiseMaterial cw1 = new CourseWiseMaterial("James Papademas");
         CourseWiseMaterial cw2 = new CourseWiseMaterial("Scott Spyrison");
@@ -130,6 +163,7 @@ public class StartupDatabaseLoaderService {
         LOG.info("After StudentRequestCourse src2 data is persisted \t"+ src2);
         LOG.info("After StudentRequestCourse src3 data is persisted \t"+ src3);
         
+          
         
     }
     
