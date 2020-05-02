@@ -74,8 +74,8 @@ public class StartupDatabaseLoaderService {
         userSvc.create(instructor2);
      
         //CourseWiseMaterial
-        CourseWiseMaterial cw1 = new CourseWiseMaterial("James Papademas");
-        CourseWiseMaterial cw2 = new CourseWiseMaterial("Scott Spyrison");
+        CourseWiseMaterial cw1 = new CourseWiseMaterial(1,"James Papademas");
+        CourseWiseMaterial cw2 = new CourseWiseMaterial(2,"Scott Spyrison");
         
         cwSvc.create(cw1);
         cwSvc.create(cw2);
@@ -84,9 +84,9 @@ public class StartupDatabaseLoaderService {
         
         
         //TeachingAssistant
-        TeachingAssistant ta1 = new TeachingAssistant("Rachel Green");
-        TeachingAssistant ta2 = new TeachingAssistant("Ross Geller");
-        TeachingAssistant ta3 = new TeachingAssistant("Chandler Bing");
+        TeachingAssistant ta1 = new TeachingAssistant(1,"Rachel Green","rgreen@hawk.iit.edu");
+        TeachingAssistant ta2 = new TeachingAssistant(2,"Ross Geller","rgeller@hawk.iit.edu");
+        TeachingAssistant ta3 = new TeachingAssistant(3,"Chandler Bing","cbing@hawk.iit.edu");
     
         ta1.addCourseWiseMaterial(cw1);
         ta2.addCourseWiseMaterial(cw2);
@@ -100,8 +100,8 @@ public class StartupDatabaseLoaderService {
         LOG.info("After TeachingAssistant ta3 data is persisted \t"+ ta3);
         
         //Instructor
-        Instructor i1 = new Instructor ("Scott", "Spyrison");
-        Instructor i2 = new Instructor ("Nilet", "Dmello");
+        Instructor i1 = new Instructor (1,"Scott", "Spyrison");
+        Instructor i2 = new Instructor (2,"Nilet", "Dmello");
         i1.setCourseWiseMaterial(cw1);
         i2.setCourseWiseMaterial(cw2);
         
@@ -133,8 +133,8 @@ public class StartupDatabaseLoaderService {
         LOG.info("After Students st3 data is persisted \t"+ st3);
         
         //Course
-        Course c1 = new Course();
-        Course c2 = new Course();
+        Course c1 = new Course(01, "Python");
+        Course c2 = new Course(02, "Android");
         c1.setInstructor(i1);
         c2.setInstructor(i2);
         
@@ -144,15 +144,15 @@ public class StartupDatabaseLoaderService {
         LOG.info("After Course c2 data is persisted \t"+ c2);
         
         //StudentRequestCourse
-        StudentRequestCourse src1 = new StudentRequestCourse();
+        StudentRequestCourse src1 = new StudentRequestCourse(1);
         src1.setStudents(st1);
         src1.setCourse(c1);
         
-        StudentRequestCourse src2 = new StudentRequestCourse();
+        StudentRequestCourse src2 = new StudentRequestCourse(2);
         src2.setStudents(st2);
         src2.setCourse(c2);
         
-        StudentRequestCourse src3 = new StudentRequestCourse();
+        StudentRequestCourse src3 = new StudentRequestCourse(3);
         src3.setStudents(st3);
         src3.setCourse(c2);
         

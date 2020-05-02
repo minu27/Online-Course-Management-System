@@ -22,9 +22,11 @@ public class UserService extends AbstractService<User>{
     }
 
   
+    @Override
     public List<User> findAll() {
         return em.createNamedQuery("User.findAll", entityClass).getResultList();
     }
+    
     
     public User findByEmail(String email) {
         return em.find(User.class, email);

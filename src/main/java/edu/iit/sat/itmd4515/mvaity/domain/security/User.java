@@ -12,7 +12,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -29,7 +28,6 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "sec_user")
-//@EntityListeners(UserListener.class)
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
     , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
@@ -37,19 +35,9 @@ import javax.validation.constraints.Size;
     , @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name")})
 public class User implements Serializable{
 
-    @Size(max = 255)
-    @Column(name = "firstName")
-    private String firstName;
-    @Size(max = 255)
-    @Column(name = "gender")
-    private String gender;
-    @Size(max = 255)
-    @Column(name = "lastName")
-    private String lastName;
-    @Size(max = 255)
-    @Column(name = "phoneNumber")
-    private String phoneNumber;
+    
 
+    private static final long serialVersionUID = 1L;
     //private static final long serialVersionUID = 1L;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Id
@@ -142,39 +130,9 @@ public class User implements Serializable{
     
     @Override
     public String toString() {
-        return "edu.iit.sat.itmd4515.mvaity.domain.security.User[ email=" + email + " ]";
+        return "User[ Email=" + email + " Name=" + name + "]";
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+    
     
 }

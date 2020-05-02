@@ -174,7 +174,7 @@ public class Assignment extends LearningSystem implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.iit.sat.itmd4515.mvaity.domain.Assignment[ assignmentId=" + assignmentId + " ]";
+        return "Assignment[ assignmentId=" + assignmentId + " ]";
     }
 
     public byte[] getUploadedDoc() {

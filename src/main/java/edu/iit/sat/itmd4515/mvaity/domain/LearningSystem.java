@@ -20,7 +20,7 @@ public class LearningSystem extends AbstractEntity {
     //private static final long serialVersionUID = 1L;
     protected String firstName;
     protected String lastName;
-
+   // protected Integer id;
     @OneToOne
     @JoinColumn(name = "USERNAME")
     private User user;
@@ -29,6 +29,7 @@ public class LearningSystem extends AbstractEntity {
     }
 
     public LearningSystem(String firstName, String lastName) {
+        //this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -58,7 +59,7 @@ public class LearningSystem extends AbstractEntity {
     
     @Override
     public String toString() {
-        return "LearningSystem{" + "firstName=" + firstName + ", lastName=" + lastName + '}';
+        return "LearningSystem{ Id=" + id +"firstName=" + firstName + ", lastName=" + lastName + '}';
     }
     
 }

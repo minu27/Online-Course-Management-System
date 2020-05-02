@@ -78,6 +78,11 @@ public class CourseWiseMaterial extends LearningSystem implements Serializable {
     public CourseWiseMaterial() {
     }
    
+    public CourseWiseMaterial(Integer courseWiseMaterialId, String createdBy) {
+        this.courseWiseMaterialId = courseWiseMaterialId;
+        this.createdBy = createdBy;
+    }
+    
     public List<Instructor> getInstructor() {
         return instructorList;
     }
@@ -96,9 +101,7 @@ public class CourseWiseMaterial extends LearningSystem implements Serializable {
         this.teachingassistantList = teachingassistantList;
     }
     
-    public CourseWiseMaterial(String createdBy) {
-        this.createdBy = createdBy;
-    }
+    
 
  
     public String getCreatedBy() {
@@ -153,7 +156,7 @@ public class CourseWiseMaterial extends LearningSystem implements Serializable {
    
     @Override
     public String toString() {
-        return "edu.iit.sat.itmd4515.mvaity.domain.CourseWiseMaterial[ id=" + id + "createdBy=" + createdBy + " ]";
+        return "CourseWiseMaterial[ courseWiseMaterialId=" + courseWiseMaterialId + ", createdBy=" + createdBy + " ]";
     }
 
     public byte[] getMaterialFile() {

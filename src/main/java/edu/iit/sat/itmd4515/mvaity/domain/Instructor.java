@@ -73,8 +73,9 @@ public class Instructor extends LearningSystem implements Serializable {
     }
 
     
-    public Instructor(String firstName, String lastName) {
+    public Instructor(Integer instructorId, String firstName, String lastName) {
         super(firstName, lastName);
+        this.instructorId = instructorId;
     }
   
 
@@ -138,7 +139,7 @@ public class Instructor extends LearningSystem implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.iit.sat.itmd4515.mvaity.domain.Instructor[ Id=" + id + "firstName=" + firstName + ", lastName=" + lastName + " ]";
+        return "Instructor[ InstructorId=" + instructorId + ", First Name=" + firstName + ", Last Name=" + lastName + " ]";
     }
     
 }

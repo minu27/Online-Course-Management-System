@@ -94,8 +94,10 @@ public class TeachingAssistant extends AbstractEntity implements Serializable {
     }
 
     
-    public TeachingAssistant(String createdBy) {
+    public TeachingAssistant(Integer teachingAssistantId,String createdBy,String emailId) {
+        this.teachingAssistantId = teachingAssistantId;
         this.createdBy = createdBy;
+        this.emailId = emailId;
     }
     
     public void addCourseWiseMaterial(CourseWiseMaterial a) {
@@ -198,7 +200,7 @@ public class TeachingAssistant extends AbstractEntity implements Serializable {
    
     @Override
     public String toString() {
-        return "edu.iit.sat.itmd4515.mvaity.domain.TeachingAssistant[Id=" + id  + "createdBy=" + createdBy  + " ]";
+        return "TeachingAssistant[ teachingAssistantId=" + teachingAssistantId  + ", CreatedBy=" + createdBy  + ", Email ID = " + emailId + " ]";
     }
 
     public byte[] getFacialTokanImage() {

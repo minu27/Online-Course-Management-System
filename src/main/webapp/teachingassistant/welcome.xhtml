@@ -7,11 +7,12 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="title">
-        Welcome Student!
+        Welcome Teaching Assistant!
     </ui:define>
 
     <ui:define name="content">
-        <h1>Student Welcome Section</h1>
+        <h1>Teaching Assistant Welcome Section</h1>
+        
         
         <ul>
             <li>#{loginController.authenticatedUser}</li>
@@ -23,26 +24,15 @@
             </li>
             
         </ul>
-
+        
         <h:dataTable class="table table-hover table-striped"
-            value="#{StudentService.findAll()}" var="st">
+            value="#{TeachingAssistantService.findAll()}" var="ta">
             <h:column>
-                <h:outputText value="#{st.studentId}"/>
-                <f:facet name="header"><h:outputText value="Student Id"/></f:facet>
-            </h:column>
-            <h:column>
-                <h:outputText value="#{st.fname}"/>
-                <f:facet name="header"><h:outputText value="First Name"/></f:facet>
-            </h:column>
-            <h:column>
-                <h:outputText value="#{st.lname}"/>
-                <f:facet name="header"><h:outputText value="Last Name"/></f:facet>
-            </h:column>
-            <h:column>
-                <h:outputText value="#{st.email}"/>
-                <f:facet name="header"><h:outputText value="Email"/></f:facet>
+                <h:outputText value="#{ta.createdBy}"/>
+                <f:facet name="header"><h:outputText value="Name"/></f:facet>
             </h:column>
         </h:dataTable>
+            
 
     </ui:define>
 

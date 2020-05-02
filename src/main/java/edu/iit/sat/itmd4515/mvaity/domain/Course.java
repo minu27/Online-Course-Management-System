@@ -74,9 +74,13 @@ public class Course extends AbstractEntity implements Serializable {
     private Instructor instructor;
 
     public Course() {
+       // this.courseName = courseName;
     }
 
-    
+    public Course(Integer courseId, String courseName) {
+        this.courseId = courseId;
+        this.courseName = courseName;
+    }
 
     public String getCourseDuration() {
         return courseDuration;
@@ -154,7 +158,7 @@ public class Course extends AbstractEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.iit.sat.itmd4515.mvaity.domain.Course[ Id=" + id + " ]";
+        return "Course[ Course Id=" + courseId + ", Course Name=" + courseName + " ]";
     }
     
 }

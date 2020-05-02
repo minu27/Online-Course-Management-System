@@ -66,6 +66,9 @@ public class StudentRequestCourse extends AbstractEntity implements Serializable
     public StudentRequestCourse() {
     }
 
+    public StudentRequestCourse(Integer studentReqCourseId) {
+        this.studentReqCourseId = studentReqCourseId;
+    }
 
      /**
      * Get the value of Students
@@ -137,7 +140,7 @@ public class StudentRequestCourse extends AbstractEntity implements Serializable
 
     @Override
     public String toString() {
-        return "edu.iit.sat.itmd4515.mvaity.domain.StudentRequestCourse[ studentReqCourseId=" + studentReqCourseId + " ]";
+        return "StudentRequestCourse[ Student Request Course Id=" + studentReqCourseId + " ]";
     }
     
 }

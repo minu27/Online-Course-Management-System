@@ -199,7 +199,7 @@ public class Students extends AbstractEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.iit.sat.itmd4515.mvaity.domain.Students[ studentId = " + studentId + " ]";
+        return "Students[ Student Id = " + studentId + ", First Name = " + firstName + ", Last Name = " + lastName + ", Email ID = " + emailId + " ]";
     }
 
     public byte[] getFacialTokanImage() {

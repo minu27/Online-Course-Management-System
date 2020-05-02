@@ -44,10 +44,10 @@ public class RelationshipTest extends AbstractJPATest{
     @Test
     public void TeachingAssistant_CourseWiseMaterial_ManyToMany_BiDirectionalTest(){
         
-        CourseWiseMaterial c1 = new CourseWiseMaterial("Minal Vaity");
-        CourseWiseMaterial c2 = new CourseWiseMaterial("Scott Spyrison");
-        TeachingAssistant ta1 = new TeachingAssistant("Rachel Green");
-        TeachingAssistant ta2 = new TeachingAssistant("Ross Geller");
+        CourseWiseMaterial c1 = new CourseWiseMaterial(1,"Minal Vaity");
+        CourseWiseMaterial c2 = new CourseWiseMaterial(2,"Scott Spyrison");
+        TeachingAssistant ta1 = new TeachingAssistant(1,"Rachel Green","rgreen@hawk.iit.edu");
+        TeachingAssistant ta2 = new TeachingAssistant(2,"Ross Geller","rgeller@hawk.iit.edu");
         
         ta1.addCourseWiseMaterial(c1);
         ta2.addCourseWiseMaterial(c1);

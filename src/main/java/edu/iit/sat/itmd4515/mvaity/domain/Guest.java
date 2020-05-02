@@ -66,8 +66,9 @@ public class Guest extends LearningSystem implements Serializable {
     public Guest() {
     }
 
-    public Guest(String firstName, String lastName) {
-        super(firstName, lastName);
+    public Guest(Integer guestId, String firstName, String lastName) {
+        super( firstName, lastName);
+        this.guestId = guestId;
     }
     
     
@@ -116,7 +117,7 @@ public class Guest extends LearningSystem implements Serializable {
     
     @Override
     public String toString() {
-        return "edu.iit.sat.itmd4515.mvaity.domain.Guest[ guestId=" + guestId + "firstName=" + firstName + ", lastName=" + lastName + " ]";
+        return "Guest[ guestId=" + guestId + "firstName=" + firstName + ", lastName=" + lastName + " ]";
     }
     
 }

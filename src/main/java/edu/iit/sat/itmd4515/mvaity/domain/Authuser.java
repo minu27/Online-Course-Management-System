@@ -244,7 +244,7 @@ public class Authuser extends AbstractEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.iit.sat.itmd4515.mvaity.domain.Authuser[ userId=" + userId + " ]";
+        return "Authuser[ userId=" + userId + " ]";
     }
     
 }

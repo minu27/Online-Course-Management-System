@@ -23,6 +23,7 @@ import javax.persistence.Table;
 @NamedQuery(name = "Group.findAll", query = "select g from Group g")
 public class Group implements Serializable{
 
+    private static final long serialVersionUID = 1L;
     @Id
     private String groupName;
     private String groupDesc;
