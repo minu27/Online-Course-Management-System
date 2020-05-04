@@ -2,7 +2,7 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="../WEB-INF/templates/lab8template.xhtml"
+                template="/WEB-INF/templates/lab8template.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
@@ -24,9 +24,31 @@
             </li>
             
         </ul>
-
+        <h4>Instructor Details</h4>
         <h:dataTable class="table table-hover table-striped"
-            value="#{InstructorService.findAll()}" var="in">
+                     value="#{instructorService.findAll()}" var="in">
+            <h:column>
+                <h:outputText value="#{in.id}"/>
+                <f:facet name="header"><h:outputText value="Instructor ID"/></f:facet>
+            </h:column>
+            <h:column>
+                <h:outputText value="#{in.firstName}"/>
+                <f:facet name="header"><h:outputText value="First Name"/></f:facet>
+            </h:column>
+            <h:column>
+                <h:outputText value="#{in.lastName}"/>
+                <f:facet name="header"><h:outputText value="Last Name"/></f:facet>
+            </h:column>
+               
+        </h:dataTable>
+        
+        <h4>Student Details</h4>
+        <h:dataTable class="table table-hover table-striped"
+                     value="#{studentsService.findAll()}" var="st">
+            <h:column>
+                <h:outputText value="#{st.studentId}"/>
+                <f:facet name="header"><h:outputText value="Student Id"/></f:facet>
+            </h:column>
             <h:column>
                 <h:outputText value="#{st.firstName}"/>
                 <f:facet name="header"><h:outputText value="First Name"/></f:facet>
@@ -34,6 +56,28 @@
             <h:column>
                 <h:outputText value="#{st.lastName}"/>
                 <f:facet name="header"><h:outputText value="Last Name"/></f:facet>
+            </h:column>
+            <h:column>
+                <h:outputText value="#{st.emailId}"/>
+                <f:facet name="header"><h:outputText value="Email"/></f:facet>
+            </h:column>
+        </h:dataTable>
+        
+        <h4>Teaching Assistant Details</h4>
+         <h:dataTable class="table table-hover table-striped"
+                     value="#{teachingAssistantService.findAll()}" var="ta">
+            
+            <h:column>
+                <h:outputText value="#{ta.id}"/>
+                <f:facet name="header"><h:outputText value="Teaching Assistant ID"/></f:facet>
+            </h:column>
+            <h:column>
+                <h:outputText value="#{ta.createdBy}"/>
+                <f:facet name="header"><h:outputText value="Name"/></f:facet>
+            </h:column>
+            <h:column>
+                <h:outputText value="#{ta.emailId}"/>
+                <f:facet name="header"><h:outputText value="Email"/></f:facet>
             </h:column>
         </h:dataTable>
 

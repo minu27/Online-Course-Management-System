@@ -15,5 +15,5 @@
         <group-name>TEACHINGASSISTANT_GROUP</group-name>
     </security-role-mapping>
     
-  
+    <class-loader delegate="true"/>
 </payara-web-app>

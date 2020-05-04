@@ -100,8 +100,8 @@ public class StartupDatabaseLoaderService {
         LOG.info("After TeachingAssistant ta3 data is persisted \t"+ ta3);
         
         //Instructor
-        Instructor i1 = new Instructor (1,"Scott", "Spyrison");
-        Instructor i2 = new Instructor (2,"Nilet", "Dmello");
+        Instructor i1 = new Instructor (8760,"Scott", "Spyrison");
+        Instructor i2 = new Instructor (2877,"Nilet", "Dmello");
         i1.setCourseWiseMaterial(cw1);
         i2.setCourseWiseMaterial(cw2);
         
@@ -133,8 +133,8 @@ public class StartupDatabaseLoaderService {
         LOG.info("After Students st3 data is persisted \t"+ st3);
         
         //Course
-        Course c1 = new Course(01, "Python");
-        Course c2 = new Course(02, "Android");
+        Course c1 = new Course(513, "Python");
+        Course c2 = new Course(515, "Android");
         c1.setInstructor(i1);
         c2.setInstructor(i2);
         

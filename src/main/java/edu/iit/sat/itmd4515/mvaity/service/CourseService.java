@@ -8,11 +8,13 @@ package edu.iit.sat.itmd4515.mvaity.service;
 import edu.iit.sat.itmd4515.mvaity.domain.Course;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Named;
 
 /**
  *
  * @author Minal
  */
+@Named
 @Stateless
 public class CourseService extends AbstractService<Course>{
 
@@ -23,6 +25,10 @@ public class CourseService extends AbstractService<Course>{
     @Override
     public List<Course> findAll() {
         return em.createNamedQuery("Course.findAll", entityClass).getResultList();
+    }
+    
+    public Course findByCourseId(Integer courseId) {
+        return em.find(Course.class, courseId);
     }
     
 }

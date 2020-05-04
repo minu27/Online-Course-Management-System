@@ -8,6 +8,7 @@ package edu.iit.sat.itmd4515.mvaity.service;
 import edu.iit.sat.itmd4515.mvaity.domain.CourseWiseMaterial;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -16,7 +17,7 @@ import javax.persistence.PersistenceContext;
  * @author Minal
  */
 
-
+@Named
 @Stateless
 public class CourseWiseMaterialService {
 
@@ -44,8 +45,6 @@ public class CourseWiseMaterialService {
     }
     
     public List<CourseWiseMaterial> findAll(){
-//        TypedQuery tq = em.createNamedQuery("Trainer.findAll", Trainer.class);
-//        return tq.getResultList();
         return em.createNamedQuery("CourseWiseMaterial.findAll", CourseWiseMaterial.class).getResultList();
     }
 }

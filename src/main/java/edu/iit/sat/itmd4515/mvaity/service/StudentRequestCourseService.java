@@ -8,11 +8,13 @@ package edu.iit.sat.itmd4515.mvaity.service;
 import edu.iit.sat.itmd4515.mvaity.domain.StudentRequestCourse;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Named;
 
 /**
  *
  * @author Minal
  */
+@Named
 @Stateless
 public class StudentRequestCourseService extends AbstractService<StudentRequestCourse>{
 

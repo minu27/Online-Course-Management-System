@@ -51,7 +51,7 @@ public class TeachingAssistant extends AbstractEntity implements Serializable {
    
     private String name;
     @Basic(optional = false)
-    @Column(name = "teachingAssistantId")
+    @Column(name = "teachingAssistantId", unique = true, nullable = false)
     private Integer teachingAssistantId;
     @Size(max = 255)
     @Column(name = "createdBy")

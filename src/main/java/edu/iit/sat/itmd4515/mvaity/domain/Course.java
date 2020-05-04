@@ -43,7 +43,7 @@ public class Course extends AbstractEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Basic(optional = false)
-    @Column(name = "courseId")
+    @Column(name = "courseId", unique = true, nullable = false)
     private Integer courseId;
     @Size(max = 255)
     @Column(name = "courseDuration")

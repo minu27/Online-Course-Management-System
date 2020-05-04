@@ -93,12 +93,12 @@ public class LoginController implements Serializable{
         LOG.info("LoginController.doLogin for user " + user.getEmail());
 
         Credential credential = new UsernamePasswordCredential(user.getEmail(), new Password(user.getPassword()));
-        LOG.info("Credential : "+ credential);
+        
         
         AuthenticationStatus status = securityContext.authenticate(
                 (HttpServletRequest) facesContext.getExternalContext().getRequest(),
                 (HttpServletResponse) facesContext.getExternalContext().getResponse(),
-                AuthenticationParameters.withParams().credential(credential).newAuthentication(true)
+                AuthenticationParameters.withParams().credential(credential)
         );
 
         LOG.info("Authentication Status is " + status.toString());

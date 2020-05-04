@@ -43,7 +43,7 @@ public class Instructor extends LearningSystem implements Serializable {
     
     
     @Basic(optional = false)
-    @Column(name = "instructorId")
+    @Column(name = "instructorId",unique = true, nullable = false)
     private Integer instructorId;
     @Size(max = 255)
     @Column(name = "createdBy")

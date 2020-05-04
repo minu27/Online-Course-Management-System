@@ -8,12 +8,13 @@ package edu.iit.sat.itmd4515.mvaity.service;
 import edu.iit.sat.itmd4515.mvaity.domain.Instructor;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Named;
 
 /**
  *
  * @author Minal
  */
-
+@Named
 @Stateless
 public class InstructorService extends AbstractService<Instructor>{
 
@@ -24,6 +25,10 @@ public class InstructorService extends AbstractService<Instructor>{
     @Override
     public List<Instructor> findAll() {
         return em.createNamedQuery("Instructor.findAll", entityClass).getResultList();
+    }
+    
+    public Instructor findByInstructorId(Integer instructorId) {
+        return em.find(Instructor.class, instructorId);
     }
     
 }
