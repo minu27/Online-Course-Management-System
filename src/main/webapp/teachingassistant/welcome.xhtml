@@ -14,16 +14,7 @@
         <h1>Teaching Assistant Welcome Section</h1>
         
         
-        <ul>
-            <li>#{loginController.authenticatedUser}</li>
-            <li>#{loginController.authenticatedUserGroups}</li>
-            <li>
-                <h:form>
-                    <h:commandLink action="#{loginController.doLogout()}" value="Logout" />
-                </h:form>
-            </li>
-            
-        </ul>
+        
         <h4>Student Details</h4>
        <h:dataTable class="table table-hover table-striped"
                      value="#{studentsService.findAll()}" var="st">

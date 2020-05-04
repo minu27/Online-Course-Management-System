@@ -56,32 +56,58 @@ public class LoginController implements Serializable{
     @PostConstruct
     private void postContruct() {
         LOG.info("Inside the LoginController.postConstruct method");
-        user = new User();
+        // if authenticated, find the user by username
+        if (facesContext.getExternalContext().getRemoteUser() != null) {
+            user = userSvc.findByEmail(facesContext.getExternalContext().getRemoteUser());
+        } else {
+            //else, instantiate a new user object for the login form
+            user = new User();
+        }
     }
 
     // helper methods
-    public String getAuthenticatedUser() {
-        LOG.info("Inside the getAuthenticatedUser() method");
-        return facesContext.getExternalContext().getRemoteUser();
+    /**
+     * Gets the username of the currently authenticated user (if any)
+     *
+     * @return
+     */
+    public String getEmail() {
+        return user.getEmail();
     }
 
-    public String getAuthenticatedUserGroups() {
-        user = userSvc.findByEmail(getAuthenticatedUser());
+    /**
+     * Gets the groups of the currently authenticated user (if any)
+     *
+     * @return
+     */
+    public String getUserGroups() {
         LOG.info("User as group count of: " + user.getGroups().size());
         return user.getGroups().toString();
         //return securityContext.toString();
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isStudent() {
         LOG.info("USER IS STUDENT");
         return securityContext.isCallerInRole("STUDENT_ROLE");
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isInstructor() {
         LOG.info("USER IS INSTRUCTOR");
         return securityContext.isCallerInRole("INSTRUCTOR_ROLE");
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isTeachingAssistant() {
         LOG.info("USER IS TEACHING ASSISTANT");
         return securityContext.isCallerInRole("TEACHINGASSISTANT_ROLE");
@@ -122,9 +148,13 @@ public class LoginController implements Serializable{
         return "/welcome.xhtml?faces-redirect=true";
     }
 
+    /**
+     *
+     * @return
+     */
     public String doLogout() {
         // do some login stuff
-        LOG.info("LoginController.doLogout for user " + getAuthenticatedUser());
+        LOG.info("LoginController.doLogout for user " + getEmail());
 
         HttpServletRequest req = (HttpServletRequest) facesContext.getExternalContext().getRequest();
         try {
@@ -139,11 +169,18 @@ public class LoginController implements Serializable{
     }
 
 
-
+    /**
+     *
+     * @return
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     *
+     * @param user
+     */
     public void setUser(User user) {
         this.user = user;
     }
