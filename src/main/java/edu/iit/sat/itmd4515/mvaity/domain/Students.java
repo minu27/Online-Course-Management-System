@@ -6,14 +6,17 @@
 package edu.iit.sat.itmd4515.mvaity.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -78,6 +81,14 @@ public class Students extends AbstractEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
   
+    @ManyToOne
+    //@JoinTable
+    private TeachingAssistant teachingAssistant;
+
+    // inverse side of bi-directional ManyToOne/OneToMany
+    @OneToMany(mappedBy = "students")
+    private List<Course> courseList = new ArrayList<>();
+
     
     public Students() {
     }
@@ -171,6 +182,45 @@ public class Students extends AbstractEntity implements Serializable {
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
     }
+    
+    /**
+     *
+     * @return
+     */
+    public TeachingAssistant getTeachingAssistant() {
+        return teachingAssistant;
+    }
+
+    /**
+     * As coder, it is my responsibility to set both sides of a bi-directional
+     * relationship! It can be handled here, or in a helper method
+     *
+     * @param teachingAssistant
+     */
+    public void setTeachingAssistant(TeachingAssistant teachingAssistant) {
+        this.teachingAssistant = teachingAssistant;
+
+        if (!teachingAssistant.getStudents().contains(this)) {
+            teachingAssistant.getStudents().add(this);
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List<Course> getCourses() {
+        return courseList;
+    }
+
+    /**
+     *
+     * @param courseList
+     */
+    public void setCourses(List<Course> courseList) {
+        this.courseList = courseList;
+    }
+
 
     @Override
     public int hashCode() {

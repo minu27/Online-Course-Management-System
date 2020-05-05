@@ -27,5 +27,10 @@ public class StudentsService extends AbstractService<Students>{
         return em.createNamedQuery("Students.findAll", entityClass).getResultList();
     }
     
+    public Students findByEmailId(String emailId){
+        return em.createNamedQuery("Students.findByEmailId", Students.class)
+                .setParameter("emailId", emailId)
+                .getSingleResult();
+    }
     
 }

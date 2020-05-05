@@ -72,14 +72,22 @@ public class Course extends AbstractEntity implements Serializable {
     // bi-directional ManyToOne/OneToMany
     @ManyToOne
     private Instructor instructor;
+    
+    // inverse side of bi-directional ManyToOne/OneToMany
+    @OneToMany(mappedBy = "course")
+    private List<Assignment> assignments = new ArrayList<>();
+    
+    @ManyToOne
+    private Students students;
 
     public Course() {
        // this.courseName = courseName;
     }
 
-    public Course(Integer courseId, String courseName) {
+    public Course(Integer courseId, String courseName, String status) {
         this.courseId = courseId;
         this.courseName = courseName;
+        this.status = status;
     }
 
     public String getCourseDuration() {
@@ -137,6 +145,25 @@ public class Course extends AbstractEntity implements Serializable {
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
     }
+    
+    /**
+     * Get the value of assignments
+     *
+     * @return the value of assignments
+     */
+    public List<Assignment> getAssignments() {
+        return assignments;
+    }
+
+    /**
+     * Set the value of activities
+     *
+     * @param assignments new value of assignments
+     */
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments = assignments;
+    }
+
 
    
     public List<StudentRequestCourse> getStudentrequestcourseList() {
@@ -148,17 +175,17 @@ public class Course extends AbstractEntity implements Serializable {
     }
 
    
-    public Instructor getInstructor() {
-        return instructor;
+    public Students getStudents() {
+        return students;
     }
 
-    public void setInstructor(Instructor instructor) {
-        this.instructor = instructor;
+    public void setStudents(Students students) {
+        this.students = students;
     }
 
     @Override
     public String toString() {
-        return "Course[ Course Id=" + courseId + ", Course Name=" + courseName + " ]";
+        return "Course[ Course Id=" + courseId + ", Course Name=" + courseName + ", Status=" + status + " ]";
     }
     
 }

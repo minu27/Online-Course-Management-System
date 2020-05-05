@@ -6,14 +6,18 @@
 package edu.iit.sat.itmd4515.mvaity.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,7 +42,7 @@ import javax.validation.constraints.Size;
     , @NamedQuery(name = "Assignment.findByStatus", query = "SELECT a FROM Assignment a WHERE a.status = :status")
     , @NamedQuery(name = "Assignment.findByUpdatedBy", query = "SELECT a FROM Assignment a WHERE a.updatedBy = :updatedBy")
     , @NamedQuery(name = "Assignment.findByUpdatedOn", query = "SELECT a FROM Assignment a WHERE a.updatedOn = :updatedOn")})
-public class Assignment extends LearningSystem implements Serializable {
+public class Assignment extends AbstractEntity implements Serializable {
 
  
     @Column(name = "uploadedDoc")
@@ -74,10 +78,24 @@ public class Assignment extends LearningSystem implements Serializable {
     @Column(name = "updatedOn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
+    @ManyToOne
+    private TeachingAssistant teachingAssistant;
+    @ManyToOne
+    private Students students;
+    // bi-directional ManyToOne/OneToMany
+    @ManyToOne
+    private Course course;
     
     public Assignment() {
     }
 
+    public Assignment(Integer assignmentId, String createdBy, Integer instructorId, Integer marks, String grading ) {
+        this.assignmentId = assignmentId;
+        this.createdBy = createdBy;
+        this.instructorId = instructorId;
+        this.marks = marks;
+        this.grading = grading;
+    }
 
     public String getComment() {
         return comment;
@@ -150,7 +168,44 @@ public class Assignment extends LearningSystem implements Serializable {
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
     }
+    
+    public Students getStudents() {
+        return students;
+    }
 
+    public void setStudents(Students students) {
+        this.students = students;
+    }
+    
+    public TeachingAssistant getTeachingAssistant() {
+        return teachingAssistant;
+    }
+
+    public void setTeachingAssistant(TeachingAssistant teachingAssistant) {
+        this.teachingAssistant = teachingAssistant;
+    }
+    
+        /**
+     *
+     * @return
+     */
+    public Course getCourse() {
+        return course;
+    }
+
+    /**
+     * Sets the value of workout, and manages BOTH sides of this bi-directional
+     * relationship *
+     *
+     * @param course
+     */
+    public void setCourse(Course course) {
+        this.course = course;
+        
+        if (!course.getAssignments().contains(this)) {
+            course.getAssignments().add(this);
+        }
+    }
 
     @Override
     public int hashCode() {
@@ -174,7 +229,7 @@ public class Assignment extends LearningSystem implements Serializable {
 
     @Override
     public String toString() {
-        return "Assignment[ assignmentId=" + assignmentId + " ]";
+        return "Assignment[ assignmentId=" + assignmentId + " createdBy=" + createdBy + " instructorId=" + instructorId + " marks=" + marks + " grading=" + grading + "  ]";
     }
 
     public byte[] getUploadedDoc() {

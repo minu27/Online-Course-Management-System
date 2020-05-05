@@ -18,6 +18,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -83,6 +84,12 @@ public class TeachingAssistant extends AbstractEntity implements Serializable {
     @ManyToOne
     private Authuser userId;
     
+    // inverse side of bi-directional ManyToOne/OneToMany
+    @OneToMany(mappedBy = "teachingAssistant")
+    private List<Students> students = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "teachingAssistant")
+    private List<Assignment> assignmentList = new ArrayList<>();
     
     @ManyToMany
     @JoinTable(name = "teachingassistant_courseWiseMaterial",
@@ -117,7 +124,23 @@ public class TeachingAssistant extends AbstractEntity implements Serializable {
             a.getTeachingAssistant().remove(this);
         }
     }
+/*
+    public List<Instructor> getInstructor() {
+        return instructors;
+    }
 
+    public void setInstructor(List<Instructor> instructor) {
+        this.instructors = instructor;
+    }
+    */
+    public List<Students> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Students> students) {
+        this.students = students;
+    }
+    
     public String getCreatedBy() {
         return createdBy;
     }
@@ -196,6 +219,14 @@ public class TeachingAssistant extends AbstractEntity implements Serializable {
 
     public void setCourseWiseMaterial(List<CourseWiseMaterial> coursewisematerialList) {
         this.coursewisematerialList = coursewisematerialList;
+    }
+    
+    public List<Assignment> getAssignmentList() {
+        return assignmentList;
+    }
+
+    public void setAssignmentList(List<Assignment> assignmentList) {
+        this.assignmentList = assignmentList;
     }
    
     @Override

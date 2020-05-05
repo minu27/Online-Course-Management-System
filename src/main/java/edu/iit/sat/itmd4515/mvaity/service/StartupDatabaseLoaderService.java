@@ -5,6 +5,7 @@
  */
 package edu.iit.sat.itmd4515.mvaity.service;
 
+import edu.iit.sat.itmd4515.mvaity.domain.Assignment;
 import edu.iit.sat.itmd4515.mvaity.domain.Course;
 import edu.iit.sat.itmd4515.mvaity.domain.CourseWiseMaterial;
 import edu.iit.sat.itmd4515.mvaity.domain.Instructor;
@@ -35,6 +36,7 @@ public class StartupDatabaseLoaderService {
     @EJB StudentsService stSvc;
     @EJB CourseService cSvc;
     @EJB StudentRequestCourseService srcSvc;
+    @EJB AssignmentService asSvc;
     
     // security services
     @EJB UserService userSvc;
@@ -87,28 +89,40 @@ public class StartupDatabaseLoaderService {
         TeachingAssistant ta1 = new TeachingAssistant(1,"Rachel Green","rgreen@hawk.iit.edu");
         TeachingAssistant ta2 = new TeachingAssistant(2,"Ross Geller","rgeller@hawk.iit.edu");
         TeachingAssistant ta3 = new TeachingAssistant(3,"Chandler Bing","cbing@hawk.iit.edu");
+        TeachingAssistant ta4 = new TeachingAssistant(4,"Joey Davidson","jdavidson@hawk.iit.edu");
     
         ta1.addCourseWiseMaterial(cw1);
         ta2.addCourseWiseMaterial(cw2);
         ta3.addCourseWiseMaterial(cw2);
+        ta4.addCourseWiseMaterial(cw1);
         
         taSvc.create(ta1);
         taSvc.create(ta2);
         taSvc.create(ta3);
+        taSvc.create(ta4);
         LOG.info("After TeachingAssistant ta1 data is persisted \t"+ ta1);
         LOG.info("After TeachingAssistant ta2 data is persisted \t"+ ta2);
         LOG.info("After TeachingAssistant ta3 data is persisted \t"+ ta3);
+        LOG.info("After TeachingAssistant ta4 data is persisted \t"+ ta4);
         
         //Instructor
         Instructor i1 = new Instructor (8760,"Scott", "Spyrison");
         Instructor i2 = new Instructor (2877,"Nilet", "Dmello");
+        Instructor i3 = new Instructor (8765,"James", "Papademas");
+        Instructor i4 = new Instructor (2876,"Jeremy", "Heijack");
         i1.setCourseWiseMaterial(cw1);
         i2.setCourseWiseMaterial(cw2);
+        i3.setCourseWiseMaterial(cw1);
+        i4.setCourseWiseMaterial(cw2);
         
         iSvc.create(i1);
         iSvc.create(i2);
+        iSvc.create(i3);
+        iSvc.create(i4);
         LOG.info("After Instructor i1 data is persisted \t"+ i1);
         LOG.info("After Instructor i2 data is persisted \t"+ i2);
+        LOG.info("After Instructor i3 data is persisted \t"+ i3);
+        LOG.info("After Instructor i4 data is persisted \t"+ i4);
         
         Students st1 = new Students("Minal",
                 "Vaity",
@@ -133,15 +147,24 @@ public class StartupDatabaseLoaderService {
         LOG.info("After Students st3 data is persisted \t"+ st3);
         
         //Course
-        Course c1 = new Course(513, "Python");
-        Course c2 = new Course(515, "Android");
-        c1.setInstructor(i1);
-        c2.setInstructor(i2);
+        Course c1 = new Course(513, "Python","available");
+        Course c2 = new Course(555, "Android","available");
+        Course c3 = new Course(515, "Advancce Java","available");
+        Course c4 = new Course(565, "Data Analytics","available");
+        c1.setStudents(st1);
+        c2.setStudents(st2);
+        c3.setStudents(st3);
+        c4.setStudents(st3);
+        
         
         cSvc.create(c1);
         cSvc.create(c2);
+        cSvc.create(c3);
+        cSvc.create(c4);
         LOG.info("After Course c1 data is persisted \t"+ c1);
         LOG.info("After Course c2 data is persisted \t"+ c2);
+        LOG.info("After Course c3 data is persisted \t"+ c3);
+        LOG.info("After Course c4 data is persisted \t"+ c4);
         
         //StudentRequestCourse
         StudentRequestCourse src1 = new StudentRequestCourse(1);
@@ -150,20 +173,55 @@ public class StartupDatabaseLoaderService {
         
         StudentRequestCourse src2 = new StudentRequestCourse(2);
         src2.setStudents(st2);
-        src2.setCourse(c2);
+        src2.setCourse(c1);
         
         StudentRequestCourse src3 = new StudentRequestCourse(3);
         src3.setStudents(st3);
-        src3.setCourse(c2);
+        src3.setCourse(c1);
         
+        StudentRequestCourse src4 = new StudentRequestCourse(1);
+        src1.setStudents(st1);
+        src1.setCourse(c2);
+        
+        StudentRequestCourse src5 = new StudentRequestCourse(2);
+        src2.setStudents(st2);
+        src2.setCourse(c3);
+        
+        StudentRequestCourse src6 = new StudentRequestCourse(3);
+        src3.setStudents(st3);
+        src3.setCourse(c4);
+        
+        srcSvc.create(src1);
+        srcSvc.create(src2);
+        srcSvc.create(src3);
         srcSvc.create(src1);
         srcSvc.create(src2);
         srcSvc.create(src3);
         LOG.info("After StudentRequestCourse src1 data is persisted \t"+ src1);
         LOG.info("After StudentRequestCourse src2 data is persisted \t"+ src2);
         LOG.info("After StudentRequestCourse src3 data is persisted \t"+ src3);
-        
+        LOG.info("After StudentRequestCourse src4 data is persisted \t"+ src4);
+        LOG.info("After StudentRequestCourse src5 data is persisted \t"+ src5);
+        LOG.info("After StudentRequestCourse src6 data is persisted \t"+ src6);
           
+        //Assignment
+        Assignment a1 = new Assignment(01,"Minal Vaity",8760,96,"A");
+        Assignment a2 = new Assignment(02,"Shubham Madke",8760,90,"A");
+        Assignment a3 = new Assignment(03,"Yash Agrawal",2877,87,"B");
+        Assignment a4 = new Assignment(04,"Megha Ray",2877,86,"B");
+        a1.setStudents(st1);
+        a2.setStudents(st2);
+        a3.setStudents(st3);
+        a4.setStudents(st3);
+        
+        asSvc.create(a1);
+        asSvc.create(a2);
+        asSvc.create(a3);
+        asSvc.create(a4);
+        LOG.info("After Assignment a1 data is persisted \t"+ a1);
+        LOG.info("After Assignment a2 data is persisted \t"+ a2);
+        LOG.info("After Assignment a3 data is persisted \t"+ a3);
+        LOG.info("After Assignment a4 data is persisted \t"+ a4);
         
     }
     
