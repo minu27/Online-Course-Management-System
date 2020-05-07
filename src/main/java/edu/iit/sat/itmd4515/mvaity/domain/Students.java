@@ -32,15 +32,15 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Students.findAll", query = "SELECT s FROM Students s")
     , @NamedQuery(name = "Students.findByStudentId", query = "SELECT s FROM Students s WHERE s.studentId = :studentId")
-    , @NamedQuery(name = "Students.findByCreatedBy", query = "SELECT s FROM Students s WHERE s.createdBy = :createdBy")
-    , @NamedQuery(name = "Students.findByCreatedOn", query = "SELECT s FROM Students s WHERE s.createdOn = :createdOn")
+    //, @NamedQuery(name = "Students.findByCreatedBy", query = "SELECT s FROM Students s WHERE s.createdBy = :createdBy")
+    //, @NamedQuery(name = "Students.findByCreatedOn", query = "SELECT s FROM Students s WHERE s.createdOn = :createdOn")
     , @NamedQuery(name = "Students.findByEmailId", query = "SELECT s FROM Students s WHERE s.emailId = :emailId")
     , @NamedQuery(name = "Students.findByFirstName", query = "SELECT s FROM Students s WHERE s.firstName = :firstName")
     , @NamedQuery(name = "Students.findByGender", query = "SELECT s FROM Students s WHERE s.gender = :gender")
-    , @NamedQuery(name = "Students.findByLastName", query = "SELECT s FROM Students s WHERE s.lastName = :lastName")
-    , @NamedQuery(name = "Students.findByStatus", query = "SELECT s FROM Students s WHERE s.status = :status")
-    , @NamedQuery(name = "Students.findByUpdatedBy", query = "SELECT s FROM Students s WHERE s.updatedBy = :updatedBy")
-    , @NamedQuery(name = "Students.findByUpdatedOn", query = "SELECT s FROM Students s WHERE s.updatedOn = :updatedOn")})
+    , @NamedQuery(name = "Students.findByLastName", query = "SELECT s FROM Students s WHERE s.lastName = :lastName")})
+    //, @NamedQuery(name = "Students.findByStatus", query = "SELECT s FROM Students s WHERE s.status = :status")
+    //, @NamedQuery(name = "Students.findByUpdatedBy", query = "SELECT s FROM Students s WHERE s.updatedBy = :updatedBy")
+    //, @NamedQuery(name = "Students.findByUpdatedOn", query = "SELECT s FROM Students s WHERE s.updatedOn = :updatedOn")})
 public class Students extends AbstractEntity implements Serializable {
 
     
@@ -93,12 +93,20 @@ public class Students extends AbstractEntity implements Serializable {
     public Students() {
     }
 
-   
     public Students(String firstName, String lastName, String emailId, String studentId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailId = emailId;
         this.studentId = studentId;
+        
+    }
+   
+    public Students(String firstName, String lastName, String emailId, String studentId, String gender) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailId = emailId;
+        this.studentId = studentId;
+        this.gender = gender;
     }
     
     public Students(String studentId) {

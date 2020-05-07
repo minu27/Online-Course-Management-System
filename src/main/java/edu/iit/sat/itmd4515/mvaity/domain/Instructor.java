@@ -30,13 +30,13 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Instructor.findAll", query = "SELECT i FROM Instructor i")
     , @NamedQuery(name = "Instructor.findByInstructorId", query = "SELECT i FROM Instructor i WHERE i.instructorId = :instructorId")
-    , @NamedQuery(name = "Instructor.findByCreatedBy", query = "SELECT i FROM Instructor i WHERE i.createdBy = :createdBy")
-    , @NamedQuery(name = "Instructor.findByCreatedOn", query = "SELECT i FROM Instructor i WHERE i.createdOn = :createdOn")
+    //, @NamedQuery(name = "Instructor.findByCreatedBy", query = "SELECT i FROM Instructor i WHERE i.createdBy = :createdBy")
+    //, @NamedQuery(name = "Instructor.findByCreatedOn", query = "SELECT i FROM Instructor i WHERE i.createdOn = :createdOn")
     , @NamedQuery(name = "Instructor.findByFirstName", query = "SELECT i FROM Instructor i WHERE i.firstName = :firstName")
-    , @NamedQuery(name = "Instructor.findByLastName", query = "SELECT i FROM Instructor i WHERE i.lastName = :lastName")
-    , @NamedQuery(name = "Instructor.findByStatus", query = "SELECT i FROM Instructor i WHERE i.status = :status")
-    , @NamedQuery(name = "Instructor.findByUpdatedBy", query = "SELECT i FROM Instructor i WHERE i.updatedBy = :updatedBy")
-    , @NamedQuery(name = "Instructor.findByUpdatedOn", query = "SELECT i FROM Instructor i WHERE i.updatedOn = :updatedOn")})
+    , @NamedQuery(name = "Instructor.findByLastName", query = "SELECT i FROM Instructor i WHERE i.lastName = :lastName")})
+   //, @NamedQuery(name = "Instructor.findByStatus", query = "SELECT i FROM Instructor i WHERE i.status = :status")
+    //, @NamedQuery(name = "Instructor.findByUpdatedBy", query = "SELECT i FROM Instructor i WHERE i.updatedBy = :updatedBy")
+    //, @NamedQuery(name = "Instructor.findByUpdatedOn", query = "SELECT i FROM Instructor i WHERE i.updatedOn = :updatedOn")})
 public class Instructor extends LearningSystem implements Serializable {
 
     private static final long serialVersionUID = 1L;

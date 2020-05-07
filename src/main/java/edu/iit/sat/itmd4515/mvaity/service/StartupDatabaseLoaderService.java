@@ -86,10 +86,10 @@ public class StartupDatabaseLoaderService {
         
         
         //TeachingAssistant
-        TeachingAssistant ta1 = new TeachingAssistant(1,"Rachel Green","rgreen@hawk.iit.edu");
-        TeachingAssistant ta2 = new TeachingAssistant(2,"Ross Geller","rgeller@hawk.iit.edu");
-        TeachingAssistant ta3 = new TeachingAssistant(3,"Chandler Bing","cbing@hawk.iit.edu");
-        TeachingAssistant ta4 = new TeachingAssistant(4,"Joey Davidson","jdavidson@hawk.iit.edu");
+        TeachingAssistant ta1 = new TeachingAssistant(1,"Rachel Green","rgreen@hawk.iit.edu","Rachel","Green","Female");
+        TeachingAssistant ta2 = new TeachingAssistant(2,"Ross Geller","rgeller@hawk.iit.edu","Ross","Geller","Male");
+        TeachingAssistant ta3 = new TeachingAssistant(3,"Chandler Bing","cbing@hawk.iit.edu","Chandler","Bing","Male");
+        TeachingAssistant ta4 = new TeachingAssistant(4,"Joey Davidson","jdavidson@hawk.iit.edu","Joey","Davidson","Male");
     
         ta1.addCourseWiseMaterial(cw1);
         ta2.addCourseWiseMaterial(cw2);
@@ -127,24 +127,38 @@ public class StartupDatabaseLoaderService {
         Students st1 = new Students("Minal",
                 "Vaity",
                 "mvaity@hawk.iit.edu",
-                "A01");
+                "A01","Female");
        
         Students st2 = new Students("Shubham",
                 "Madke",
                 "smadke@hawk.iit.edu",
-                "A02");
+                "A02","Male");
         
         Students st3 = new Students("Yash",
                 "Agrawal",
                 "yagrawal@hawk.iit.edu",
-                "A03");
+                "A03","Male");
+        
+        Students st4 = new Students("Deep",
+                "Jariwala",
+                "djariwala@hawk.iit.edu",
+                "A04","Male");
+        
+        Students st5 = new Students("Aishwarya",
+                "Vaity",
+                "avaity@hawk.iit.edu",
+                "A05","Female");
         
         stSvc.create(st1);
         stSvc.create(st2);
         stSvc.create(st3);
+        stSvc.create(st4);
+        stSvc.create(st5);
         LOG.info("After Students st1 data is persisted \t"+ st1);
         LOG.info("After Students st2 data is persisted \t"+ st2);
         LOG.info("After Students st3 data is persisted \t"+ st3);
+        LOG.info("After Students st4 data is persisted \t"+ st4);
+        LOG.info("After Students st5 data is persisted \t"+ st5);
         
         //Course
         Course c1 = new Course(513, "Python","available");
@@ -154,7 +168,7 @@ public class StartupDatabaseLoaderService {
         c1.setStudents(st1);
         c2.setStudents(st2);
         c3.setStudents(st3);
-        c4.setStudents(st3);
+        c4.setStudents(st4);
         
         
         cSvc.create(c1);

@@ -34,14 +34,14 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "TeachingAssistant.findAll", query = "SELECT t FROM TeachingAssistant t")
     , @NamedQuery(name = "TeachingAssistant.findByTeachingAssistantId", query = "SELECT t FROM TeachingAssistant t WHERE t.teachingAssistantId = :teachingAssistantId")
     , @NamedQuery(name = "TeachingAssistant.findByCreatedBy", query = "SELECT t FROM TeachingAssistant t WHERE t.createdBy = :createdBy")
-    , @NamedQuery(name = "TeachingAssistant.findByCreatedOn", query = "SELECT t FROM TeachingAssistant t WHERE t.createdOn = :createdOn")
+   // , @NamedQuery(name = "TeachingAssistant.findByCreatedOn", query = "SELECT t FROM TeachingAssistant t WHERE t.createdOn = :createdOn")
     , @NamedQuery(name = "TeachingAssistant.findByEmailId", query = "SELECT t FROM TeachingAssistant t WHERE t.emailId = :emailId")
     , @NamedQuery(name = "TeachingAssistant.findByFirstName", query = "SELECT t FROM TeachingAssistant t WHERE t.firstName = :firstName")
     , @NamedQuery(name = "TeachingAssistant.findByGender", query = "SELECT t FROM TeachingAssistant t WHERE t.gender = :gender")
-    , @NamedQuery(name = "TeachingAssistant.findByLastName", query = "SELECT t FROM TeachingAssistant t WHERE t.lastName = :lastName")
-    , @NamedQuery(name = "TeachingAssistant.findByStatus", query = "SELECT t FROM TeachingAssistant t WHERE t.status = :status")
-    , @NamedQuery(name = "TeachingAssistant.findByUpdatedBy", query = "SELECT t FROM TeachingAssistant t WHERE t.updatedBy = :updatedBy")
-    , @NamedQuery(name = "TeachingAssistant.findByUpdatedOn", query = "SELECT t FROM TeachingAssistant t WHERE t.updatedOn = :updatedOn")})
+    , @NamedQuery(name = "TeachingAssistant.findByLastName", query = "SELECT t FROM TeachingAssistant t WHERE t.lastName = :lastName")})
+    //, @NamedQuery(name = "TeachingAssistant.findByStatus", query = "SELECT t FROM TeachingAssistant t WHERE t.status = :status")
+    //, @NamedQuery(name = "TeachingAssistant.findByUpdatedBy", query = "SELECT t FROM TeachingAssistant t WHERE t.updatedBy = :updatedBy")
+    //, @NamedQuery(name = "TeachingAssistant.findByUpdatedOn", query = "SELECT t FROM TeachingAssistant t WHERE t.updatedOn = :updatedOn")})
 public class TeachingAssistant extends AbstractEntity implements Serializable {
 
     
@@ -105,6 +105,15 @@ public class TeachingAssistant extends AbstractEntity implements Serializable {
         this.teachingAssistantId = teachingAssistantId;
         this.createdBy = createdBy;
         this.emailId = emailId;
+    }
+    
+    public TeachingAssistant(Integer teachingAssistantId,String createdBy,String emailId,String firstName, String lastName, String gender) {
+        this.teachingAssistantId = teachingAssistantId;
+        this.createdBy = createdBy;
+        this.emailId = emailId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
     }
     
     public void addCourseWiseMaterial(CourseWiseMaterial a) {

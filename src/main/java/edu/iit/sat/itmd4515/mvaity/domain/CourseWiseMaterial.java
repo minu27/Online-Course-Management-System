@@ -30,12 +30,12 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "CourseWiseMaterial.findAll", query = "SELECT c FROM CourseWiseMaterial c")
     , @NamedQuery(name = "CourseWiseMaterial.findByCourseWiseMaterialId", query = "SELECT c FROM CourseWiseMaterial c WHERE c.courseWiseMaterialId = :courseWiseMaterialId")
-    , @NamedQuery(name = "CourseWiseMaterial.findByCreatedBy", query = "SELECT c FROM CourseWiseMaterial c WHERE c.createdBy = :createdBy")
-    , @NamedQuery(name = "CourseWiseMaterial.findByCreatedOn", query = "SELECT c FROM CourseWiseMaterial c WHERE c.createdOn = :createdOn")
-    , @NamedQuery(name = "CourseWiseMaterial.findByDeadLine", query = "SELECT c FROM CourseWiseMaterial c WHERE c.deadLine = :deadLine")
-    , @NamedQuery(name = "CourseWiseMaterial.findByStatus", query = "SELECT c FROM CourseWiseMaterial c WHERE c.status = :status")
-    , @NamedQuery(name = "CourseWiseMaterial.findByUpdatedBy", query = "SELECT c FROM CourseWiseMaterial c WHERE c.updatedBy = :updatedBy")
-    , @NamedQuery(name = "CourseWiseMaterial.findByUpdatedOn", query = "SELECT c FROM CourseWiseMaterial c WHERE c.updatedOn = :updatedOn")})
+    , @NamedQuery(name = "CourseWiseMaterial.findByCreatedBy", query = "SELECT c FROM CourseWiseMaterial c WHERE c.createdBy = :createdBy")})
+    //, @NamedQuery(name = "CourseWiseMaterial.findByCreatedOn", query = "SELECT c FROM CourseWiseMaterial c WHERE c.createdOn = :createdOn")
+    //, @NamedQuery(name = "CourseWiseMaterial.findByDeadLine", query = "SELECT c FROM CourseWiseMaterial c WHERE c.deadLine = :deadLine")
+    //, @NamedQuery(name = "CourseWiseMaterial.findByStatus", query = "SELECT c FROM CourseWiseMaterial c WHERE c.status = :status")
+    //, @NamedQuery(name = "CourseWiseMaterial.findByUpdatedBy", query = "SELECT c FROM CourseWiseMaterial c WHERE c.updatedBy = :updatedBy")
+    //, @NamedQuery(name = "CourseWiseMaterial.findByUpdatedOn", query = "SELECT c FROM CourseWiseMaterial c WHERE c.updatedOn = :updatedOn")})
 public class CourseWiseMaterial extends LearningSystem implements Serializable {
 
     

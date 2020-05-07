@@ -30,14 +30,14 @@ import javax.validation.constraints.Size;
 @Table(name = "course")
 @NamedQueries({
     @NamedQuery(name = "Course.findAll", query = "SELECT c FROM Course c")
-    , @NamedQuery(name = "Course.findByCourseId", query = "SELECT c FROM Course c WHERE c.courseId = :courseId")
-    , @NamedQuery(name = "Course.findByCourseDuration", query = "SELECT c FROM Course c WHERE c.courseDuration = :courseDuration")
+    //, @NamedQuery(name = "Course.findByCourseId", query = "SELECT c FROM Course c WHERE c.courseId = :courseId")
+    //, @NamedQuery(name = "Course.findByCourseDuration", query = "SELECT c FROM Course c WHERE c.courseDuration = :courseDuration")
     , @NamedQuery(name = "Course.findByCourseName", query = "SELECT c FROM Course c WHERE c.courseName = :courseName")
-    , @NamedQuery(name = "Course.findByCreatedBy", query = "SELECT c FROM Course c WHERE c.createdBy = :createdBy")
-    , @NamedQuery(name = "Course.findByCreatedOn", query = "SELECT c FROM Course c WHERE c.createdOn = :createdOn")
-    , @NamedQuery(name = "Course.findByStatus", query = "SELECT c FROM Course c WHERE c.status = :status")
-    , @NamedQuery(name = "Course.findByUpdatedBy", query = "SELECT c FROM Course c WHERE c.updatedBy = :updatedBy")
-    , @NamedQuery(name = "Course.findByUpdatedOn", query = "SELECT c FROM Course c WHERE c.updatedOn = :updatedOn")})
+    //, @NamedQuery(name = "Course.findByCreatedBy", query = "SELECT c FROM Course c WHERE c.createdBy = :createdBy")
+    //, @NamedQuery(name = "Course.findByCreatedOn", query = "SELECT c FROM Course c WHERE c.createdOn = :createdOn")
+    , @NamedQuery(name = "Course.findByStatus", query = "SELECT c FROM Course c WHERE c.status = :status")})
+    //, @NamedQuery(name = "Course.findByUpdatedBy", query = "SELECT c FROM Course c WHERE c.updatedBy = :updatedBy")
+    //, @NamedQuery(name = "Course.findByUpdatedOn", query = "SELECT c FROM Course c WHERE c.updatedOn = :updatedOn")})
 public class Course extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

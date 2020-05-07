@@ -51,7 +51,7 @@ public class AddCourseController {
 
     @PostConstruct
     private void postContruct() {
-        
+        LOG.info("Inside AddCourseController.postconstruct method :");
         course = new Course();
         addToStudents = new ArrayList<>();
         
@@ -60,20 +60,21 @@ public class AddCourseController {
 
     public List<Course> getStudentCourses() {
         List<Course> studentCourses = new ArrayList<>();
-
+        
         teachingassistant.getStudents().forEach((s) -> {
             s.getCourses().forEach((a) -> {
                 studentCourses.add(a);
             });
         });
-
+        LOG.info("Inside getStudentCourses()");
+        LOG.info("StudentCourses : " + studentCourses);
         return studentCourses;
     }
 
     // action methods
     public String addCourse() {
         for (Students s : addToStudents) {
-            LOG.info("Inside addCourse with " + course.toString()
+            LOG.info("Inside addCourse() with " + course.toString()
                     + " for students " + s.toString());
 
             cSvc.addCourseToStudent(course, s);
@@ -90,6 +91,7 @@ public class AddCourseController {
         return "/teachingassistant/CourseAssignment.xhtml";
     }
 
+    // accessors and mutators below
     public TeachingAssistant getTeachingAssistant() {
         return teachingassistant;
     }

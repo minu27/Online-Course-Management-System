@@ -33,15 +33,15 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Assignment.findAll", query = "SELECT a FROM Assignment a")
     , @NamedQuery(name = "Assignment.findByAssignmentId", query = "SELECT a FROM Assignment a WHERE a.assignmentId = :assignmentId")
-    , @NamedQuery(name = "Assignment.findByComment", query = "SELECT a FROM Assignment a WHERE a.comment = :comment")
-    , @NamedQuery(name = "Assignment.findByCreatedBy", query = "SELECT a FROM Assignment a WHERE a.createdBy = :createdBy")
-    , @NamedQuery(name = "Assignment.findByCreatedOn", query = "SELECT a FROM Assignment a WHERE a.createdOn = :createdOn")
+   // , @NamedQuery(name = "Assignment.findByComment", query = "SELECT a FROM Assignment a WHERE a.comment = :comment")
+   // , @NamedQuery(name = "Assignment.findByCreatedBy", query = "SELECT a FROM Assignment a WHERE a.createdBy = :createdBy")
+   // , @NamedQuery(name = "Assignment.findByCreatedOn", query = "SELECT a FROM Assignment a WHERE a.createdOn = :createdOn")
     , @NamedQuery(name = "Assignment.findByGrading", query = "SELECT a FROM Assignment a WHERE a.grading = :grading")
     , @NamedQuery(name = "Assignment.findByInstructorId", query = "SELECT a FROM Assignment a WHERE a.instructorId = :instructorId")
-    , @NamedQuery(name = "Assignment.findByMarks", query = "SELECT a FROM Assignment a WHERE a.marks = :marks")
-    , @NamedQuery(name = "Assignment.findByStatus", query = "SELECT a FROM Assignment a WHERE a.status = :status")
-    , @NamedQuery(name = "Assignment.findByUpdatedBy", query = "SELECT a FROM Assignment a WHERE a.updatedBy = :updatedBy")
-    , @NamedQuery(name = "Assignment.findByUpdatedOn", query = "SELECT a FROM Assignment a WHERE a.updatedOn = :updatedOn")})
+    , @NamedQuery(name = "Assignment.findByMarks", query = "SELECT a FROM Assignment a WHERE a.marks = :marks")})
+   // , @NamedQuery(name = "Assignment.findByStatus", query = "SELECT a FROM Assignment a WHERE a.status = :status")
+   // , @NamedQuery(name = "Assignment.findByUpdatedBy", query = "SELECT a FROM Assignment a WHERE a.updatedBy = :updatedBy")
+    //, @NamedQuery(name = "Assignment.findByUpdatedOn", query = "SELECT a FROM Assignment a WHERE a.updatedOn = :updatedOn")})
 public class Assignment extends AbstractEntity implements Serializable {
 
  
