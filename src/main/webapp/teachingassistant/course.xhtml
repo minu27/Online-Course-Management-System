@@ -15,27 +15,27 @@
 
         <h:form>
             <h:panelGroup layout="block" class="form-group">
-                <h:outputLabel for="id" value="Course ID: #{addCourseController.course.id}" />
-                <h:inputHidden class="form-control" id="id" value="#{addCourseController.course.id}" />
+                <h:outputLabel for="id" value="Course ID: #{taCourseController.course.id}" />
+                <h:inputHidden class="form-control" id="id" value="#{taCourseController.course.id}" />
                 <h:message for="id" errorClass="text-danger"/>
             </h:panelGroup>
 
             <h:panelGroup layout="block" class="form-group">
-                <h:outputLabel for="courseName" value="Course Name: #{addCourseController.course.courseName}" />
-                <h:inputText class="form-control" id="courseName" value="#{addCourseController.course.courseName}" />
+                <h:outputLabel for="courseName" value="Course Name: #{taCourseController.course.courseName}" />
+                <h:inputText class="form-control" id="courseName" value="#{taCourseController.course.courseName}" />
                 <h:message for="courseName" errorClass="text-danger"/>
             </h:panelGroup>
             
             <h:panelGroup layout="block" class="form-group">
-                <h:outputLabel for="status" value="Status: #{addCourseController.course.status}" />
-                <h:inputText class="form-control" id="status" value="#{addCourseController.course.status}" />
+                <h:outputLabel for="status" value="Status: #{taCourseController.course.status}" />
+                <h:inputText class="form-control" id="status" value="#{taCourseController.course.status}" />
                 <h:message for="status" errorClass="text-danger"/>
             </h:panelGroup>
             
             <h:panelGroup layout="block" class="form-group">
                 <h:outputLabel for="student" value="students:" />
-                <h:selectManyListbox class="form-control" id="student" value="#{addCourseController.addToStudents}">
-                    <f:selectItems value="#{addCourseController.teachingAssistant.students}"
+                <h:selectManyListbox class="form-control" id="student" value="#{taCourseController.addToStudents}">
+                    <f:selectItems value="#{studentsService.findAll()}"
                                    var="student"
                                    itemLabel="#{student.firstName} #{student.lastName}"
                                    itemValue="#{student}"/>
@@ -43,7 +43,9 @@
                 <h:message for="student" errorClass="text-danger"/>
             </h:panelGroup>
                         
-            <h:commandButton value="Add Course" class="btn btn-primary" action="#{addCourseController.addCourse()}"/>
+            <h:commandButton value="Add Course" class="btn btn-primary" action="#{taCourseController.saveCourse()}">
+                <f:param name="id" value="#{taCourseController.course.id}" />
+            </h:commandButton>
         </h:form>
         
         

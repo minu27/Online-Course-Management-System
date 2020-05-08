@@ -26,33 +26,33 @@
         <h:form>
             <h:panelGroup layout="block" class="form-group">
                 <h:outputLabel for="name" value="Name:" />
-                <h:inputText class="form-control" id="name" value="#{studentController.student.studentId}" />
+                <h:inputText class="form-control" id="name" value="#{studentRegistrationController.student.studentId}" />
                 <h:message for="name" errorClass="text-danger"/>
             </h:panelGroup>
 
             <h:panelGroup layout="block" class="form-group">
                 <h:outputLabel for="code" value="Code:" />
-                <h:inputText class="form-control" id="code" value="#{studentController.student.emailId}" />
+                <h:inputText class="form-control" id="code" value="#{studentRegistrationController.student.emailId}" />
                 <h:message for="code" errorClass="text-danger"/>
             </h:panelGroup>
             <h:panelGroup layout="block" class="form-group">
                 <h:outputLabel for="desc" value="Description:" />
-                <h:inputTextarea class="form-control" id="desc" value="#{studentController.student.firstName}" />
+                <h:inputTextarea class="form-control" id="desc" value="#{studentRegistrationController.student.firstName}" />
                 <h:message for="desc" errorClass="text-danger"/>
             </h:panelGroup>
             <h:panelGroup layout="block" class="form-group">
                 <h:outputLabel for="desc" value="Description:" />
-                <h:inputTextarea class="form-control" id="desc" value="#{studentController.student.lastName}" />
+                <h:inputTextarea class="form-control" id="desc" value="#{studentRegistrationController.student.lastName}" />
                 <h:message for="desc" errorClass="text-danger"/>
             </h:panelGroup>
             <h:panelGroup layout="block" class="form-group">
                 <h:outputLabel for="desc" value="Description:" />
-                <h:inputTextarea class="form-control" id="desc" value="#{studentController.student.gender}" />
+                <h:inputTextarea class="form-control" id="desc" value="#{studentRegistrationController.student.gender}" />
                 <h:message for="desc" errorClass="text-danger"/>
             </h:panelGroup>
          
 
-            <h:commandButton value="Register" class="btn btn-primary" action="#{studentController.saveStudents()}"/>
+            <h:commandButton value="Register" class="btn btn-primary" action="#{studentRegistrationController.saveStudents()}"/>
         </h:form>
 
     </ui:define>

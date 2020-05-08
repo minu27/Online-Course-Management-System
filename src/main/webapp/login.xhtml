@@ -18,14 +18,17 @@
     <h:body class="text-center">
 
         <h:form class="form-signin">
-            <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"/>
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <div class="mx-auto d-block">
+                <img class="mb-4" style="align-content: center" src="https://blackboard.iit.edu/images/ci/logos/bb-corp-logo.png?ts=1588882186681" alt="" />
+            </div>
+            <h1 class="h3 mb-3 font-weight-normal" style="color: #fefefe">Please sign in</h1>
 
             <h:outputLabel for="email" class="sr-only">Email address</h:outputLabel>
             <h:inputText 
-                class="form-control" 
+                class="form-control"
                 id="email" 
                 value="#{loginController.user.email}" 
+                p:required="true"
                 p:placeholder="email"
                 p:autofocus="autofocus" />
             <h:message for="email" errorClass="text-danger" />

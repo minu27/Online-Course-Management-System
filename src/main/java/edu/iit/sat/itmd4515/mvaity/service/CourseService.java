@@ -5,9 +5,11 @@
  */
 package edu.iit.sat.itmd4515.mvaity.service;
 
+import edu.iit.sat.itmd4515.mvaity.domain.Assignment;
 import edu.iit.sat.itmd4515.mvaity.domain.Course;
 import edu.iit.sat.itmd4515.mvaity.domain.Students;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Named;
 
@@ -19,6 +21,8 @@ import javax.inject.Named;
 @Stateless
 public class CourseService extends AbstractService<Course>{
 
+    private static final Logger LOG = Logger.getLogger(CourseService.class.getName());
+    
     public CourseService() {
         super(Course.class);
     }
@@ -47,6 +51,12 @@ public class CourseService extends AbstractService<Course>{
         // Course is the owning side - that is the correct place to set the relationship
         course.setStudents(managedEntityStudents);
         create(course);
+        LOG.info("Course added to students : " + course.toString());
     }
+   
+    
+    
+   
+
 
 }

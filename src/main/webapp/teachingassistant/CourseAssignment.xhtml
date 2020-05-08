@@ -11,8 +11,12 @@
     </ui:define>
 
     <ui:define name="content">
+        
+        <h:link outcome="courseAddAssignment.xhtml?id=#{taCourseController.course.id}" 
+                value="Add Assignment" />
+        
         <h:dataTable class="table table-hover table-striped"
-                     value="#{addCourseController.course.assignments}" var="a">
+                     value="#{taCourseController.course.assignments}" var="a">
             <h:column>
                 <h:outputText value="#{a.id}"/>
                 <f:facet name="header"><h:outputText value="Assignment ID"/></f:facet>

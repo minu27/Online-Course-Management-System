@@ -7,9 +7,7 @@ package edu.iit.sat.itmd4515.mvaity.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -20,8 +18,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 /**
@@ -32,16 +28,11 @@ import javax.validation.constraints.Size;
 @Table(name = "teachingassistant")
 @NamedQueries({
     @NamedQuery(name = "TeachingAssistant.findAll", query = "SELECT t FROM TeachingAssistant t")
-    , @NamedQuery(name = "TeachingAssistant.findByTeachingAssistantId", query = "SELECT t FROM TeachingAssistant t WHERE t.teachingAssistantId = :teachingAssistantId")
     , @NamedQuery(name = "TeachingAssistant.findByCreatedBy", query = "SELECT t FROM TeachingAssistant t WHERE t.createdBy = :createdBy")
-   // , @NamedQuery(name = "TeachingAssistant.findByCreatedOn", query = "SELECT t FROM TeachingAssistant t WHERE t.createdOn = :createdOn")
     , @NamedQuery(name = "TeachingAssistant.findByEmailId", query = "SELECT t FROM TeachingAssistant t WHERE t.emailId = :emailId")
     , @NamedQuery(name = "TeachingAssistant.findByFirstName", query = "SELECT t FROM TeachingAssistant t WHERE t.firstName = :firstName")
     , @NamedQuery(name = "TeachingAssistant.findByGender", query = "SELECT t FROM TeachingAssistant t WHERE t.gender = :gender")
     , @NamedQuery(name = "TeachingAssistant.findByLastName", query = "SELECT t FROM TeachingAssistant t WHERE t.lastName = :lastName")})
-    //, @NamedQuery(name = "TeachingAssistant.findByStatus", query = "SELECT t FROM TeachingAssistant t WHERE t.status = :status")
-    //, @NamedQuery(name = "TeachingAssistant.findByUpdatedBy", query = "SELECT t FROM TeachingAssistant t WHERE t.updatedBy = :updatedBy")
-    //, @NamedQuery(name = "TeachingAssistant.findByUpdatedOn", query = "SELECT t FROM TeachingAssistant t WHERE t.updatedOn = :updatedOn")})
 public class TeachingAssistant extends AbstractEntity implements Serializable {
 
     
@@ -50,16 +41,10 @@ public class TeachingAssistant extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
    
-    private String name;
-    @Basic(optional = false)
-    @Column(name = "teachingAssistantId", unique = true, nullable = false)
-    private Integer teachingAssistantId;
+   // private String name;
     @Size(max = 255)
     @Column(name = "createdBy")
     private String createdBy;
-    @Column(name = "createdOn")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdOn;
     @Size(max = 255)
     @Column(name = "emailId")
     private String emailId;
@@ -72,15 +57,8 @@ public class TeachingAssistant extends AbstractEntity implements Serializable {
     @Size(max = 255)
     @Column(name = "lastName")
     private String lastName;
-    @Size(max = 255)
-    @Column(name = "status")
-    private String status;
-    @Size(max = 255)
-    @Column(name = "updatedBy")
-    private String updatedBy;
-    @Column(name = "updatedOn")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedOn;
+    
+   
     @ManyToOne
     private Authuser userId;
     
@@ -101,14 +79,13 @@ public class TeachingAssistant extends AbstractEntity implements Serializable {
     }
 
     
-    public TeachingAssistant(Integer teachingAssistantId,String createdBy,String emailId) {
-        this.teachingAssistantId = teachingAssistantId;
+    public TeachingAssistant(String createdBy,String emailId) {
+        
         this.createdBy = createdBy;
         this.emailId = emailId;
     }
     
-    public TeachingAssistant(Integer teachingAssistantId,String createdBy,String emailId,String firstName, String lastName, String gender) {
-        this.teachingAssistantId = teachingAssistantId;
+    public TeachingAssistant(String createdBy,String emailId,String firstName, String lastName, String gender) {
         this.createdBy = createdBy;
         this.emailId = emailId;
         this.firstName = firstName;
@@ -133,15 +110,7 @@ public class TeachingAssistant extends AbstractEntity implements Serializable {
             a.getTeachingAssistant().remove(this);
         }
     }
-/*
-    public List<Instructor> getInstructor() {
-        return instructors;
-    }
 
-    public void setInstructor(List<Instructor> instructor) {
-        this.instructors = instructor;
-    }
-    */
     public List<Students> getStudents() {
         return students;
     }
@@ -156,14 +125,6 @@ public class TeachingAssistant extends AbstractEntity implements Serializable {
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
-    }
-
-    public Date getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
     }
 
     public String getEmailId() {
@@ -197,31 +158,7 @@ public class TeachingAssistant extends AbstractEntity implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public Date getUpdatedOn() {
-        return updatedOn;
-    }
-
-    public void setUpdatedOn(Date updatedOn) {
-        this.updatedOn = updatedOn;
-    }
-
-   
+ 
     public List<CourseWiseMaterial> getCourseWiseMaterial() {
         return coursewisematerialList;
     }
@@ -240,7 +177,7 @@ public class TeachingAssistant extends AbstractEntity implements Serializable {
    
     @Override
     public String toString() {
-        return "TeachingAssistant[ teachingAssistantId=" + teachingAssistantId  + ", CreatedBy=" + createdBy  + ", Email ID = " + emailId + " ]";
+        return "TeachingAssistant[ teachingAssistantId=" + id  + ", CreatedBy=" + createdBy  + ", Email ID = " + emailId + " ]";
     }
 
     public byte[] getFacialTokanImage() {

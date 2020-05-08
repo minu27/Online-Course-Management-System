@@ -91,7 +91,9 @@ public class LoginController implements Serializable{
      * @return
      */
     public boolean isStudent() {
-        LOG.info("USER IS STUDENT");
+        if(securityContext.isCallerInRole("STUDENT_ROLE")){
+            LOG.info("USER IS STUDENT");
+        }
         return securityContext.isCallerInRole("STUDENT_ROLE");
     }
 
@@ -100,7 +102,9 @@ public class LoginController implements Serializable{
      * @return
      */
     public boolean isInstructor() {
-        LOG.info("USER IS INSTRUCTOR");
+        if(securityContext.isCallerInRole("INSTRUCTOR_ROLE")){
+            LOG.info("USER IS INSTRUCTOR");
+        }
         return securityContext.isCallerInRole("INSTRUCTOR_ROLE");
     }
 
@@ -109,7 +113,9 @@ public class LoginController implements Serializable{
      * @return
      */
     public boolean isTeachingAssistant() {
-        LOG.info("USER IS TEACHING ASSISTANT");
+        if(securityContext.isCallerInRole("TEACHINGASSISTANT_ROLE")){
+            LOG.info("USER IS TEACHING ASSISTANT");
+        }
         return securityContext.isCallerInRole("TEACHINGASSISTANT_ROLE");
     }
 

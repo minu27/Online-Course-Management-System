@@ -86,10 +86,10 @@ public class StartupDatabaseLoaderService {
         
         
         //TeachingAssistant
-        TeachingAssistant ta1 = new TeachingAssistant(1,"Rachel Green","rgreen@hawk.iit.edu","Rachel","Green","Female");
-        TeachingAssistant ta2 = new TeachingAssistant(2,"Ross Geller","rgeller@hawk.iit.edu","Ross","Geller","Male");
-        TeachingAssistant ta3 = new TeachingAssistant(3,"Chandler Bing","cbing@hawk.iit.edu","Chandler","Bing","Male");
-        TeachingAssistant ta4 = new TeachingAssistant(4,"Joey Davidson","jdavidson@hawk.iit.edu","Joey","Davidson","Male");
+        TeachingAssistant ta1 = new TeachingAssistant("Rachel Green","rgreen@hawk.iit.edu","Rachel","Green","Female");
+        TeachingAssistant ta2 = new TeachingAssistant("Ross Geller","rgeller@hawk.iit.edu","Ross","Geller","Male");
+        TeachingAssistant ta3 = new TeachingAssistant("Chandler Bing","cbing@hawk.iit.edu","Chandler","Bing","Male");
+        TeachingAssistant ta4 = new TeachingAssistant("Joey Davidson","jdavidson@hawk.iit.edu","Joey","Davidson","Male");
     
         ta1.addCourseWiseMaterial(cw1);
         ta2.addCourseWiseMaterial(cw2);
@@ -161,14 +161,18 @@ public class StartupDatabaseLoaderService {
         LOG.info("After Students st5 data is persisted \t"+ st5);
         
         //Course
-        Course c1 = new Course(513, "Python","available");
-        Course c2 = new Course(555, "Android","available");
-        Course c3 = new Course(515, "Advancce Java","available");
-        Course c4 = new Course(565, "Data Analytics","available");
+        Course c1 = new Course("Python","available");
+        Course c2 = new Course("Android","available");
+        Course c3 = new Course("Advancce Java","available");
+        Course c4 = new Course("Data Analytics","available");
         c1.setStudents(st1);
         c2.setStudents(st2);
         c3.setStudents(st3);
         c4.setStudents(st4);
+        c1.setInstructor(i3);
+        c2.setInstructor(i2);
+        c3.setInstructor(i1);
+        c4.setInstructor(i4);
         
         
         cSvc.create(c1);
@@ -181,27 +185,27 @@ public class StartupDatabaseLoaderService {
         LOG.info("After Course c4 data is persisted \t"+ c4);
         
         //StudentRequestCourse
-        StudentRequestCourse src1 = new StudentRequestCourse(1);
+        StudentRequestCourse src1 = new StudentRequestCourse();
         src1.setStudents(st1);
         src1.setCourse(c1);
         
-        StudentRequestCourse src2 = new StudentRequestCourse(2);
+        StudentRequestCourse src2 = new StudentRequestCourse();
         src2.setStudents(st2);
         src2.setCourse(c1);
         
-        StudentRequestCourse src3 = new StudentRequestCourse(3);
+        StudentRequestCourse src3 = new StudentRequestCourse();
         src3.setStudents(st3);
         src3.setCourse(c1);
         
-        StudentRequestCourse src4 = new StudentRequestCourse(1);
+        StudentRequestCourse src4 = new StudentRequestCourse();
         src1.setStudents(st1);
         src1.setCourse(c2);
         
-        StudentRequestCourse src5 = new StudentRequestCourse(2);
+        StudentRequestCourse src5 = new StudentRequestCourse();
         src2.setStudents(st2);
         src2.setCourse(c3);
         
-        StudentRequestCourse src6 = new StudentRequestCourse(3);
+        StudentRequestCourse src6 = new StudentRequestCourse();
         src3.setStudents(st3);
         src3.setCourse(c4);
         
@@ -219,10 +223,10 @@ public class StartupDatabaseLoaderService {
         LOG.info("After StudentRequestCourse src6 data is persisted \t"+ src6);
           
         //Assignment
-        Assignment a1 = new Assignment(01,"Minal Vaity",8760,96,"A");
-        Assignment a2 = new Assignment(02,"Shubham Madke",8760,90,"A");
-        Assignment a3 = new Assignment(03,"Yash Agrawal",2877,87,"B");
-        Assignment a4 = new Assignment(04,"Megha Ray",2877,86,"B");
+        Assignment a1 = new Assignment("Minal Vaity","Advance Java",8760,96,"A");
+        Assignment a2 = new Assignment("Shubham Madke","Advance Java",8760,90,"A");
+        Assignment a3 = new Assignment("Yash Agrawal","Advance Java",2877,87,"B");
+        Assignment a4 = new Assignment("Megha Ray","Advance Java",2877,86,"B");
         a1.setStudents(st1);
         a2.setStudents(st2);
         a3.setStudents(st3);

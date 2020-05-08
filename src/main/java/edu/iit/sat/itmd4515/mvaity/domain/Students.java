@@ -8,9 +8,7 @@ package edu.iit.sat.itmd4515.mvaity.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -18,8 +16,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -32,15 +28,10 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Students.findAll", query = "SELECT s FROM Students s")
     , @NamedQuery(name = "Students.findByStudentId", query = "SELECT s FROM Students s WHERE s.studentId = :studentId")
-    //, @NamedQuery(name = "Students.findByCreatedBy", query = "SELECT s FROM Students s WHERE s.createdBy = :createdBy")
-    //, @NamedQuery(name = "Students.findByCreatedOn", query = "SELECT s FROM Students s WHERE s.createdOn = :createdOn")
     , @NamedQuery(name = "Students.findByEmailId", query = "SELECT s FROM Students s WHERE s.emailId = :emailId")
     , @NamedQuery(name = "Students.findByFirstName", query = "SELECT s FROM Students s WHERE s.firstName = :firstName")
     , @NamedQuery(name = "Students.findByGender", query = "SELECT s FROM Students s WHERE s.gender = :gender")
     , @NamedQuery(name = "Students.findByLastName", query = "SELECT s FROM Students s WHERE s.lastName = :lastName")})
-    //, @NamedQuery(name = "Students.findByStatus", query = "SELECT s FROM Students s WHERE s.status = :status")
-    //, @NamedQuery(name = "Students.findByUpdatedBy", query = "SELECT s FROM Students s WHERE s.updatedBy = :updatedBy")
-    //, @NamedQuery(name = "Students.findByUpdatedOn", query = "SELECT s FROM Students s WHERE s.updatedOn = :updatedOn")})
 public class Students extends AbstractEntity implements Serializable {
 
     
@@ -54,12 +45,6 @@ public class Students extends AbstractEntity implements Serializable {
     @Column(unique = true, nullable = false)
     private String studentId;
     @Size(max = 255)
-    @Column(name = "createdBy")
-    private String createdBy;
-    @Column(name = "createdOn")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdOn;
-    @Size(max = 255)
     @Column(name = "emailId")
     private String emailId;
     @Size(max = 255)
@@ -71,16 +56,7 @@ public class Students extends AbstractEntity implements Serializable {
     @Size(max = 255)
     @Column(name = "lastName")
     private String lastName;
-    @Size(max = 255)
-    @Column(name = "status")
-    private String status;
-    @Size(max = 255)
-    @Column(name = "updatedBy")
-    private String updatedBy;
-    @Column(name = "updatedOn")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedOn;
-  
+    
     @ManyToOne
     //@JoinTable
     private TeachingAssistant teachingAssistant;
@@ -88,6 +64,9 @@ public class Students extends AbstractEntity implements Serializable {
     // inverse side of bi-directional ManyToOne/OneToMany
     @OneToMany(mappedBy = "students")
     private List<Course> courseList = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "students")
+    private List<Assignment> assignments = new ArrayList<>();
 
     
     public Students() {
@@ -115,23 +94,6 @@ public class Students extends AbstractEntity implements Serializable {
 
     public String getStudentId() {
         return studentId;
-    }
-    
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Date getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
     }
 
     public String getEmailId() {
@@ -167,30 +129,7 @@ public class Students extends AbstractEntity implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public Date getUpdatedOn() {
-        return updatedOn;
-    }
-
-    public void setUpdatedOn(Date updatedOn) {
-        this.updatedOn = updatedOn;
-    }
-    
+  
     /**
      *
      * @return
@@ -213,6 +152,16 @@ public class Students extends AbstractEntity implements Serializable {
         }
     }
 
+    
+    public List<Assignment> getAssignments() {
+        return assignments;
+    }
+
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments = assignments;
+    }
+    
+    
     /**
      *
      * @return
@@ -267,5 +216,7 @@ public class Students extends AbstractEntity implements Serializable {
     public void setFacialTokanImage(byte[] facialTokanImage) {
         this.facialTokanImage = facialTokanImage;
     }
+
     
+
 }

@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../WEB-INF/templates/lab8template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="id" value="#{studentAssignmentController.assignment.id}" />
+            <f:viewAction action="#{studentAssignmentController.initAssignmentById()}" />
+        </f:metadata>
+    </ui:define>
+    
+    <ui:define name="title">
+        Student - View Assignment #{studentAssignmentController.assignment.id}
+    </ui:define>
+
+    <ui:define name="content">
+
+        
+        
+        <ezcomp:assignment
+            operation="read"
+            readonly="true"
+            assignment="#{studentAssignmentController.assignment}" />
+        
+
+    </ui:define>
+
+</ui:composition>

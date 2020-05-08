@@ -6,17 +6,12 @@
 package edu.iit.sat.itmd4515.mvaity.domain;
 
 import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 /**
@@ -27,38 +22,23 @@ import javax.validation.constraints.Size;
 @Table(name = "studentrequestcourse")
 @NamedQueries({
     @NamedQuery(name = "StudentRequestCourse.findAll", query = "SELECT s FROM StudentRequestCourse s")
-    , @NamedQuery(name = "StudentRequestCourse.findByStudentReqCourseId", query = "SELECT s FROM StudentRequestCourse s WHERE s.studentReqCourseId = :studentReqCourseId")
     , @NamedQuery(name = "StudentRequestCourse.findByCreatedBy", query = "SELECT s FROM StudentRequestCourse s WHERE s.createdBy = :createdBy")
-    , @NamedQuery(name = "StudentRequestCourse.findByCreatedOn", query = "SELECT s FROM StudentRequestCourse s WHERE s.createdOn = :createdOn")
-    , @NamedQuery(name = "StudentRequestCourse.findByStatus", query = "SELECT s FROM StudentRequestCourse s WHERE s.status = :status")
-    , @NamedQuery(name = "StudentRequestCourse.findByUpdatedBy", query = "SELECT s FROM StudentRequestCourse s WHERE s.updatedBy = :updatedBy")
-    , @NamedQuery(name = "StudentRequestCourse.findByUpdatedOn", query = "SELECT s FROM StudentRequestCourse s WHERE s.updatedOn = :updatedOn")})
+    , @NamedQuery(name = "StudentRequestCourse.findByStatus", query = "SELECT s FROM StudentRequestCourse s WHERE s.status = :status")})
 public class StudentRequestCourse extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Basic(optional = false)
-    @Column(name = "studentReqCourseId")
-    private Integer studentReqCourseId;
+    
     @Size(max = 255)
     @Column(name = "createdBy")
     private String createdBy;
-    @Column(name = "createdOn")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdOn;
     @Size(max = 255)
     @Column(name = "status")
     private String status;
-    @Size(max = 255)
-    @Column(name = "updatedBy")
-    private String updatedBy;
-    @Column(name = "updatedOn")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedOn;
-    //@JoinColumn(name = "studentReqCourse")
-     // unidirectional ManyToOne
+   
+    // unidirectional ManyToOne
     @ManyToOne
     private Course course;
-    //@JoinColumn(name = "studentReqCourse")
+    
     // bi-directional ManyToOne/OneToMany
     @ManyToOne
     private Students students;
@@ -66,8 +46,9 @@ public class StudentRequestCourse extends AbstractEntity implements Serializable
     public StudentRequestCourse() {
     }
 
-    public StudentRequestCourse(Integer studentReqCourseId) {
-        this.studentReqCourseId = studentReqCourseId;
+    public StudentRequestCourse(String createdBy, String status) {
+        this.createdBy = createdBy;
+        this.status = status;
     }
 
      /**
@@ -95,15 +76,7 @@ public class StudentRequestCourse extends AbstractEntity implements Serializable
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
-
-    public Date getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
-
+    
     public String getStatus() {
         return status;
     }
@@ -112,21 +85,6 @@ public class StudentRequestCourse extends AbstractEntity implements Serializable
         this.status = status;
     }
 
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public Date getUpdatedOn() {
-        return updatedOn;
-    }
-
-    public void setUpdatedOn(Date updatedOn) {
-        this.updatedOn = updatedOn;
-    }
 
     public Course getCourse() {
         return course;
@@ -140,7 +98,7 @@ public class StudentRequestCourse extends AbstractEntity implements Serializable
 
     @Override
     public String toString() {
-        return "StudentRequestCourse[ Student Request Course Id=" + studentReqCourseId + " ]";
+        return "StudentRequestCourse[ Student Request Course Id=" + id + ", Created By=" + createdBy + ", Request Status=" + status + " ]";
     }
     
 }

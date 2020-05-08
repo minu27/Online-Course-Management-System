@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="assignment" required="true" type="edu.iit.sat.itmd4515.mvaity.domain.Assignment" />
+        <cc:attribute name="readonly" required="false" default="true" type="java.lang.Boolean" />
+        <cc:attribute name="action" required="false" method-signature="java.lang.String action()" />
+        <cc:attribute name="operation" required="true" type="java.lang.String" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+
+        <ui:fragment rendered="#{cc.attrs.operation.equalsIgnoreCase('create')}">
+            <h1>Add Assignment to Course</h1>
+        </ui:fragment>
+
+        <ui:fragment rendered="#{cc.attrs.operation.equalsIgnoreCase('read')}">
+            <h1>View Assignment</h1>
+        </ui:fragment>
+
+        <ui:fragment rendered="#{cc.attrs.operation.equalsIgnoreCase('update')}">
+            <h1>Edit Assignment</h1>
+        </ui:fragment>
+        
+        <ui:fragment rendered="#{cc.attrs.operation.equalsIgnoreCase('delete')}">
+            <h1>Confirm Delete?</h1>
+        </ui:fragment>
+        
+        <h:form>
+            <ui:fragment rendered="#{not cc.attrs.operation.equalsIgnoreCase('create')}">
+                <h:panelGroup layout="block" class="form-group">
+                    <h:outputLabel for="id" value="ID: #{cc.attrs.assignment.id}" />
+                    <h:inputHidden class="form-control" id="id" value="#{cc.attrs.assignment.id}" />
+                    <h:message for="id" errorClass="text-danger"/>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" class="form-group">
+                    <h:outputLabel for="version" value="Version: #{cc.attrs.assignment.version}" />
+                    <h:inputHidden class="form-control" id="version" value="#{cc.attrs.assignment.version}" />
+                    <h:message for="version" errorClass="text-danger"/>
+                </h:panelGroup>
+            </ui:fragment>
+
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="coid" value="ID: #{cc.attrs.assignment.course.id}" />
+                <h:inputHidden class="form-control" id="coid" value="#{cc.attrs.assignment.course.id}" />
+                <h:message for="coid" errorClass="text-danger"/>
+            </h:panelGroup>
+            
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="instructor" value="Instructor Name:" />
+                <h:selectOneMenu 
+                    disabled="#{cc.attrs.readonly ? 'true' : 'false'}"
+                    class="form-control" 
+                    id="instructor" 
+                    converter="instructorConverter"
+                    value="#{cc.attrs.assignment.instructor}">
+                    <f:selectItems value="#{instructorService.findAll()}"
+                                   var="in"
+                                   itemLabel="#{in.firstName} #{in.lastName}"
+                                   itemValue="#{in}"/>
+                </h:selectOneMenu>
+                <h:message for="instructor" errorClass="text-danger"/>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="instructorId" value="Instructor ID:" />
+                <h:inputText 
+                    readonly="#{cc.attrs.readonly ? 'true' : 'false'}"
+                    class="form-control" 
+                    id="instructorId" 
+                    value="#{cc.attrs.assignment.instructorId}"/>
+                <h:message for="instructorId" errorClass="text-danger"/>
+            </h:panelGroup>
+            
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="courseName" value="Course Name:" />
+                <h:inputText 
+                    readonly="#{cc.attrs.readonly or (loginController.student and not loginController.teachingAssistant)? 'true' : 'false'}"
+                    class="form-control" 
+                    id="courseName" 
+                    value="#{cc.attrs.assignment.courseName}"/>
+                <h:message for="courseName" errorClass="text-danger"/>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="createdBy" value="Created By:" />
+                <h:inputText 
+                    readonly="#{cc.attrs.readonly or (loginController.student and not loginController.teachingAssistant)? 'true' : 'false'}"
+                    class="form-control" 
+                    id="createdBy" 
+                    value="#{cc.attrs.assignment.createdBy}"/>
+                <h:message for="createdBy" errorClass="text-danger"/>
+            </h:panelGroup>
+            
+            <ui:fragment rendered="#{not cc.attrs.operation.equalsIgnoreCase('create')}">
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="marks" value="Marks:" />
+                <h:inputText 
+                    readonly="#{cc.attrs.readonly ? 'true' : 'false'}"
+                    class="form-control" 
+                    id="marks" 
+                    value="#{cc.attrs.assignment.marks}"/>
+                <h:message for="marks" errorClass="text-danger"/>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="grading" value="Grading:" />
+                <h:inputText 
+                    readonly="#{cc.attrs.readonly ? 'true' : 'false'}"
+                    class="form-control" 
+                    id="grading" 
+                    value="#{cc.attrs.assignment.grading}"/>
+                <h:message for="grading" errorClass="text-danger"/>
+            </h:panelGroup>
+            </ui:fragment>
+            
+
+            <ui:fragment rendered="#{not cc.attrs.readonly}">
+                <h:commandButton value="Save"
+                                 class="btn btn-primary" 
+                                 action="#{cc.attrs.action}" />
+                <f:param name="id" value="#{studentAssignmentController.assignment.id}" />              
+            </ui:fragment>
+
+            <ui:fragment rendered="#{cc.attrs.operation.equalsIgnoreCase('delete')}">
+                <h:commandButton value="Confirm and Delete" 
+                                 class="btn btn-primary" 
+                                 action="#{cc.attrs.action}"/>
+            </ui:fragment>
+            
+            
+        </h:form>
+
+
+    </cc:implementation>
+</html>

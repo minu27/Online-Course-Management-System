@@ -5,9 +5,11 @@
  */
 package edu.iit.sat.itmd4515.mvaity.web;
 
+import edu.iit.sat.itmd4515.mvaity.domain.Assignment;
 import edu.iit.sat.itmd4515.mvaity.domain.Course;
 import edu.iit.sat.itmd4515.mvaity.domain.Students;
 import edu.iit.sat.itmd4515.mvaity.domain.TeachingAssistant;
+import edu.iit.sat.itmd4515.mvaity.service.AssignmentService;
 import edu.iit.sat.itmd4515.mvaity.service.CourseService;
 import edu.iit.sat.itmd4515.mvaity.service.TeachingAssistantService;
 import java.util.ArrayList;
@@ -29,12 +31,13 @@ import javax.inject.Named;
  */
 @Named
 @RequestScoped
-public class AddCourseController {
+public class TaCourseController {
 
-    private static final Logger LOG = Logger.getLogger(AddCourseController.class.getName());
+    private static final Logger LOG = Logger.getLogger(TaCourseController.class.getName());
 
     private TeachingAssistant teachingassistant;
     private Course course;
+    private Assignment assignment;
 
     private List<Students> addToStudents;
 
@@ -42,37 +45,49 @@ public class AddCourseController {
     TeachingAssistantService taSvc;
     @EJB
     CourseService cSvc;
+    @EJB
+    AssignmentService asSvc;
 
     @Inject
     LoginController loginController;
 
-    public AddCourseController() {
+    public TaCourseController() {
     }
 
     @PostConstruct
     private void postContruct() {
         LOG.info("Inside AddCourseController.postconstruct method :");
         course = new Course();
+        assignment = new Assignment();
+        assignment.setCourse(course);
         addToStudents = new ArrayList<>();
         
         teachingassistant = taSvc.findByEmailId(loginController.getEmail());
+    }
+    
+    
+    public void initCourseById(){
+        course = cSvc.find(course.getId());
+        assignment.setCourse(course);
     }
 
     public List<Course> getStudentCourses() {
         List<Course> studentCourses = new ArrayList<>();
         
         teachingassistant.getStudents().forEach((s) -> {
-            s.getCourses().forEach((a) -> {
-                studentCourses.add(a);
+            s.getCourses().forEach((c) -> {
+                studentCourses.add(c);
             });
         });
         LOG.info("Inside getStudentCourses()");
         LOG.info("StudentCourses : " + studentCourses);
         return studentCourses;
     }
-
+    
+ 
     // action methods
-    public String addCourse() {
+    public String saveCourse() {
+        //List<Students> studentCourses = new ArrayList<>();
         for (Students s : addToStudents) {
             LOG.info("Inside addCourse() with " + course.toString()
                     + " for students " + s.toString());
@@ -84,36 +99,92 @@ public class AddCourseController {
         return "/teachingassistant/welcome.xhtml?faces-redirect=true";
     }
     
-    public String addAssignmentToCourse(Course c){
-        LOG.info("Adding Assignment to Course: " + c.toString());
+    /**
+     *
+     * @param c
+     * @return
+     */
+    public String selectCourse(Course c) {
+        LOG.info("Adding Assignments to Course: " + c.toString());
         this.setCourse(c);
+
+        return "/student/courseAssignments.xhtml";
+    }
+    
+    
+    public String addAssignmentToCourse(){
+        LOG.info("addAssignmentToCourse " + this.assignment.getInstructor().getId() + this.assignment.toString());
+        LOG.info("addAssignmentToCourse " + this.course.toString());
+
+        asSvc.addAssignmentToCourse(assignment, course);
         
-        return "/teachingassistant/CourseAssignment.xhtml";
+        return "/teachingassistant/welcome.xhtml";
     }
 
     // accessors and mutators below
+    /**
+     *
+     * @return
+     */
     public TeachingAssistant getTeachingAssistant() {
         return teachingassistant;
     }
 
+    /**
+     *
+     * @param teachingassistant
+     */
     public void setTeachingAssistant(TeachingAssistant teachingassistant) {
         this.teachingassistant = teachingassistant;
     }
 
+    /**
+     *
+     * @return
+     */
     public Course getCourse() {
         return course;
     }
 
+     /**
+     *
+     * @param course
+     *
+     */
     public void setCourse(Course course) {
         this.course = course;
     }
 
+     /**
+     *
+     * @return
+     */
     public List<Students> getAddToStudents() {
         return addToStudents;
     }
 
+     /**
+     *
+     * @param addToStudents
+     */
     public void setAddToStudents(List<Students> addToStudents) {
         this.addToStudents = addToStudents;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public Assignment getAssignment() {
+        return assignment;
+    }
+
+    /**
+     *
+     * @param assignment
+     */
+    public void setAssignment(Assignment assignment) {
+        this.assignment = assignment;
     }
 
 }

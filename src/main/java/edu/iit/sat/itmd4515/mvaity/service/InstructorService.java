@@ -27,9 +27,6 @@ public class InstructorService extends AbstractService<Instructor>{
         return em.createNamedQuery("Instructor.findAll", entityClass).getResultList();
     }
     
-    public Instructor findByInstructorId(Integer instructorId) {
-        return em.find(Instructor.class, instructorId);
-    }
     
 }
 

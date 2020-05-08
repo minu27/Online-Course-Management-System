@@ -6,37 +6,34 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+
+
     <ui:define name="title">
         Student Section
     </ui:define>
 
     <ui:define name="content">
 
-        <h1>Select a Course</h1>
+        <h1>Select Assignments for Course</h1>
 
-        <h:dataTable 
-            class="table table-striped table-hover"
-            value="#{courseService.findAll()}"
-            var ="co" >
-
+        <h:dataTable class="table table-hover table-striped"
+                     value="#{assignmentService.findAll()}" var="a">
             <h:column>
-                <h:outputText value="#{co.id}"/>
-                <f:facet name="header"><h:outputText value="Course ID"/></f:facet>
+                <h:outputText value="#{a.id}"/>
+                <f:facet name="header"><h:outputText value="Assignment ID"/></f:facet>
             </h:column>
             <h:column>
-                <h:outputText value="#{co.courseName}"/>
+                <h:outputText value="#{a.courseName}"/>
                 <f:facet name="header"><h:outputText value="Course Name"/></f:facet>
             </h:column>
             <h:column>
-                <h:outputText value="#{co.status}"/>
-                <f:facet name="header"><h:outputText value="Course Status"/></f:facet>
+                <h:outputText value="#{a.instructorId}"/>
+                <f:facet name="header"><h:outputText value="Instructor ID"/></f:facet>
             </h:column>
-
             <h:column>
-                <h:form>
-                    <h:commandButton action="#{studentController.selectCourse(co)}" value="Course!" />
-                    <f:param name="id" value="#{studentController.course.id}" />
-                </h:form>
+                <h:link outcome="viewAssignment.xhtml?id=#{a.id}" value="View "/>
+                <h:link outcome="editAssignment.xhtml?id=#{a.id}" value="Edit "/>
+                <h:link outcome="delAssignment.xhtml?id=#{a.id}" value="Remove "/>
             </h:column>
 
         </h:dataTable>
