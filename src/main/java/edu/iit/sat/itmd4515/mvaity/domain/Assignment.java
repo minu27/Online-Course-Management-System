@@ -6,6 +6,7 @@
 package edu.iit.sat.itmd4515.mvaity.domain;
 
 import java.io.Serializable;
+import java.util.logging.Logger;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -29,7 +30,7 @@ import javax.validation.constraints.Size;
     , @NamedQuery(name = "Assignment.findByMarks", query = "SELECT a FROM Assignment a WHERE a.marks = :marks")})
 public class Assignment extends AbstractEntity implements Serializable {
 
- 
+    private static final Logger LOG = Logger.getLogger(Assignment.class.getName());
    
     private static final long serialVersionUID = 1L;
     
@@ -173,12 +174,14 @@ public class Assignment extends AbstractEntity implements Serializable {
      */
     public void removeFromCourse() {
         
+        LOG.info("Assignment to be deleted" + course.getAssignments());
         
         if(course.getAssignments().contains(this)) {
             course.getAssignments().remove(this);
         }
 
         this.course = null;
+        
     }
     
     @Override

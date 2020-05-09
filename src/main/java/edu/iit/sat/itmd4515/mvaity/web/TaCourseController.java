@@ -18,14 +18,15 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.annotation.ManagedProperty;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * A backing bean to handle Teaching Assistant functionality for adding an Assignment to one or
- * many students. The Assignment is not assigned by default to all a Instructor's
- * Students. It is by selection. For example, 2 Students might get Assignment A,
- * and the other 3 Students might get Assignment B.
+ * A backing bean to handle Teaching Assistant functionality for adding an
+ * Assignment to one or many students. The Assignment is not assigned by default
+ * to all a Instructor's Students. It is by selection. For example, 2 Students
+ * might get Assignment A, and the other 3 Students might get Assignment B.
  *
  * @author Minal
  */
@@ -38,8 +39,8 @@ public class TaCourseController {
     private TeachingAssistant teachingassistant;
     private Course course;
     private Assignment assignment;
-
-    private List<Students> addToStudents;
+    List<Students> addToStudents = new ArrayList<>();
+    //private List<Students> addToStudents;
 
     @EJB
     TeachingAssistantService taSvc;
@@ -51,26 +52,43 @@ public class TaCourseController {
     @Inject
     LoginController loginController;
 
+    @Inject
+    @ManagedProperty("#{param.id}")
+    private Long courseId;
+    
+    
+            
     public TaCourseController() {
     }
 
     @PostConstruct
     private void postContruct() {
-        LOG.info("Inside AddCourseController.postconstruct method :");
-        course = new Course();
-        assignment = new Assignment();
-        assignment.setCourse(course);
-        addToStudents = new ArrayList<>();
+        LOG.info("Inside TaCourseController.postconstruct method :");
+        if(courseId == null){
+            course = new Course();
+            assignment = new Assignment();
+            assignment.setCourse(course);
+        }
+        else{
+            course = cSvc.find(courseId);
+        }
         
+        
+        LOG.info("TaCourseController Course Data: "+ course.toString());
         teachingassistant = taSvc.findByEmailId(loginController.getEmail());
+        LOG.info("TaCourseController postConstruct method " + teachingassistant.toString());
     }
-    
-    
-    public void initCourseById(){
+
+    public void initCourseById() {
         course = cSvc.find(course.getId());
         assignment.setCourse(course);
     }
 
+    /**
+     *
+     * @return
+     */
+    
     public List<Course> getStudentCourses() {
         List<Course> studentCourses = new ArrayList<>();
         
@@ -80,25 +98,39 @@ public class TaCourseController {
             });
         });
         LOG.info("Inside getStudentCourses()");
-        LOG.info("StudentCourses : " + studentCourses);
+        LOG.info("StudentCourses : " + studentCourses.toString());
         return studentCourses;
     }
-    
- 
+     
+    /**
+     *
+     * @return
+     */
+    /*
+    public List<Students> getStudentCourses() {
+        List<Students> studentCourses = new ArrayList<>();
+
+        studentCourses = addToStudents;
+        LOG.info("Inside getStudentCourses()");
+        LOG.info("StudentCourses : " + studentCourses.toString());
+        return studentCourses;
+    }
+*/
     // action methods
     public String saveCourse() {
-        //List<Students> studentCourses = new ArrayList<>();
-        for (Students s : addToStudents) {
-            LOG.info("Inside addCourse() with " + course.toString()
-                    + " for students " + s.toString());
 
+        for (Students s : addToStudents) {
+            LOG.info("Inside saveCourse() with " + course.toString()
+                    + " for students " + s.toString());
+            LOG.info("addToStudents : " + addToStudents.toString());
             cSvc.addCourseToStudent(course, s);
         }
 
-        
+        LOG.info("addToStudents List : " + addToStudents.toString());
         return "/teachingassistant/welcome.xhtml?faces-redirect=true";
+
     }
-    
+
     /**
      *
      * @param c
@@ -108,16 +140,15 @@ public class TaCourseController {
         LOG.info("Adding Assignments to Course: " + c.toString());
         this.setCourse(c);
 
-        return "/student/courseAssignments.xhtml";
+        return "/student/courseAssignment.xhtml";
     }
-    
-    
-    public String addAssignmentToCourse(){
+
+    public String addAssignmentToCourse() {
         LOG.info("addAssignmentToCourse " + this.assignment.getInstructor().getId() + this.assignment.toString());
         LOG.info("addAssignmentToCourse " + this.course.toString());
 
         asSvc.addAssignmentToCourse(assignment, course);
-        
+
         return "/teachingassistant/welcome.xhtml";
     }
 
@@ -146,7 +177,7 @@ public class TaCourseController {
         return course;
     }
 
-     /**
+    /**
      *
      * @param course
      *
@@ -155,7 +186,7 @@ public class TaCourseController {
         this.course = course;
     }
 
-     /**
+    /**
      *
      * @return
      */
@@ -163,14 +194,14 @@ public class TaCourseController {
         return addToStudents;
     }
 
-     /**
+    /**
      *
      * @param addToStudents
      */
     public void setAddToStudents(List<Students> addToStudents) {
         this.addToStudents = addToStudents;
     }
-    
+
     /**
      *
      * @return

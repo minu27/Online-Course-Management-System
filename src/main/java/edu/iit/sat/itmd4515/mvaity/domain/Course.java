@@ -49,8 +49,8 @@ public class Course extends AbstractEntity implements Serializable {
     // inverse side of bi-directional ManyToOne/OneToMany
     @OneToMany(mappedBy = "course")
     private List<Assignment> assignments = new ArrayList<>();
-    @ManyToOne
-    private Assignment assignment;
+   // @ManyToOne
+    //private Assignment assignment;
     @ManyToOne
     private Students students;
 
@@ -129,7 +129,7 @@ public class Course extends AbstractEntity implements Serializable {
     public void setInstructor(Instructor instructor) {
         this.instructor = instructor;
     }
-    
+   /* 
     public Assignment getAssignment() {
         return assignment;
     }
@@ -137,6 +137,7 @@ public class Course extends AbstractEntity implements Serializable {
     public void setAssignment(Assignment assignment) {
         this.assignment = assignment;
     }
+*/
 
     @Override
     public String toString() {

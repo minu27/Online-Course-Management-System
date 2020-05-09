@@ -12,6 +12,8 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.annotation.ManagedProperty;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -29,16 +31,28 @@ public class StudentAssignmentController {
 
     @EJB AssignmentService asSvc;
     
+    @Inject
+    @ManagedProperty("#{param.id}")
+    private Long assignmentId;
+    
     public StudentAssignmentController() {
     }
 
     // initialization methods below
     @PostConstruct
     private void init() {
-        LOG.info("StudentAssignmentController postConstruct");
-        course = new Course();
-        assignment = new Assignment();
-        assignment.setCourse(course);
+        LOG.info("StudentAssignmentController postConstruct" + assignmentId);
+        if (assignmentId == null) {
+            course = new Course();
+            assignment = new Assignment();
+            assignment.setCourse(course);
+        } else {
+            // re-init
+            assignment = asSvc.find(assignmentId);
+            LOG.info("Re-init");
+        }
+        LOG.info("StudentAssignmentController postConstruct " + this.assignment.toString());
+
     }
 
     public void initAssignmentById(){
@@ -48,6 +62,10 @@ public class StudentAssignmentController {
     }
     
     // actions methods below
+    /**
+     *
+     * @return
+     */
     public String saveAssignment(){
         LOG.info("StudentAssignmentController saveAssignment with " + this.assignment.toString());
         asSvc.studentUpdateAssignment(assignment);
@@ -58,15 +76,24 @@ public class StudentAssignmentController {
     public String confirmAndRemoveAssignment(){
         LOG.info("StudentAssignmentController confirmAndRemoveAssignment with " + this.assignment.toString());
         asSvc.studentDeleteAssignmentFromCourse(assignment);
-        return "/student/welcome.xhtml";
+        
+        return "/student/course.xhtml";
     }
 
     
     // accessors and mutators below
+    /**
+     *
+     * @return
+     */
     public Assignment getAssignment() {
         return assignment;
     }
 
+    /**
+     *
+     * @param assignment
+     */
     public void setAssignment(Assignment assignment) {
         this.assignment = assignment;
     }
@@ -86,5 +113,13 @@ public class StudentAssignmentController {
     public void setCourse(Course course) {
         this.course = course;
     }
+     public Long getAssignmentId() {
+        return assignmentId;
+    }
+
+    public void setAssignmentId(Long assignmentId) {
+        this.assignmentId = assignmentId;
+    }
+    
 }
 

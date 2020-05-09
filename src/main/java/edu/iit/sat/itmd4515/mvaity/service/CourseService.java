@@ -5,7 +5,7 @@
  */
 package edu.iit.sat.itmd4515.mvaity.service;
 
-import edu.iit.sat.itmd4515.mvaity.domain.Assignment;
+
 import edu.iit.sat.itmd4515.mvaity.domain.Course;
 import edu.iit.sat.itmd4515.mvaity.domain.Students;
 import java.util.List;
@@ -37,6 +37,10 @@ public class CourseService extends AbstractService<Course>{
         return em.createNamedQuery("Course.findAll", entityClass).getResultList();
     }
     
+    public List<Course> findByCourseName() {
+        return em.createNamedQuery("Course.findByCourseName", entityClass).getResultList();
+    }
+    
     /**
      * Adds a Course to a Student. Manages the relationships on both sides of
      * the bi-directional relationship (delegating to the Entity setInstructor
@@ -47,7 +51,8 @@ public class CourseService extends AbstractService<Course>{
      */
     public void addCourseToStudent(Course course, Students s) {
         Students managedEntityStudents = em.getReference(Students.class, s.getId());
-
+        LOG.info("managedEntityStudents Data :"+ managedEntityStudents.toString());
+        course.setAssignments(null);
         // Course is the owning side - that is the correct place to set the relationship
         course.setStudents(managedEntityStudents);
         create(course);

@@ -224,13 +224,17 @@ public class StartupDatabaseLoaderService {
           
         //Assignment
         Assignment a1 = new Assignment("Minal Vaity","Advance Java",8760,96,"A");
-        Assignment a2 = new Assignment("Shubham Madke","Advance Java",8760,90,"A");
-        Assignment a3 = new Assignment("Yash Agrawal","Advance Java",2877,87,"B");
-        Assignment a4 = new Assignment("Megha Ray","Advance Java",2877,86,"B");
+        Assignment a2 = new Assignment("Shubham Madke","Android",8760,90,"A");
+        Assignment a3 = new Assignment("Yash Agrawal","Data Analytics",2877,87,"B");
+        Assignment a4 = new Assignment("Aishwarya Vaity","Python",2877,86,"B");
         a1.setStudents(st1);
         a2.setStudents(st2);
         a3.setStudents(st3);
-        a4.setStudents(st3);
+        a4.setStudents(st5);
+        a1.setInstructor(i1);
+        a2.setInstructor(i3);
+        a3.setInstructor(i4);
+        a4.setInstructor(i2);
         
         asSvc.create(a1);
         asSvc.create(a2);

@@ -48,11 +48,6 @@
                 </h:panelGroup>
             </ui:fragment>
 
-            <h:panelGroup layout="block" class="form-group">
-                <h:outputLabel for="coid" value="ID: #{cc.attrs.assignment.course.id}" />
-                <h:inputHidden class="form-control" id="coid" value="#{cc.attrs.assignment.course.id}" />
-                <h:message for="coid" errorClass="text-danger"/>
-            </h:panelGroup>
             
             <h:panelGroup layout="block" class="form-group">
                 <h:outputLabel for="instructor" value="Instructor Name:" />
@@ -83,7 +78,7 @@
             <h:panelGroup layout="block" class="form-group">
                 <h:outputLabel for="courseName" value="Course Name:" />
                 <h:inputText 
-                    readonly="#{cc.attrs.readonly or (loginController.student and not loginController.teachingAssistant)? 'true' : 'false'}"
+                    readonly="#{cc.attrs.readonly or (loginController.teachingAssistant and not loginController.student)? 'true' : 'false'}"
                     class="form-control" 
                     id="courseName" 
                     value="#{cc.attrs.assignment.courseName}"/>
@@ -104,7 +99,7 @@
             <h:panelGroup layout="block" class="form-group">
                 <h:outputLabel for="marks" value="Marks:" />
                 <h:inputText 
-                    readonly="#{cc.attrs.readonly ? 'true' : 'false'}"
+                    readonly="#{cc.attrs.readonly or loginController.student ? 'true' : 'false'}"
                     class="form-control" 
                     id="marks" 
                     value="#{cc.attrs.assignment.marks}"/>
@@ -114,7 +109,7 @@
             <h:panelGroup layout="block" class="form-group">
                 <h:outputLabel for="grading" value="Grading:" />
                 <h:inputText 
-                    readonly="#{cc.attrs.readonly ? 'true' : 'false'}"
+                    readonly="#{cc.attrs.readonly or loginController.student ? 'true' : 'false'}"
                     class="form-control" 
                     id="grading" 
                     value="#{cc.attrs.assignment.grading}"/>
@@ -134,6 +129,7 @@
                 <h:commandButton value="Confirm and Delete" 
                                  class="btn btn-primary" 
                                  action="#{cc.attrs.action}"/>
+                <f:param name="id" value="#{studentAssignmentController.assignment.id}" />
             </ui:fragment>
             
             

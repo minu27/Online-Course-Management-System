@@ -8,6 +8,7 @@ package edu.iit.sat.itmd4515.mvaity.web;
 import edu.iit.sat.itmd4515.mvaity.domain.Assignment;
 import edu.iit.sat.itmd4515.mvaity.domain.Course;
 import edu.iit.sat.itmd4515.mvaity.domain.Students;
+import edu.iit.sat.itmd4515.mvaity.service.AssignmentService;
 import edu.iit.sat.itmd4515.mvaity.service.CourseService;
 import edu.iit.sat.itmd4515.mvaity.service.StudentsService;
 import java.util.ArrayList;
@@ -40,13 +41,16 @@ public class StudentController {
     StudentsService stSvc;
     
     @EJB
+    AssignmentService asSvc;
+    
+    @EJB
     CourseService cSvc;
     @Inject
     LoginController loginController;
     
     @Inject
     @ManagedProperty(value = "#{param.id}")
-    Long courseId;
+    private Long courseId;
 
     public StudentController() {
     }
@@ -55,6 +59,8 @@ public class StudentController {
     private void init() {
         if (courseId == null) {
             course = new Course();
+            student = new Students();
+            course.setStudents(student);
         } else {
             course = cSvc.find(courseId);
         }
@@ -67,6 +73,9 @@ public class StudentController {
     public String selectCourse(Course c) {
         LOG.info("StudentController selectCourse method " + c.toString());
         this.course = c;
+        String cn = course.getCourseName();
+        LOG.info("CourseName = " + cn);
+        assignment = asSvc.findByCourseName(cn);
         
         return "/student/course.xhtml";
     }
@@ -85,6 +94,19 @@ public class StudentController {
         });
         return courses;
     }
+    
+    public List<Assignment> getCourseAssignments() {
+        List<Assignment> courseAssignment = new ArrayList<>();
+        
+        asSvc.findAll().forEach((c) -> {
+        courseAssignment.add(c);
+        });
+        LOG.info("Inside getCourseAssignments()");
+        LOG.info("CourseAssignment Data: " + courseAssignment);
+        return courseAssignment;
+    }
+
+
 
     public Students getStudents() {
         return student;
