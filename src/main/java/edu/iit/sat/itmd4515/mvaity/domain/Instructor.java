@@ -16,6 +16,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -26,6 +27,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Instructor.findAll", query = "SELECT i FROM Instructor i")
     , @NamedQuery(name = "Instructor.findByInstructorId", query = "SELECT i FROM Instructor i WHERE i.instructorId = :instructorId")
+    , @NamedQuery(name = "Instructor.findByEmailId", query = "SELECT i FROM Instructor i WHERE i.emailId = :emailId")
     , @NamedQuery(name = "Instructor.findByFirstName", query = "SELECT i FROM Instructor i WHERE i.firstName = :firstName")
     , @NamedQuery(name = "Instructor.findByLastName", query = "SELECT i FROM Instructor i WHERE i.lastName = :lastName")})
 public class Instructor extends LearningSystem implements Serializable {
@@ -36,6 +38,10 @@ public class Instructor extends LearningSystem implements Serializable {
     @Basic(optional = false)
     @Column(name = "instructorId",unique = true, nullable = false)
     private Integer instructorId;
+    
+    @Size(max = 255)
+    @Column(name = "emailId")
+    private String emailId;
     
     @ManyToOne
     private Authuser userId;
@@ -49,9 +55,10 @@ public class Instructor extends LearningSystem implements Serializable {
     }
 
     
-    public Instructor(Integer instructorId, String firstName, String lastName) {
+    public Instructor(Integer instructorId, String emailId,String firstName, String lastName) {
         super(firstName, lastName);
         this.instructorId = instructorId;
+        this.emailId = emailId;
     }
    
     public Integer getInstructorId() {
@@ -82,6 +89,14 @@ public class Instructor extends LearningSystem implements Serializable {
     @Override
     public String toString() {
         return "Instructor[ InstructorId=" + instructorId + ", First Name=" + firstName + ", Last Name=" + lastName + " ]";
+    }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
     }
 
     

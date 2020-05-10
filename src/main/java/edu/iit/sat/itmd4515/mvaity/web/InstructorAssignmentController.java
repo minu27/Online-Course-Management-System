@@ -22,9 +22,9 @@ import javax.inject.Named;
  */
 @Named
 @RequestScoped
-public class StudentAssignmentController {
+public class InstructorAssignmentController {
 
-    private static final Logger LOG = Logger.getLogger(StudentAssignmentController.class.getName());
+    private static final Logger LOG = Logger.getLogger(InstructorAssignmentController.class.getName());
 
     private Assignment assignment;
     private Course course;
@@ -35,13 +35,13 @@ public class StudentAssignmentController {
     @ManagedProperty("#{param.id}")
     private Long assignmentId;
     
-    public StudentAssignmentController() {
+    public InstructorAssignmentController() {
     }
 
     // initialization methods below
     @PostConstruct
     private void init() {
-        LOG.info("StudentAssignmentController postConstruct" + assignmentId);
+        LOG.info("InstructorAssignmentController postConstruct" + assignmentId);
         if (assignmentId == null) {
             course = new Course();
             assignment = new Assignment();
@@ -51,43 +51,43 @@ public class StudentAssignmentController {
             assignment = asSvc.find(assignmentId);
             LOG.info("Re-init");
         }
-        LOG.info("StudentAssignmentController postConstruct " + this.assignment.toString());
+        LOG.info("InstructorAssignmentController postConstruct " + this.assignment.toString());
 
     }
 
     public void initAssignmentById(){
-        LOG.info("StudentAssignmentController initAssignmentById with " + this.assignment.getId());
+        LOG.info("InstructorAssignmentController initAssignmentById with " + this.assignment.getId());
         assignment = asSvc.find(this.assignment.getId());
-        LOG.info("StudentAssignmentController initAssignmentById after find " + this.assignment.toString());
+        LOG.info("InstructorAssignmentController initAssignmentById after find " + this.assignment.toString());
     }
     
-    
-    public String saveNewAssignment() {
-        
-        assignment = new Assignment();
-        
-        return "/instructor/createAssignment.xhtml?faces-redirect=true";
-
-    }
     // actions methods below
     /**
      *
      * @return
      */
     public String saveAssignment(){
-        LOG.info("StudentAssignmentController saveAssignment with " + this.assignment.toString());
+        LOG.info("InstructorAssignmentController saveAssignment with " + this.assignment.toString());
         asSvc.studentUpdateAssignment(assignment);
         
-        return "/student/welcome.xhtml";
+        return "/instructor/welcome.xhtml";
     }
 
     public String confirmAndRemoveAssignment(){
         LOG.info("StudentAssignmentController confirmAndRemoveAssignment with " + this.assignment.toString());
         asSvc.studentDeleteAssignmentFromCourse(assignment);
         
-        return "/student/course.xhtml";
+        return "/instructor/studentassignment.xhtml";
     }
 
+    public String addAssignmentToCourse() {
+        LOG.info("addAssignmentToCourse " + this.assignment.getInstructor().getId() + this.assignment.toString());
+        LOG.info("addAssignmentToCourse " + this.course.toString());
+        
+        asSvc.addAssignmentToCourse(assignment, course);
+
+        return "/instructor/welcome.xhtml";
+    }
     
     // accessors and mutators below
     /**

@@ -24,6 +24,7 @@ import javax.validation.constraints.Size;
 @Table(name = "assignment")
 @NamedQueries({
     @NamedQuery(name = "Assignment.findAll", query = "SELECT a FROM Assignment a")
+    , @NamedQuery(name = "Assignment.findByCreatedBy", query = "SELECT a FROM Assignment a WHERE a.createdBy = :createdBy")
     , @NamedQuery(name = "Assignment.findByCourseName", query = "SELECT a FROM Assignment a WHERE a.courseName = :courseName")
     , @NamedQuery(name = "Assignment.findByGrading", query = "SELECT a FROM Assignment a WHERE a.grading = :grading")
     , @NamedQuery(name = "Assignment.findByInstructorId", query = "SELECT a FROM Assignment a WHERE a.instructorId = :instructorId")

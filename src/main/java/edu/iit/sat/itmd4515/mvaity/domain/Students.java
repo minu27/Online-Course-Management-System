@@ -58,8 +58,10 @@ public class Students extends AbstractEntity implements Serializable {
     private String lastName;
     
     @ManyToOne
-    //@JoinTable
     private TeachingAssistant teachingAssistant;
+    
+    @ManyToOne
+    private Course course;
 
     // inverse side of bi-directional ManyToOne/OneToMany
     @OneToMany(mappedBy = "students")
@@ -177,6 +179,15 @@ public class Students extends AbstractEntity implements Serializable {
     public void setCourses(List<Course> courseList) {
         this.courseList = courseList;
     }
+    
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
 
 
     @Override
@@ -217,6 +228,7 @@ public class Students extends AbstractEntity implements Serializable {
         this.facialTokanImage = facialTokanImage;
     }
 
+    
     
 
 }

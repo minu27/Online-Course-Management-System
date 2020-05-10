@@ -42,9 +42,7 @@ public class CourseService extends AbstractService<Course>{
     }
     
     /**
-     * Adds a Course to a Student. Manages the relationships on both sides of
-     * the bi-directional relationship (delegating to the Entity setInstructor
-     * method). Does all this within the transactional persistence context.
+     * Adds a Course to a Student. 
      *
      * @param course
      * @param s

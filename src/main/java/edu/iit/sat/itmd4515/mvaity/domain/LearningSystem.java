@@ -17,10 +17,10 @@ import javax.persistence.OneToOne;
 @MappedSuperclass
 public class LearningSystem extends AbstractEntity {
 
-    //private static final long serialVersionUID = 1L;
+    
     protected String firstName;
     protected String lastName;
-   // protected Integer id;
+   
     @OneToOne
     @JoinColumn(name = "USERNAME")
     private User user;

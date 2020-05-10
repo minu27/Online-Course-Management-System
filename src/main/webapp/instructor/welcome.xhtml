@@ -11,31 +11,15 @@
     </ui:define>
 
     <ui:define name="content">
-        <h1>Instructor Welcome Section</h1>
-                
-
-        
-        <h4>Instructor Details</h4>
-        <h:dataTable class="table table-hover table-striped"
-                     value="#{instructorService.findAll()}" var="in">
-            <h:column>
-                <h:outputText value="#{in.id}"/>
-                <f:facet name="header"><h:outputText value="Instructor ID"/></f:facet>
-            </h:column>
-            <h:column>
-                <h:outputText value="#{in.firstName}"/>
-                <f:facet name="header"><h:outputText value="First Name"/></f:facet>
-            </h:column>
-            <h:column>
-                <h:outputText value="#{in.lastName}"/>
-                <f:facet name="header"><h:outputText value="Last Name"/></f:facet>
-            </h:column>
-               
-        </h:dataTable>
+     
         
         <h4>Student Details</h4>
         <h:dataTable class="table table-hover table-striped"
                      value="#{studentsService.findAll()}" var="st">
+            <h:column>
+                <h:outputText value="#{st.id}"/>
+                <f:facet name="header"><h:outputText value="ID"/></f:facet>
+            </h:column>
             <h:column>
                 <h:outputText value="#{st.studentId}"/>
                 <f:facet name="header"><h:outputText value="Student Id"/></f:facet>
@@ -52,26 +36,16 @@
                 <h:outputText value="#{st.emailId}"/>
                 <f:facet name="header"><h:outputText value="Email"/></f:facet>
             </h:column>
+            <h:column>
+                <h:form>
+                    <h:commandButton action="#{instructorController.selectStudents(st)}" value="Add Students" />
+                    <f:param name="id" value="#{instructorController.students.id}" />
+                </h:form>
+            </h:column>
         </h:dataTable>
         
-        <h4>Teaching Assistant Details</h4>
-         <h:dataTable class="table table-hover table-striped"
-                     value="#{teachingAssistantService.findAll()}" var="ta">
-            
-            <h:column>
-                <h:outputText value="#{ta.id}"/>
-                <f:facet name="header"><h:outputText value="Teaching Assistant ID"/></f:facet>
-            </h:column>
-            <h:column>
-                <h:outputText value="#{ta.createdBy}"/>
-                <f:facet name="header"><h:outputText value="Name"/></f:facet>
-            </h:column>
-            <h:column>
-                <h:outputText value="#{ta.emailId}"/>
-                <f:facet name="header"><h:outputText value="Email"/></f:facet>
-            </h:column>
-        </h:dataTable>
-
+        
+       
     </ui:define>
 
 </ui:composition>

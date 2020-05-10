@@ -39,6 +39,12 @@ public class AssignmentService extends AbstractService<Assignment>{
                 .getSingleResult();
     }
     
+    public Assignment findByCreatedBy(String createdBy){
+        return  em.createNamedQuery("Assignment.findByCreatedBy", Assignment.class)
+                .setParameter("createdBy", createdBy)
+                .getSingleResult();
+    }
+    
      /**
      *
      * @param a
@@ -63,10 +69,7 @@ public class AssignmentService extends AbstractService<Assignment>{
      */
     public void studentUpdateAssignment(Assignment a) {
         
-        //Course c = em.getReference(Course.class, a.getCourse().getId());
-        //LOG.info("Course c in studentUpdateAssignment method: " + c.toString());
-        //Instructor in = em.getReference(Instructor.class, a.getInstructor().getInstructorId());
-        //LOG.info("Instructor when updated in studentUpdateAssignment method: " + in.toString() );
+        
         Assignment currentRowFromDatabase = em.find(Assignment.class, a.getId());
         LOG.info("currentRowFromDatabase data : " + currentRowFromDatabase.toString());
         
@@ -84,15 +87,17 @@ public class AssignmentService extends AbstractService<Assignment>{
      * @param a
      */
     public void studentDeleteAssignmentFromCourse(Assignment a){
-        // in order to remove an entity, it has to be managed
+        // To remove an entity, it has to be managed
         Assignment currentRowFromDatabase = em.find(Assignment.class, a.getId());
-        //Course c = em.getReference(Course.class, a.getCourse().getId());
+        
         LOG.info("Assignment to remove : " + currentRowFromDatabase.toString());
         em.remove(currentRowFromDatabase);
         currentRowFromDatabase.removeFromCourse();
         LOG.info("removeFromCourse data : " + currentRowFromDatabase.toString());
         
     }
+
+    
     
    
     

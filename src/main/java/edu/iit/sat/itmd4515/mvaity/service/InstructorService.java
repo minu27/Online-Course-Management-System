@@ -27,6 +27,14 @@ public class InstructorService extends AbstractService<Instructor>{
         return em.createNamedQuery("Instructor.findAll", entityClass).getResultList();
     }
     
+    public Instructor findByEmailId(String emailId){
+        return em.createNamedQuery("Instructor.findByEmailId", Instructor.class)
+                .setParameter("emailId", emailId)
+                .getSingleResult();
+    }
+
+  
+   
     
 }
 

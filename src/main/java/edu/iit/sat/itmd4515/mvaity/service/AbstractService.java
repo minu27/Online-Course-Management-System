@@ -43,8 +43,6 @@ abstract class AbstractService<T> {
     }
     
     public abstract List<T> findAll();
-//        TypedQuery tq = em.createNamedQuery("Trainer.findAll", Trainer.class);
-//        return tq.getResultList();
-//        return em.createNamedQuery(namedQueryName, entityClass).getResultList();
+
     
 }

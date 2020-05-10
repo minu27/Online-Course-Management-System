@@ -24,9 +24,7 @@ import javax.inject.Named;
 
 /**
  * A backing bean to handle Teaching Assistant functionality for adding an
- * Assignment to one or many students. The Assignment is not assigned by default
- * to all a Instructor's Students. It is by selection. For example, 2 Students
- * might get Assignment A, and the other 3 Students might get Assignment B.
+ * Assignment to one or many students. 
  *
  * @author Minal
  */
@@ -102,23 +100,11 @@ public class TaCourseController {
         return studentCourses;
     }
      
-    /**
-     *
-     * @return
-     */
-    /*
-    public List<Students> getStudentCourses() {
-        List<Students> studentCourses = new ArrayList<>();
-
-        studentCourses = addToStudents;
-        LOG.info("Inside getStudentCourses()");
-        LOG.info("StudentCourses : " + studentCourses.toString());
-        return studentCourses;
-    }
-*/
+   
     // action methods
     public String saveCourse() {
-
+        
+        
         for (Students s : addToStudents) {
             LOG.info("Inside saveCourse() with " + course.toString()
                     + " for students " + s.toString());
