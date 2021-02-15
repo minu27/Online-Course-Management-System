@@ -88,5 +88,5 @@ After login as a student, go to the student tab on the navbar to see all the cou
 
 Login page for all users
 
-! [] (images/LoginPage.png)
+! [] (images/LoginPage.PNG)
 
