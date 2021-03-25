@@ -90,3 +90,35 @@ Login page for all users
 
 ![](images/LoginPage.PNG)
 
+Student Pages
+
+![](images/ViewS.PNG)
+
+![](images/SelectS.PNG)
+
+![](images/EditS.PNG)
+
+![](images/DeleteS.PNG)
+
+TA Pages
+
+![](images/ViewTA.PNG)
+
+![](images/AddTA.PNG)
+
+Instructor Pages
+
+![](images/ViewAssI.PNG)
+
+![](images/SelectAssI.PNG)
+
+![](images/UpdateI.PNG)
+
+![](images/EditAssI.PNG)
+
+![](images/DeleteAssI.PNG)
+
+![](images/StudentDetailsI.PNG)
+
+![](images/StudentRegI.PNG)
+
